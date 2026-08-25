@@ -41,6 +41,10 @@ import {
   programmaVuoto, calcolaProgramma, difficoltaModifica, tiroScrittura,
   validaProgramma, catalogoNetrun,
 } from './netrun/programma.js';
+import {
+  creaSessione, caricaDifesa, entraNetrunner, azioneRunner, azioneMaster,
+  vista, ruoloPerToken, TIPI_NODO, LIVELLI_ALLARME, UM_DECK_DEFAULT,
+} from './netrun/sessione.js';
 
 /* __EMBED_DATA__ */
 
@@ -1240,6 +1244,35 @@ async function rotteProtette(request, env, url, pathname) {
     }
   }
 
+  // ------------------------------------------------------ sessioni di netrun --
+
+  if (pathname === '/api/netrun/sessioni/catalogo' && request.method === 'GET') {
+    return json({ tipiNodo: TIPI_NODO, livelliAllarme: LIVELLI_ALLARME, umDeckDefault: UM_DECK_DEFAULT });
+  }
+
+  // La stanza vive in un Durable Object indirizzato dal nome della sessione:
+  // e' il codice che Master e netrunner si scambiano a voce.
+  const rottaSessione = pathname.match(/^\/api\/netrun\/sessioni\/([A-Za-z0-9_-]{3,64})(?:\/(\w+))?$/);
+  if (rottaSessione) {
+    if (!env.NETRUN) return errore('Durable Object NETRUN non configurato', 503);
+    const [, codice, sotto] = rottaSessione;
+    const stanza = env.NETRUN.get(env.NETRUN.idFromName(codice));
+
+    // Il corpo viene riscritto per aggiungere il codice, che la stanza non
+    // conosce: il Durable Object sa di se' solo cio' che gli si passa.
+    const inoltro = new Request(
+      `https://stanza/${sotto || ''}`,
+      {
+        method: request.method,
+        headers: request.headers,
+        body: request.method === 'POST'
+          ? JSON.stringify({ ...(await request.json().catch(() => ({}))), id: codice })
+          : undefined,
+      }
+    );
+    return stanza.fetch(inoltro);
+  }
+
   // --------------------------------------------------- console del netrunner --
 
   if (pathname === '/api/netrun/catalogo' && request.method === 'GET') {
@@ -1357,6 +1390,83 @@ async function rotteProtette(request, env, url, pathname) {
   }
 
   return errore('Not found', 404);
+}
+
+/**
+ * Una stanza per sessione di netrun.
+ *
+ * Il Durable Object serve perche' Master e netrunner agiscono sullo stesso
+ * stato da due dispositivi: D1 non da' l'accesso seriale che una partita a
+ * turni richiede, e due scritture ravvicinate si sovrascriverebbero. Qui le
+ * richieste della stessa stanza arrivano in fila per costruzione.
+ *
+ * Impostazione ripresa da `spellcaster`, dove ogni partita ha il suo GameRoom.
+ */
+export class NetrunRoom {
+  constructor(ctx, env) {
+    this.ctx = ctx;
+    this.env = env;
+    this.sessione = null;
+  }
+
+  async carica() {
+    if (!this.sessione) this.sessione = (await this.ctx.storage.get('sessione')) || null;
+    return this.sessione;
+  }
+
+  async salva() {
+    if (this.sessione) await this.ctx.storage.put('sessione', this.sessione);
+  }
+
+  async fetch(request) {
+    const url = new URL(request.url);
+    const azione = url.pathname.split('/').filter(Boolean).pop();
+    const corpo = request.method === 'POST' ? await request.json().catch(() => ({})) : {};
+    const token = request.headers.get('X-Posto') || corpo.posto || null;
+
+    // Creazione: l'unica richiesta che arriva senza sessione gia' esistente.
+    if (azione === 'crea' && request.method === 'POST') {
+      this.sessione = creaSessione(corpo.id, corpo);
+      for (const d of corpo.difese || []) caricaDifesa(this.sessione, d.programma, d.nodo);
+      await this.salva();
+      return json({ vista: vista(this.sessione, 'master'), posto: this.sessione.posti.master }, 201);
+    }
+
+    await this.carica();
+    if (!this.sessione) return errore('Sessione non trovata', 404);
+
+    // Entrare come netrunner: il token si ottiene qui.
+    if (azione === 'entra' && request.method === 'POST') {
+      const esito = entraNetrunner(this.sessione, { ...corpo, token });
+      if (esito.errore) return errore(esito.errore, 409);
+      await this.salva();
+      return json({ vista: vista(this.sessione, 'runner'), posto: esito.token });
+    }
+
+    const ruolo = ruoloPerToken(this.sessione, token);
+    if (!ruolo) return errore('Posto non riconosciuto: serve il token della sessione.', 403);
+
+    if (request.method === 'GET') return json({ vista: vista(this.sessione, ruolo) });
+
+    if (azione === 'azione' && request.method === 'POST') {
+      const esito = ruolo === 'runner'
+        ? azioneRunner(this.sessione, corpo.azione || {})
+        : azioneMaster(this.sessione, corpo.azione || {});
+      if (esito.errore) return errore(esito.errore, 400);
+      await this.salva();
+      return json({ voce: esito.voce, vista: vista(this.sessione, ruolo) });
+    }
+
+    if (azione === 'difesa' && request.method === 'POST') {
+      if (ruolo !== 'master') return errore('Solo il Master carica le difese.', 403);
+      const esito = caricaDifesa(this.sessione, corpo.programma, corpo.nodo);
+      if (esito.errore) return errore(esito.errore, 400);
+      await this.salva();
+      return json({ difesa: esito.difesa, vista: vista(this.sessione, 'master') });
+    }
+
+    return errore('Not found', 404);
+  }
 }
 
 export default {

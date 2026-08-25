@@ -81,15 +81,22 @@ describe('risoluzione del combattimento', () => {
         pg: [scheda('Tiratrice', { abilita: { Pistole: 5 }, armi: [{ ...ARMI.pistola, caricatore: 2 }] })],
         nemici: [png('Bersaglio', { COS: 10, armaturaVP: 40 })],
       });
-      tocca(scontro, pg[0]);
-      svolgiTurno(scontro, { tipo: 'fuoco', bersaglio: nemici[0].id, armaIdx: 0, distanza: 10 });
-      assert.equal(pg[0].colpiInCanna[0], 1);
-      tocca(scontro, pg[0]);
-      svolgiTurno(scontro, { tipo: 'fuoco', bersaglio: nemici[0].id, armaIdx: 0, distanza: 10 });
-      assert.equal(pg[0].colpiInCanna[0], 0);
-      tocca(scontro, pg[0]);
-      const r = svolgiTurno(scontro, { tipo: 'fuoco', bersaglio: nemici[0].id, armaIdx: 0, distanza: 10 });
-      assert.match(r.errore, /scarica/);
+      const spara = () => {
+        tocca(scontro, pg[0]);
+        // Anche un'arma Molto Affidabile si inceppa ogni tanto, e da inceppata
+        // il colpo viene rifiutato senza consumare munizioni. Qui interessa il
+        // consumo, quindi si libera l'arma prima di ogni colpo: l'inceppamento
+        // ha il suo test dedicato piu' sotto.
+        pg[0].inceppate = {};
+        return svolgiTurno(scontro, { tipo: 'fuoco', bersaglio: nemici[0].id, armaIdx: 0, distanza: 10 });
+      };
+
+      assert.equal(pg[0].colpiInCanna[0], 2, 'si parte col caricatore pieno');
+      spara();
+      assert.equal(pg[0].colpiInCanna[0], 1, 'un colpo sparato, uno consumato');
+      spara();
+      assert.equal(pg[0].colpiInCanna[0], 0, 'e col secondo il caricatore e\' vuoto');
+      assert.match(spara().errore, /scarica/, 'da qui in poi non si spara piu\'');
     });
 
     test('la raffica costa tre colpi e ne mette a segno da uno a tre', () => {

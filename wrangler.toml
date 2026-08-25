@@ -19,6 +19,18 @@ database_name = "cybercompanion"
 database_id = "PLACEHOLDER_DATABASE_ID"
 migrations_dir = "migrations"
 
+# Durable Objects: una stanza per sessione di netrun. Serve perche' Master e
+# netrunner giocano dallo stesso stato da due dispositivi diversi, e D1 non
+# offre l'accesso seriale che una partita a turni richiede. Stessa impostazione
+# del repository spellcaster.
+[[durable_objects.bindings]]
+name = "NETRUN"
+class_name = "NetrunRoom"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["NetrunRoom"]
+
 # Workers AI: espone il binding `env.AI`, usato come ultimo anello della
 # cascade LLM per la generazione narrativa del personaggio.
 [ai]

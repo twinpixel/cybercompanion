@@ -41,21 +41,28 @@ describe('scelta automatica dell\'azione', () => {
   });
 
   test('un\'arma automatica dura molti turni invece di finire in due', () => {
-    const { scontro, pg, nemici } = arena({
-      pg: [png('Eroe', { armi: [] })], nemici: [png('T', { armi: [ARMI.mitra] })], distanza: 30,
-    });
-    let turni = 0;
-    while ((nemici[0].colpiInCanna[0] ?? 0) > 0 && turni < 60) {
-      turni++;
-      scontro.indiceTurno = scontro.ordine.indexOf(nemici[0].id);
-      pg[0].ferite = 0; pg[0].morto = false; pg[0].fuoriCombattimento = false;
-      if (svolgiTurno(scontro, { tipo: 'auto' }).errore) break;
-    }
-    // Con 20% di fuoco pieno da dieci colpi, 40% di raffiche da tre e 40% di
-    // colpi singoli si spendono circa 3,6 colpi a turno: un caricatore da 30
-    // dura in media otto turni e mezzo. La soglia sta sotto la media, non
-    // sopra, altrimenti meta' delle esecuzioni fallirebbe per costruzione.
-    assert.ok(turni >= 5, `un caricatore da 30 non si svuota in due turni (${turni})`);
+    // Il numero di turni e' casuale: dipende da quante volte esce il fuoco
+    // pieno. Su una sola prova la coda bassa arriva a tre turni, quindi
+    // l'asserzione sta sulla **mediana** di molte prove, che e' stabile.
+    const turniPerCaricatore = () => {
+      const { scontro, pg, nemici } = arena({
+        pg: [png('Eroe', { armi: [] })], nemici: [png('T', { armi: [ARMI.mitra] })], distanza: 30,
+      });
+      let turni = 0;
+      while ((nemici[0].colpiInCanna[0] ?? 0) > 0 && turni < 60) {
+        turni++;
+        scontro.indiceTurno = scontro.ordine.indexOf(nemici[0].id);
+        pg[0].ferite = 0; pg[0].morto = false; pg[0].fuoriCombattimento = false;
+        if (svolgiTurno(scontro, { tipo: 'auto' }).errore) break;
+      }
+      return turni;
+    };
+
+    const prove = Array.from({ length: 80 }, turniPerCaricatore).sort((a, b) => a - b);
+    const mediana = prove[Math.floor(prove.length / 2)];
+    assert.ok(mediana >= 7,
+      `un caricatore da 30 dura in media parecchi turni, non due (mediana ${mediana}, minimo ${prove[0]})`);
+    assert.ok(prove[0] >= 2, 'e nemmeno nel caso peggiore si svuota in un turno solo');
   });
 
   test('addosso e senza armi da fuoco va in corpo a corpo', () => {
