@@ -24,7 +24,7 @@ const ROOT = path.resolve(__dirname, '..');
 const DATA_DIR = path.join(__dirname, 'data');
 // Cartelle di moduli che restano file separati e vengono importate dal worker:
 // e' wrangler, con esbuild, a impacchettarle seguendo gli import.
-const MODULI = ['llm', 'combat', 'lib'];
+const MODULI = ['llm', 'combat', 'netrun', 'lib'];
 const TEMPLATE_PATH = path.join(__dirname, 'worker.template.js');
 const OUTPUT_DIR = path.join(ROOT, 'dist');
 const OUTPUT_PATH = path.join(OUTPUT_DIR, 'worker.js');

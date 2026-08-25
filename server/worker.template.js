@@ -37,6 +37,10 @@ import {
   AZIONI, RIPARI, MODIFICATORI_TIRO, LOCALIZZAZIONI, CASELLE_TOTALI,
   decidiAzione, descriviAzione,
 } from './combat/index.js';
+import {
+  programmaVuoto, calcolaProgramma, difficoltaModifica, tiroScrittura,
+  validaProgramma, catalogoNetrun,
+} from './netrun/programma.js';
 
 /* __EMBED_DATA__ */
 
@@ -286,6 +290,70 @@ async function aggiornaModelloPng(env, id, modello) {
 
 async function cancellaModelloPng(env, id) {
   const res = await env.DB.prepare('DELETE FROM npc_templates WHERE id = ?').bind(id).run();
+  return res.meta.changes > 0;
+}
+
+// ------------------------------------------------------------ programmi D1 --
+
+const MAX_PROGRAMMI = 500;
+
+async function listaProgrammi(env, characterId) {
+  const sql = characterId
+    ? 'SELECT id, name, classe, forza, difficolta, um, costo, character_id, updated_at FROM programs WHERE character_id = ? ORDER BY name'
+    : 'SELECT id, name, classe, forza, difficolta, um, costo, character_id, updated_at FROM programs ORDER BY classe, name';
+  const stmt = characterId ? env.DB.prepare(sql).bind(characterId) : env.DB.prepare(sql);
+  const { results } = await stmt.all();
+  return results || [];
+}
+
+async function leggiProgramma(env, id) {
+  const riga = await env.DB.prepare('SELECT * FROM programs WHERE id = ?').bind(id).first();
+  if (!riga) return null;
+  return { ...riga, spec: JSON.parse(riga.spec) };
+}
+
+/** Le colonne estratte sono sempre ricalcolate: non ci si fida di cio' che arriva. */
+function indiceProgramma(spec) {
+  const calcolo = calcolaProgramma(spec);
+  return {
+    name: String(spec.nome || 'Senza nome').slice(0, 120),
+    classe: (spec.funzioni || [])[0] || '',
+    forza: Number(spec.forza) || 0,
+    difficolta: calcolo.difficolta,
+    um: calcolo.um,
+    costo: calcolo.costo,
+  };
+}
+
+async function creaProgramma(env, spec, characterId) {
+  const { count } = await env.DB.prepare('SELECT COUNT(*) AS count FROM programs').first();
+  if (count >= MAX_PROGRAMMI) {
+    throw Object.assign(new Error(`Limite di ${MAX_PROGRAMMI} programmi raggiunto`), { status: 409 });
+  }
+  const id = crypto.randomUUID();
+  const ora = Date.now();
+  const idx = indiceProgramma(spec);
+  await env.DB.prepare(
+    'INSERT INTO programs (id, name, classe, forza, difficolta, um, costo, character_id, spec, created_at, updated_at) ' +
+    'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+  ).bind(id, idx.name, idx.classe, idx.forza, idx.difficolta, idx.um, idx.costo,
+         characterId || null, JSON.stringify(spec), ora, ora).run();
+  return { id, ...idx, character_id: characterId || null, created_at: ora, updated_at: ora };
+}
+
+async function aggiornaProgramma(env, id, spec, characterId) {
+  const ora = Date.now();
+  const idx = indiceProgramma(spec);
+  const res = await env.DB.prepare(
+    'UPDATE programs SET name = ?, classe = ?, forza = ?, difficolta = ?, um = ?, costo = ?, ' +
+    'character_id = ?, spec = ?, updated_at = ? WHERE id = ?'
+  ).bind(idx.name, idx.classe, idx.forza, idx.difficolta, idx.um, idx.costo,
+         characterId ?? null, JSON.stringify(spec), ora, id).run();
+  return res.meta.changes > 0 ? { id, ...idx, updated_at: ora } : null;
+}
+
+async function cancellaProgramma(env, id) {
+  const res = await env.DB.prepare('DELETE FROM programs WHERE id = ?').bind(id).run();
   return res.meta.changes > 0;
 }
 
@@ -1163,6 +1231,74 @@ async function rotteProtette(request, env, url, pathname) {
       });
       await salvaScontro(env, id, scontro);
       return json({ stato: scontro, riepilogo, scritte });
+    }
+  }
+
+  // --------------------------------------------------- console del netrunner --
+
+  if (pathname === '/api/netrun/catalogo' && request.method === 'GET') {
+    return json(catalogoNetrun());
+  }
+
+  // Calcola difficolta', UM e costo senza salvare niente: e' cio' che serve
+  // mentre si costruisce, a ogni scelta.
+  if (pathname === '/api/netrun/calcola' && request.method === 'POST') {
+    const { dati, errore: err } = await corpoJson(request);
+    if (err) return errore(err, 400);
+    return json(calcolaProgramma(dati?.programma || programmaVuoto()));
+  }
+
+  // Quanto costa modificare un programma gia' scritto.
+  if (pathname === '/api/netrun/modifica' && request.method === 'POST') {
+    const { dati, errore: err } = await corpoJson(request);
+    if (err) return errore(err, 400);
+    if (!dati?.prima || !dati?.dopo) return errore('Servono entrambe le versioni: prima e dopo.', 400);
+    return json(difficoltaModifica(dati.prima, dati.dopo));
+  }
+
+  // Tira per scrivere il programma.
+  if (pathname === '/api/netrun/scrivi' && request.method === 'POST') {
+    const { dati, errore: err } = await corpoJson(request);
+    if (err) return errore(err, 400);
+    const calcolo = calcolaProgramma(dati?.programma || programmaVuoto());
+    const difficolta = Number(dati?.difficolta) || calcolo.difficolta;
+    return json({
+      calcolo,
+      tiro: tiroScrittura({ INT: dati?.INT, programmare: dati?.programmare }, difficolta),
+    });
+  }
+
+  if (pathname === '/api/programs' && request.method === 'GET') {
+    return json({ programmi: await listaProgrammi(env, searchParams.get('personaggio')) });
+  }
+
+  if (pathname === '/api/programs' && request.method === 'POST') {
+    const { dati, errore: err } = await corpoJson(request);
+    if (err) return errore(err, 400);
+    const invalido = validaProgramma(dati?.programma);
+    if (invalido) return errore(invalido, 400);
+    return json(await creaProgramma(env, dati.programma, dati.personaggio), 201);
+  }
+
+  const idProgramma = pathname.match(/^\/api\/programs\/([0-9a-f-]{36})$/i);
+  if (idProgramma) {
+    const id = idProgramma[1];
+    if (request.method === 'GET') {
+      const p = await leggiProgramma(env, id);
+      return p ? json({ ...p, calcolo: calcolaProgramma(p.spec) }) : errore('Programma non trovato', 404);
+    }
+    if (request.method === 'PUT') {
+      const { dati, errore: err } = await corpoJson(request);
+      if (err) return errore(err, 400);
+      const invalido = validaProgramma(dati?.programma);
+      if (invalido) return errore(invalido, 400);
+      const agg = await aggiornaProgramma(env, id, dati.programma, dati.personaggio);
+      return agg ? json(agg) : errore('Programma non trovato', 404);
+    }
+    if (request.method === 'DELETE') {
+      return (await cancellaProgramma(env, id))
+        ? json({ eliminato: id })
+        : errore('Programma non trovato', 404);
     }
   }
 
