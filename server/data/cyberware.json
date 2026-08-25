@@ -1,0 +1,108 @@
+{
+  "_nota": "Cyberware di Cyberpunk 2020, terminologia italiana. `pu` e' il costo in Punti Umanita': si tira il dado indicato e si sottrae il risultato all'Umanita' del personaggio. `costo` e' in eurodollari. Il Chromebook aggiunge altri modelli di marca: vedi server/data/chromebook.json e doc/regole/07-equipaggiamento.md",
+  "_umanita": "EMP = parte intera di (Umanita' / 10). Sotto 20 punti serve terapia; sotto 0 il personaggio va in cyberpsicosi e passa al Master.",
+  "_installazione": "Serve un tiro di Tecnomedicina. Installazioni in cliniche di strada raddoppiano i PU persi in caso di fallimento.",
+
+  "categorie": [
+    {
+      "id": "modaware",
+      "nome": "Modaware",
+      "desc": "Impianti estetici. Costano poca Umanita' perche' non alterano il modo in cui si percepisce il mondo.",
+      "pezzi": [
+        { "nome": "Orologio dermale",        "pu": "1D6/2", "costo": 100,  "desc": "Display a cristalli liquidi sotto la pelle del polso." },
+        { "nome": "Tatuaggio luminoso",      "pu": "1D6/2", "costo": 100,  "desc": "Tatuaggio bioluminescente, cambia colore a comando." },
+        { "nome": "Capelli tecnologici",     "pu": "1D6/2", "costo": 200,  "desc": "Capelli fotosensibili che cambiano colore con l'umore." },
+        { "nome": "Filo luminoso EMP",       "pu": "1D6/2", "costo": 200,  "desc": "Fili luminosi impiantati sotto la pelle, disegnano motivi." },
+        { "nome": "Biomonitor",              "pu": "1D6/2", "costo": 100,  "desc": "Monitora i parametri vitali e li mostra sull'orologio dermale." }
+      ]
+    },
+    {
+      "id": "neuroware",
+      "nome": "Neuroware",
+      "desc": "Impianti sul sistema nervoso. Il processore neurale e' il prerequisito di quasi tutto il resto.",
+      "pezzi": [
+        { "nome": "Processore neurale",      "pu": "2D6",   "costo": 1000, "desc": "Prerequisito per tutti gli impianti neurali. Da solo non fa nulla.", "prerequisito_di_tutto": true },
+        { "nome": "Prese d'interfaccia",     "pu": "2D6",   "costo": 200,  "desc": "Prese alle tempie o ai polsi: collegano il corpo a deck, veicoli e armi intelligenti.", "richiede": "Processore neurale" },
+        { "nome": "Alloggio per chip",       "pu": "1D6",   "costo": 500,  "desc": "Accetta chip di abilita' e di memoria.", "richiede": "Processore neurale" },
+        { "nome": "Sandevistan",             "pu": "2D6",   "costo": 3600, "desc": "Booster di riflessi a innesco volontario: +3 all'iniziativa per 1D6 turni.", "richiede": "Processore neurale" },
+        { "nome": "Kerenzikov",              "pu": "2D6",   "costo": 5000, "desc": "Booster di riflessi sempre attivo: +2 all'iniziativa (livello 1) o +3 (livello 2).", "richiede": "Processore neurale" },
+        { "nome": "Editor del dolore",       "pu": "2D6",   "costo": 1000, "desc": "Sopprime il dolore: si ignorano i malus da ferita, ma non i danni.", "richiede": "Processore neurale" },
+        { "nome": "Boostmaster",             "pu": "2D6",   "costo": 1000, "desc": "Raddoppia la durata dei booster di riflessi.", "richiede": "Processore neurale" },
+        { "nome": "Tastiera tattile",        "pu": "1D6",   "costo": 1000, "desc": "Tastiera virtuale proiettata sul palmo.", "richiede": "Processore neurale" }
+      ]
+    },
+    {
+      "id": "cyberottica",
+      "nome": "Cyberottica",
+      "desc": "Occhi artificiali. L'occhio base costa 2D6 PU; ogni occhio ospita fino a 3 opzioni.",
+      "pezzi": [
+        { "nome": "Cyberottica (occhio)",    "pu": "2D6",   "costo": 500,  "desc": "Occhio artificiale. Va comprato per ciascun occhio; ospita fino a 3 opzioni." },
+        { "nome": "Opzione: visore notturno","pu": "1D6/2", "costo": 200,  "desc": "Vedere al buio fino a 50 m.", "richiede": "Cyberottica (occhio)" },
+        { "nome": "Opzione: infrarossi",     "pu": "1D6/2", "costo": 300,  "desc": "Visione termica: rivela corpi caldi dietro fumo e vegetazione.", "richiede": "Cyberottica (occhio)" },
+        { "nome": "Opzione: mirino",         "pu": "1D6/2", "costo": 600,  "desc": "+1 al tiro per colpire con armi intelligenti collegate.", "richiede": "Cyberottica (occhio)" },
+        { "nome": "Opzione: TimesSquarePlus","pu": "1D6/2", "costo": 200,  "desc": "Display dati sovrapposto al campo visivo.", "richiede": "Cyberottica (occhio)" },
+        { "nome": "Opzione: teleobiettivo",  "pu": "1D6/2", "costo": 500,  "desc": "Zoom fino a 20x." , "richiede": "Cyberottica (occhio)" },
+        { "nome": "Opzione: anti-abbaglio",  "pu": "1D6/2", "costo": 100,  "desc": "Immune a flash e abbagliamento.", "richiede": "Cyberottica (occhio)" },
+        { "nome": "Opzione: microvideo",     "pu": "1D6/2", "costo": 400,  "desc": "Registra cio' che si vede.", "richiede": "Cyberottica (occhio)" },
+        { "nome": "Opzione: dardo",          "pu": "1D6",   "costo": 1000, "desc": "Lancia un dardo dall'occhio: 1D6/2 danni, spesso drogato.", "richiede": "Cyberottica (occhio)" }
+      ]
+    },
+    {
+      "id": "cyberudito",
+      "nome": "Cyberudito",
+      "desc": "Orecchio artificiale. Come per la cyberottica, ogni orecchio ospita fino a 3 opzioni.",
+      "pezzi": [
+        { "nome": "Cyberudito (orecchio)",   "pu": "2D6",   "costo": 500,  "desc": "Orecchio artificiale, ospita fino a 3 opzioni." },
+        { "nome": "Opzione: udito amplificato","pu": "1D6/2","costo": 100, "desc": "+2 a Individuare per l'udito.", "richiede": "Cyberudito (orecchio)" },
+        { "nome": "Opzione: radio",          "pu": "1D6/2", "costo": 1000, "desc": "Ricetrasmittente integrata, raggio 1 km.", "richiede": "Cyberudito (orecchio)" },
+        { "nome": "Opzione: innesto telefonico","pu":"1D6/2","costo": 200, "desc": "Telefono cellulare nell'orecchio.", "richiede": "Cyberudito (orecchio)" },
+        { "nome": "Opzione: rilevatore di cimici","pu":"1D6/2","costo": 500,"desc": "Segnala microspie nel raggio di 10 m.", "richiede": "Cyberudito (orecchio)" },
+        { "nome": "Opzione: limitatore",     "pu": "1D6/2", "costo": 200,  "desc": "Taglia i suoni troppo forti: immune a granate stordenti.", "richiede": "Cyberudito (orecchio)" },
+        { "nome": "Opzione: analizzatore vocale","pu":"1D6/2","costo": 1000,"desc": "+2 a Percepire emozioni per capire se qualcuno mente.", "richiede": "Cyberudito (orecchio)" },
+        { "nome": "Opzione: scrambler",      "pu": "1D6/2", "costo": 500,  "desc": "Cifra le comunicazioni radio.", "richiede": "Cyberudito (orecchio)" }
+      ]
+    },
+    {
+      "id": "cyberarti",
+      "nome": "Cyberarti",
+      "desc": "Arti artificiali. Costano molta Umanita': sostituiscono una parte del corpo, non la potenziano.",
+      "pezzi": [
+        { "nome": "Cyberbraccio",            "pu": "2D6",   "costo": 2000, "desc": "Braccio artificiale. COS 10 per sollevare e colpire; ospita fino a 4 opzioni." },
+        { "nome": "Cybergamba",              "pu": "2D6",   "costo": 2000, "desc": "Gamba artificiale. Ospita fino a 4 opzioni." },
+        { "nome": "Opzione: miomero rinforzato","pu": "2D6", "costo": 1000,"desc": "COS del braccio a 12, +2 ai danni in corpo a corpo.", "richiede": "Cyberbraccio" },
+        { "nome": "Opzione: mano attrezzo",  "pu": "1D6",   "costo": 500,  "desc": "Set di attrezzi retrattili: +2 a Tecnologia di base." },
+        { "nome": "Opzione: artigli",        "pu": "1D6",   "costo": 200,  "desc": "Artigli retrattili: 1D6+2 danni." },
+        { "nome": "Opzione: lama nell'avambraccio","pu":"2D6","costo": 700,"desc": "Lama monofilamento retrattile: 3D6 danni.", "richiede": "Cyberbraccio" },
+        { "nome": "Opzione: rampino",        "pu": "1D6",   "costo": 500,  "desc": "Mano-rampino con cavo da 20 m.", "richiede": "Cyberbraccio" },
+        { "nome": "Opzione: vano nascosto",  "pu": "1D6/2", "costo": 200,  "desc": "Scomparto occultabile nell'arto." },
+        { "nome": "Opzione: arma integrata", "pu": "2D6",   "costo": 1000, "desc": "Alloggia una pistola o un mitra nell'arto." }
+      ]
+    },
+    {
+      "id": "interni",
+      "nome": "Impianti interni",
+      "desc": "Modifiche al corpo che non si vedono da fuori. Le piu' pericolose e le piu' utili.",
+      "pezzi": [
+        { "nome": "Cybersnake",              "pu": "3D6",   "costo": 2000, "desc": "Tentacolo dentato che esce dalla gola: 4D6 danni. Impossibile da nascondere ai controlli." },
+        { "nome": "Riserva d'aria autonoma", "pu": "1D6",   "costo": 1000, "desc": "15 minuti di respirazione senza aria esterna." },
+        { "nome": "Filtri nasali",           "pu": "1D6/2", "costo": 200,  "desc": "Immune a gas e sostanze inalate." },
+        { "nome": "Legatori di tossine",     "pu": "1D6",   "costo": 1000, "desc": "+2 ai tiri contro droghe e veleni." },
+        { "nome": "Anticorpi potenziati",    "pu": "1D6",   "costo": 1000, "desc": "Guarigione doppia, immune alle malattie comuni." },
+        { "nome": "Booster adrenalinico",    "pu": "2D6",   "costo": 1000, "desc": "+2 a COS e MOV per 1D6 turni, poi -2 per un'ora." },
+        { "nome": "Vampiri",                 "pu": "1D6",   "costo": 500,  "desc": "Canini artificiali, spesso avvelenati: 1D6/2 danni." },
+        { "nome": "Muscoli innestati",       "pu": "3D6",   "costo": 8000, "desc": "+2 a COS. Visibilmente ipertrofico." },
+        { "nome": "Reticolo di muscoli e ossa","pu": "3D6", "costo": 6000, "desc": "+2 a COS senza modificare l'aspetto. Molto piu' caro da installare." }
+      ]
+    },
+    {
+      "id": "armatura",
+      "nome": "Armatura sottocutanea",
+      "desc": "Protezione integrata nel corpo. Si somma alle armature indossate solo fino a un massimo di VP 20.",
+      "pezzi": [
+        { "nome": "Pelle intrecciata",       "pu": "2D6",   "costo": 3000, "desc": "VP 6 su tutto il corpo, invisibile." },
+        { "nome": "Armatura sottocutanea",   "pu": "3D6",   "costo": 6000, "desc": "VP 18 su tronco e braccia. Visibile ai raggi X e ai metal detector." },
+        { "nome": "Placche corazzate",       "pu": "3D6",   "costo": 8000, "desc": "VP 25 su tronco. Aspetto chiaramente non umano." }
+      ]
+    }
+  ]
+}

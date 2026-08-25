@@ -1,0 +1,19 @@
+{
+  "name": "cybercompanion",
+  "version": "1.0.0",
+  "description": "CyberCompanion: editor di personaggi Cyberpunk 2020 — SPA (client/) + API su Cloudflare Worker con D1 e Workers AI (server/)",
+  "type": "module",
+  "scripts": {
+    "build:worker": "node server/build.js",
+    "cf:dev": "npm run build:worker && wrangler dev",
+    "cf:deploy": "npm run build:worker && wrangler deploy",
+    "db:migrate": "wrangler d1 migrations apply cybercompanion --remote",
+    "db:migrate:local": "wrangler d1 migrations apply cybercompanion --local"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "wrangler": "^4.103.0"
+  }
+}

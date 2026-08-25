@@ -1,0 +1,54 @@
+{
+  "_nota": "Armature ed equipaggiamento base di Cyberpunk 2020. `vp` e' il Valore di Protezione: si sottrae ai danni prima del bonus di Costituzione. `in` e' l'Ingombro: penalita' a RIF mentre e' indossata. Riferimento: doc/regole/04-tabelle-di-gioco.md",
+
+  "armature": [
+    { "nome": "Maglietta di kevlar",       "vp": 4,  "ingombro": 0, "costo": 100,  "copre": "Tronco" },
+    { "nome": "Giubbotto di pelle",        "vp": 4,  "ingombro": 0, "costo": 50,   "copre": "Tronco, braccia" },
+    { "nome": "Giubbotto di kevlar leggero","vp": 10, "ingombro": 0, "costo": 150,  "copre": "Tronco" },
+    { "nome": "Giubbotto di kevlar medio", "vp": 14, "ingombro": 1, "costo": 200,  "copre": "Tronco" },
+    { "nome": "Giubbotto di kevlar pesante","vp": 18, "ingombro": 2, "costo": 300,  "copre": "Tronco" },
+    { "nome": "Giubbotto da mitragliere",  "vp": 20, "ingombro": 2, "costo": 500,  "copre": "Tronco, braccia" },
+    { "nome": "Elmetto di nylon",          "vp": 20, "ingombro": 0, "costo": 100,  "copre": "Testa" },
+    { "nome": "Elmetto d'acciaio",         "vp": 14, "ingombro": 0, "costo": 20,   "copre": "Testa" },
+    { "nome": "Armatura medievale",        "vp": 14, "ingombro": 6, "costo": 3500, "copre": "Tutto il corpo" },
+    { "nome": "MetalGear",                 "vp": 25, "ingombro": 3, "costo": 6000, "copre": "Tronco, braccia, gambe" },
+    { "nome": "Abiti ignifughi Salamandra","vp": 20, "ingombro": 0, "costo": 100,  "copre": "Solo danni da fuoco" }
+  ],
+
+  "_stile": "Il costo dei vestiti si moltiplica per lo stile: 1x da strada, 2x buona qualita', 5x griffato, 10x alta moda.",
+  "stili_abbigliamento": [
+    { "nome": "Da strada",      "moltiplicatore": 1 },
+    { "nome": "Buona qualita'", "moltiplicatore": 2 },
+    { "nome": "Griffato",       "moltiplicatore": 5 },
+    { "nome": "Alta moda",      "moltiplicatore": 10 }
+  ],
+
+  "equipaggiamento": [
+    { "nome": "Agenda elettronica",      "costo": 100,  "categoria": "Elettronica" },
+    { "nome": "Cellulare",               "costo": 400,  "categoria": "Elettronica" },
+    { "nome": "Cyberdeck base",          "costo": 5000, "categoria": "Rete" },
+    { "nome": "Cyberdeck da combattimento","costo": 14000,"categoria": "Rete" },
+    { "nome": "Videocamera",             "costo": 500,  "categoria": "Elettronica" },
+    { "nome": "Kit da scasso",           "costo": 200,  "categoria": "Intrusione" },
+    { "nome": "Kit rimozione allarmi",   "costo": 290,  "categoria": "Intrusione", "nota": "+1 ai tiri TEC contro serrature e sensori" },
+    { "nome": "Fondina Speedraw",        "costo": 70,   "categoria": "Armi",       "nota": "+1 all'iniziativa in estrazione rapida" },
+    { "nome": "Kit di pronto soccorso",  "costo": 50,   "categoria": "Medico" },
+    { "nome": "Kit chirurgico da campo", "costo": 1000, "categoria": "Medico" },
+    { "nome": "Serbatoio criogenico portatile","costo": 5000,"categoria": "Medico" },
+    { "nome": "Giubbotto antiproiettile da giornalista","costo": 500,"categoria": "Protezione" },
+    { "nome": "Binocolo con visore notturno","costo": 400,"categoria": "Ottica" },
+    { "nome": "Corda e rampino (30 m)",  "costo": 100,  "categoria": "Varie" },
+    { "nome": "Torcia tattica",          "costo": 20,   "categoria": "Varie" },
+    { "nome": "Documenti falsi",         "costo": 500,  "categoria": "Illegale" },
+    { "nome": "Razioni da campo (7 giorni)","costo": 50, "categoria": "Varie" }
+  ],
+
+  "_tenore_di_vita": "Spesa mensile per mantenere lo stile di vita dichiarato. Chi non paga scende di fascia.",
+  "tenore_di_vita": [
+    { "nome": "Per strada",              "mensile": 0 },
+    { "nome": "Stanza in un cubicolo",   "mensile": 200 },
+    { "nome": "Appartamento in Zona",    "mensile": 500 },
+    { "nome": "Appartamento decente",    "mensile": 1200 },
+    { "nome": "Attico corporativo",      "mensile": 5000 }
+  ]
+}

@@ -1,0 +1,282 @@
+{
+  "_nota": "Tabelle del Lifepath di Cyberpunk 2020 (manuale base, capitolo Lifepath). Ogni tabella si tira con 1d10 salvo diversa indicazione: la posizione nell'array corrisponde al risultato del dado (indice 0 = risultato 1).",
+  "_uso": "La generazione automatica pesca da queste tabelle. Aggiungere o cambiare voci non richiede modifiche al codice: basta tenere 10 elementi per le tabelle da 1d10.",
+
+  "stile": {
+    "abbigliamento": [
+      "Pelle da biker, borchie e toppe",
+      "Jeans consumati e giubbotto militare",
+      "Completo corporativo su misura",
+      "Tuta da lavoro tecnica, tasche ovunque",
+      "Minigonna e calze strappate",
+      "Mimetica da combattimento",
+      "Vestiti normali, deliberatamente anonimi",
+      "Body paint e poco altro",
+      "Stracci sovrapposti, eleganza da barbone",
+      "Colori della gang, esibiti come una bandiera"
+    ],
+    "capelli": [
+      "Cresta alta e rigida",
+      "Lunghi e arruffati",
+      "Corti e a punte",
+      "Selvaggi, in tutte le direzioni",
+      "Rasati a zero",
+      "Rasati con disegni geometrici",
+      "Tinti di un colore impossibile",
+      "Corti e ordinati, da impiegato",
+      "Lunghi e lisci fino alla vita",
+      "Dreadlock intrecciate con fili di rame"
+    ],
+    "dettagli": [
+      "Tatuaggi che coprono braccia e collo",
+      "Occhiali a specchio, mai tolti",
+      "Cicatrici rituali sul petto",
+      "Anfibi con punta d'acciaio",
+      "Piercing al naso e al setto",
+      "Orecchini a catena su tutto l'orecchio",
+      "Guanti senza dita, di pelle nera",
+      "Unghie lunghe, laccate di nero",
+      "Lenti a contatto animate",
+      "Un dente d'oro con microchip incastonato"
+    ]
+  },
+
+  "origini": {
+    "_nota": "Etnia di provenienza e lingua madre relativa, oltre all'inglese di strada.",
+    "etnie": [
+      { "etnia": "Angloamericana",            "lingua": "Inglese" },
+      { "etnia": "Africana",                  "lingua": "Swahili" },
+      { "etnia": "Giapponese o coreana",      "lingua": "Giapponese" },
+      { "etnia": "Centroeuropea o slava",     "lingua": "Russo" },
+      { "etnia": "Delle isole del Pacifico",  "lingua": "Pacifico creolo" },
+      { "etnia": "Cinese o del Sudest asiatico", "lingua": "Cinese" },
+      { "etnia": "Afroamericana",             "lingua": "Inglese di strada" },
+      { "etnia": "Ispanoamericana",           "lingua": "Spagnolo" },
+      { "etnia": "Centro o sudamericana",     "lingua": "Portoghese" },
+      { "etnia": "Europea occidentale",       "lingua": "Italiano" }
+    ]
+  },
+
+  "famiglia": {
+    "rango": [
+      "Dirigenti corporativi di alto livello",
+      "Quadri corporativi di medio livello",
+      "Tecnici corporativi",
+      "Branco nomade sulle strade",
+      "Flotta pirata",
+      "Famiglia di gang",
+      "Signori del crimine",
+      "Poveri della Zona di Combattimento",
+      "Senzatetto urbani",
+      "Residenti di un'arcologia"
+    ],
+    "_genitori": "Tiro 1d10: 1-6 entrambi i genitori sono vivi, 7-10 la famiglia ha subito una tragedia (tira sulla tabella `tragedia`).",
+    "soglia_tragedia": 7,
+    "tragedia": [
+      "La famiglia ha perso tutto per un tradimento",
+      "La famiglia ha perso tutto per pessima gestione",
+      "La famiglia e' stata cacciata dalla propria terra",
+      "La famiglia e' in carcere, tu sei l'unico fuori",
+      "Hai ereditato un debito che non hai contratto",
+      "La tua famiglia e' stata assassinata",
+      "La famiglia si e' dispersa ai quattro venti",
+      "Sulla famiglia pesa una vendetta mai chiusa",
+      "Non hai mai conosciuto la tua famiglia",
+      "La famiglia e' morta nel fuoco incrociato di una guerra corporativa"
+    ],
+    "status": [
+      "In condizioni agiate, non e' mai mancato nulla",
+      "Nella media, con qualche stretta ogni tanto",
+      "In condizioni agiate, ma tenute in piedi da debiti",
+      "Nella media, in un quartiere in decadenza",
+      "Hanno perso tutto e sono finiti in strada",
+      "Nella media, ma sempre in movimento",
+      "In condizioni agiate grazie a soldi sporchi",
+      "Poveri, ma con una reputazione rispettata",
+      "Hanno perso tutto per colpa tua",
+      "Nella media, protetti da una corporazione"
+    ]
+  },
+
+  "infanzia": {
+    "ambiente": [
+      "In strada, tra i senzatetto",
+      "Nella periferia corporativa, ordinata e sorvegliata",
+      "Dentro un'arcologia, senza mai vedere il cielo",
+      "In un branco nomade, sempre sulla strada",
+      "A bordo di una nave della flotta pirata",
+      "Nella Zona di Combattimento",
+      "In un quartiere un tempo elegante, ora marcio",
+      "In una grande citta', tra la folla",
+      "In una cittadina di provincia",
+      "In una fattoria o in campagna"
+    ]
+  },
+
+  "fratelli": {
+    "_numero": "Tiro 1d10: il risultato 10 significa figlio unico, altrimenti il numero di fratelli e' 1d10/2 arrotondato per eccesso.",
+    "eta": [
+      "Fratello maggiore",
+      "Sorella maggiore",
+      "Fratello minore",
+      "Sorella minore",
+      "Gemello",
+      "Gemella",
+      "Fratellastro maggiore",
+      "Sorellastra minore",
+      "Fratello adottivo",
+      "Sorella adottiva"
+    ],
+    "rapporto": [
+      "Vi odiate a vicenda",
+      "Ti considera un fallito",
+      "E' il tuo idolo",
+      "Siete inseparabili",
+      "Non vi parlate da anni",
+      "Ti protegge da sempre",
+      "E' geloso di te",
+      "Ti deve la vita",
+      "Neutrale, vi vedete alle feste",
+      "E' scomparso e lo stai cercando"
+    ]
+  },
+
+  "motivazioni": {
+    "personalita": [
+      "Timido e riservato, parli poco",
+      "Ribelle e ostile all'autorita'",
+      "Arrogante e pieno di te",
+      "Lunatico e violento quando esplodi",
+      "Pignolo e insofferente alla fatica",
+      "Onesto e degno di fiducia",
+      "Cinico e sarcastico su tutto",
+      "Silenzioso, non comunichi mai davvero",
+      "Cordiale ed estroverso con chiunque",
+      "Stabile e affidabile, la roccia del gruppo"
+    ],
+    "persona_piu_cara": [
+      "Un genitore",
+      "Un fratello o una sorella",
+      "Un amante",
+      "Un amico",
+      "Te stesso, e nessun altro",
+      "Un animale",
+      "Un maestro o mentore",
+      "Un personaggio pubblico che non hai mai incontrato",
+      "Un eroe personale, forse inventato",
+      "Nessuno al mondo"
+    ],
+    "cosa_conta_di_piu": [
+      "Il denaro, sopra ogni cosa",
+      "L'onore",
+      "La parola data",
+      "L'onesta'",
+      "La conoscenza",
+      "La vendetta",
+      "L'amore",
+      "Il potere",
+      "Divertirsi finche' si puo'",
+      "L'amicizia"
+    ],
+    "come_vedi_gli_altri": [
+      "Neutrale: ognuno per se'",
+      "Le persone sono strumenti",
+      "Le persone sono meravigliose",
+      "Le persone sono bersagli",
+      "Le persone non sono affidabili",
+      "Le persone vanno protette",
+      "Sono tutti dei bastardi",
+      "Le persone sono ostacoli",
+      "Le persone hanno valore in se'",
+      "Le persone sono merce"
+    ],
+    "oggetto_piu_prezioso": [
+      "Un'arma",
+      "Un attrezzo di lavoro",
+      "Un capo di abbigliamento",
+      "Una fotografia",
+      "Un libro di carta",
+      "Una registrazione",
+      "Uno strumento musicale",
+      "Un gioiello",
+      "Un giocattolo dell'infanzia",
+      "Una lettera mai spedita"
+    ]
+  },
+
+  "eventi": {
+    "_nota": "Un tiro 1d10 per ogni anno trascorso dai 16 anni all'eta' attuale. Le voci con `tabella` rimandano a una sotto-tabella di dettaglio.",
+    "annuale": [
+      { "tipo": "disgrazia", "testo": "Grossi guai",              "tabella": "disgrazie" },
+      { "tipo": "disgrazia", "testo": "Grossi guai",              "tabella": "disgrazie" },
+      { "tipo": "amico",     "testo": "Hai stretto un'amicizia",  "tabella": "amici" },
+      { "tipo": "amore",     "testo": "Coinvolgimento sentimentale", "tabella": "amori" },
+      { "tipo": "nemico",    "testo": "Ti sei fatto un nemico",   "tabella": "nemici" },
+      { "tipo": "nulla",     "testo": "Un anno tranquillo, per una volta" },
+      { "tipo": "amore",     "testo": "Coinvolgimento sentimentale", "tabella": "amori" },
+      { "tipo": "nulla",     "testo": "Un anno di lavoro e niente altro" },
+      { "tipo": "nemico",    "testo": "Ti sei fatto un nemico",   "tabella": "nemici" },
+      { "tipo": "fortuna",   "testo": "Un colpo di fortuna",      "tabella": "fortune" }
+    ],
+    "disgrazie": [
+      "Sei finito in prigione per un anno",
+      "Sei stato tradito da un socio e hai perso tutto",
+      "Hai perso un arto in un incidente",
+      "Sei stato accusato di un crimine che non hai commesso",
+      "Una corporazione ti ha messo sulla lista nera",
+      "Sei diventato dipendente da una sostanza",
+      "Hai contratto un debito enorme con la persona sbagliata",
+      "Un tuo errore ha ucciso qualcuno",
+      "Sei stato costretto a fuggire dalla citta'",
+      "Hai perso l'unica persona a cui tenevi"
+    ],
+    "fortune": [
+      "Hai trovato un mentore che ti ha insegnato il mestiere",
+      "Hai messo le mani su un carico di merce di valore",
+      "Un colpo e' andato meglio del previsto: 1d6 x 1000 eb",
+      "Hai fatto un favore alla persona giusta",
+      "Ti sei costruito una reputazione nella tua zona",
+      "Hai vinto una somma importante al gioco",
+      "Un contatto corporativo ti deve un favore",
+      "Hai ereditato un veicolo",
+      "Sei sopravvissuto a qualcosa che non avrebbe dovuto lasciarti vivo",
+      "Hai recuperato un pezzo di cyberware di alta qualita'"
+    ],
+    "nemici": [
+      { "chi": "Un ex socio",           "motivo": "Lo hai tradito in un colpo" },
+      { "chi": "Un poliziotto",         "motivo": "Gli hai fatto perdere una promozione" },
+      { "chi": "Un dirigente corporativo", "motivo": "Hai rubato dati che gli appartenevano" },
+      { "chi": "Un capo gang",          "motivo": "Hai ucciso uno dei suoi" },
+      { "chi": "Un parente",            "motivo": "Una questione di eredita'" },
+      { "chi": "Un Solo",               "motivo": "Lo hai umiliato in pubblico" },
+      { "chi": "Un netrunner",          "motivo": "Hai bruciato il suo deck" },
+      { "chi": "Un ex amante",          "motivo": "Lo hai lasciato nel modo peggiore" },
+      { "chi": "Un fixer",              "motivo": "Non hai pagato quello che dovevi" },
+      { "chi": "Un giornalista",        "motivo": "Ha una registrazione che ti incastra" }
+    ],
+    "amici": [
+      { "chi": "Un compagno d'infanzia",   "legame": "Vi conoscete da sempre" },
+      { "chi": "Un commilitone",           "legame": "Vi siete salvati la vita a vicenda" },
+      { "chi": "Un medtech di strada",     "legame": "Ti ha rimesso insieme piu' di una volta" },
+      { "chi": "Un barista",               "legame": "Sa tutto di tutti e parla solo con te" },
+      { "chi": "Un techie",                "legame": "Ti tiene in vita l'equipaggiamento" },
+      { "chi": "Un ex insegnante",         "legame": "L'unico adulto che ha creduto in te" },
+      { "chi": "Un nomade",                "legame": "Ti fa uscire dalla citta' quando serve" },
+      { "chi": "Un poliziotto stanco",     "legame": "Chiude un occhio, per vecchia amicizia" },
+      { "chi": "Un netrunner",             "legame": "Vi coprite le spalle nella Rete" },
+      { "chi": "Un rockerboy",             "legame": "Ti fa da megafono quando ne hai bisogno" }
+    ],
+    "amori": [
+      "Una storia felice, ancora in corso",
+      "Una storia felice, finita bene",
+      "Ti ha lasciato per qualcun altro",
+      "L'hai lasciato tu, senza spiegazioni",
+      "E' stato ucciso",
+      "E' sparito nel nulla",
+      "La sua famiglia vi ha divisi",
+      "La distanza vi ha logorati",
+      "Una relazione tossica, durata troppo",
+      "Un amore mai dichiarato"
+    ]
+  }
+}

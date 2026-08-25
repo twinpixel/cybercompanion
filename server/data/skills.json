@@ -1,0 +1,143 @@
+{
+  "_nota": "Abilita' di Cyberpunk 2020, edizione italiana. Nomi e raggruppamento presi dalla Cyberscheda ufficiale, integrati con le abilita' richieste dalle classi. Riferimento: doc/regole/02-abilita.md",
+  "_livelli": "0 nessuna competenza, 2 dilettante, 4 competente, 6 professionista, 8 eccellente, 10 maestro.",
+  "_punti": "Punti abilita' di classe = INT + RIF (solo abilita' della propria classe). Punti abilita' libere = INT + RIF (qualsiasi altra). Le abilita' con x2:true costano il doppio per livello.",
+
+  "gruppi": [
+    {
+      "stat": "SPECIALE",
+      "nome": "Abilita' speciali di classe",
+      "_nota": "Acquistabili solo dalla propria classe. Sempre Difficili.",
+      "skills": [
+        { "nome": "Autorita'",              "x2": true, "classe": "poliziotto",  "desc": "Farsi obbedire in virtu' del distintivo." },
+        { "nome": "Contatti",               "x2": true, "classe": "ricettatore", "desc": "Rete di conoscenze per procurare merce e informazioni." },
+        { "nome": "Credibilita'",           "x2": true, "classe": "reporter",    "desc": "Quanto pubblico e fonti credono a cio' che dici." },
+        { "nome": "Famiglia",               "x2": true, "classe": "nomade",      "desc": "Uomini, mezzi e risorse che il Branco mette a disposizione." },
+        { "nome": "Hacking",                "x2": true, "classe": "netrunner",   "desc": "Manovrare nella Rete e usare i programmi." },
+        { "nome": "Leadership carismatica", "x2": true, "classe": "rocker",      "desc": "Radunare e infiammare folle." },
+        { "nome": "Riparazioni di fortuna", "x2": true, "classe": "tecnico",     "desc": "Rimettere in funzione quasi tutto, temporaneamente." },
+        { "nome": "Risorse",                "x2": true, "classe": "corporativo", "desc": "Accesso a fondi, personale e mezzi dell'azienda." },
+        { "nome": "Senso del combattimento","x2": true, "classe": "solitario",   "desc": "Bonus a iniziativa e a Individuare." },
+        { "nome": "Tecnomedicina",          "x2": true, "classe": "tecnomedico", "desc": "Chirurgia e installazione di cyberware." }
+      ]
+    },
+    {
+      "stat": "COS", "nome": "Costituzione",
+      "skills": [
+        { "nome": "Forza",      "desc": "Piegare sbarre, sfondare porte." },
+        { "nome": "Nuotare",    "desc": "" },
+        { "nome": "Resistenza", "desc": "Fatica, fame, freddo, privazione del sonno." }
+      ]
+    },
+    {
+      "stat": "FAS", "nome": "Fascino",
+      "skills": [
+        { "nome": "Guardaroba - Stile",   "desc": "Vestirsi bene e leggere lo stile di un ambiente." },
+        { "nome": "Trucco - Pettinatura", "desc": "Curare il proprio aspetto." }
+      ]
+    },
+    {
+      "stat": "FRE", "nome": "Freddezza",
+      "skills": [
+        { "nome": "Con. della criminalita'", "desc": "Come funzionano le organizzazioni criminali." },
+        { "nome": "Conosc. della strada",    "desc": "Muoversi nel sottobosco urbano." },
+        { "nome": "Interrogare",             "desc": "Estrarre informazioni da chi non vuole parlare." },
+        { "nome": "Intimidire",              "desc": "Spaventare con la presenza o la minaccia." },
+        { "nome": "Oratoria",                "desc": "Parlare in pubblico in modo convincente." },
+        { "nome": "Resistenza alla tortura", "x2": true, "desc": "Reggere tortura, interrogatori e droghe." }
+      ]
+    },
+    {
+      "stat": "EMP", "nome": "Empatia",
+      "skills": [
+        { "nome": "Carisma",              "desc": "Farsi seguire e piacere." },
+        { "nome": "Intervistare",         "desc": "Farsi raccontare cio' che serve." },
+        { "nome": "Leadership",           "desc": "Comandare un gruppo organizzato." },
+        { "nome": "Mondanita'",           "desc": "Feste, ricevimenti, ambienti formali." },
+        { "nome": "Percepire emozioni",   "desc": "Capire se qualcuno mente o nasconde qualcosa." },
+        { "nome": "Persuadere - Raggirare","desc": "Convincere, negoziare, imbrogliare." },
+        { "nome": "Recitare",             "desc": "Interpretare una parte davanti a un pubblico." },
+        { "nome": "Sedurre",              "desc": "" }
+      ]
+    },
+    {
+      "stat": "INT", "nome": "Intelligenza",
+      "skills": [
+        { "nome": "Antropologia",             "desc": "Culture e societa' umane." },
+        { "nome": "Arte",                     "desc": "Arti figurative: riconoscerle e produrle." },
+        { "nome": "Biblioteconomia",          "desc": "Trovare informazioni in archivi e banche dati." },
+        { "nome": "Biologia - Zoologia",      "desc": "Scienze della vita e animali." },
+        { "nome": "Botanica",                 "desc": "Piante, coltivazioni, veleni vegetali." },
+        { "nome": "Chimica - Fisica",         "desc": "" },
+        { "nome": "Composizione",             "desc": "Scrivere testi efficaci: articoli, canzoni, discorsi." },
+        { "nome": "Contabilita'",             "desc": "Bilanci, e come truccarli." },
+        { "nome": "Criminologia",             "desc": "Metodo investigativo, scena del crimine." },
+        { "nome": "Diagnosticare malattie",   "x2": true, "desc": "Riconoscere malattie e traumi." },
+        { "nome": "Geologia",                 "desc": "" },
+        { "nome": "Gioco d'azzardo",          "desc": "" },
+        { "nome": "Giocare in borsa",         "x2": true, "desc": "Mercati finanziari e speculazione." },
+        { "nome": "Individuare",              "desc": "Accorgersi di dettagli, agguati, sorveglianza. L'abilita' piu' usata del gioco." },
+        { "nome": "Insegnare",                "desc": "Trasmettere cio' che si sa." },
+        { "nome": "Istruzione - Conoscenze",  "desc": "Istruzione di base e cultura generale." },
+        { "nome": "Lingue",                   "x2": true, "desc": "Una lingua per acquisto." },
+        { "nome": "Matematica",               "desc": "" },
+        { "nome": "Medicina legale",          "desc": "Autopsie, cause del decesso." },
+        { "nome": "Nascondersi - Seminare",   "desc": "Nascondersi e seminare un inseguitore." },
+        { "nome": "Programmare",              "x2": true, "desc": "Scrivere software e programmi per la Rete." },
+        { "nome": "Psicologia",               "desc": "" },
+        { "nome": "Seguire tracce - Pedinare","desc": "" },
+        { "nome": "Sopravvivenza",            "desc": "Cavarsela lontano dalla citta'." },
+        { "nome": "Specializzazione",         "desc": "Conoscenza specialistica in un campo a scelta." },
+        { "nome": "Storia",                   "desc": "" },
+        { "nome": "Uso computer",             "x2": true, "desc": "Struttura della Rete e dei sistemi corporativi." }
+      ]
+    },
+    {
+      "stat": "RIF", "nome": "Riflessi",
+      "skills": [
+        { "nome": "Armi bianche",           "desc": "Coltelli, mazze, catene, spade." },
+        { "nome": "Armi da tiro",           "desc": "Archi e balestre." },
+        { "nome": "Armi pesanti",           "x2": true, "desc": "Mitragliatrici, lanciarazzi, mortai." },
+        { "nome": "Arti marziali",          "x2": true, "desc": "Uno stile per acquisto." },
+        { "nome": "Atletica",               "desc": "Correre, arrampicarsi, lanciare, saltare." },
+        { "nome": "Danzare",                "desc": "" },
+        { "nome": "Fucili",                 "desc": "" },
+        { "nome": "Furtivita'",             "desc": "Muoversi in silenzio." },
+        { "nome": "Guidare autoveicoli",    "desc": "" },
+        { "nome": "Guidare macc. pesanti",  "x2": true, "desc": "Gru, ruspe, mezzi industriali." },
+        { "nome": "Guidare motociclette",   "desc": "" },
+        { "nome": "Lottare",                "desc": "Rissa a mani nude, senza stile." },
+        { "nome": "Mitra",                  "desc": "" },
+        { "nome": "Pilotare AV",            "x2": true, "desc": "Velivoli a spinta vettoriale." },
+        { "nome": "Pilotare aerei",         "x2": true, "desc": "" },
+        { "nome": "Pilotare elicotteri",    "x2": true, "desc": "" },
+        { "nome": "Pistole",                "desc": "" },
+        { "nome": "Scherma",                "desc": "Stocchi, fioretti, lame leggere." },
+        { "nome": "Schivare - Divincolarsi","desc": "Schivare colpi, liberarsi da prese e legature." }
+      ]
+    },
+    {
+      "stat": "TEC", "nome": "Tecnologia",
+      "skills": [
+        { "nome": "Borseggiare",                    "desc": "Sfilare oggetti di nascosto." },
+        { "nome": "Cibertecnologia",                "x2": true, "desc": "Riparare e modificare cyberware." },
+        { "nome": "Elettronica",                    "x2": true, "desc": "" },
+        { "nome": "Esplosivi",                      "x2": true, "desc": "Cariche e detonatori." },
+        { "nome": "Falsificare",                    "desc": "Documenti, firme, credenziali." },
+        { "nome": "Farmacologia",                   "x2": true, "desc": "Farmaci, droghe, veleni." },
+        { "nome": "Fotografare - Filmare",          "desc": "" },
+        { "nome": "Progettare cyberdeck",           "x2": true, "desc": "" },
+        { "nome": "Pronto soccorso",                "desc": "Fermare emorragie, stabilizzare un ferito." },
+        { "nome": "Riparare armi",                  "x2": true, "desc": "" },
+        { "nome": "Scassinare",                     "desc": "Serrature meccaniche." },
+        { "nome": "Sorveglianza elettronica",       "x2": true, "desc": "Allarmi, serrature elettroniche, telecamere." },
+        { "nome": "Suonare strumenti",              "desc": "" },
+        { "nome": "Tecnologia AV",                  "x2": true, "desc": "" },
+        { "nome": "Tecnologia aerea",               "x2": true, "desc": "" },
+        { "nome": "Tecnologia di base",             "desc": "Riparazioni meccaniche ed elettriche elementari." },
+        { "nome": "Travestimento",                  "desc": "" },
+        { "nome": "Utilizzare serbatoi criogenici", "x2": true, "desc": "Stabilizzare i morenti." }
+      ]
+    }
+  ]
+}

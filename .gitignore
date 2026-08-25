@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.wrangler/
+.env
+.dev.vars
+*.log
+.DS_Store
+
+# Il catalogo statico e' generato in client/data/ da server/build.js
+client/data/

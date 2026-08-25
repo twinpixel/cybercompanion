@@ -1,0 +1,83 @@
+# Configurazione Cloudflare Worker per CyberCompanion.
+# Deploy:  npm run cf:deploy     (rigenera il bundle e lo pubblica)
+# Dev:     npm run cf:dev        (server locale, D1 locale, Workers AI in remoto)
+#
+# Prima del primo deploy autenticati una volta:  npx wrangler login
+
+name = "cybercompanion"
+main = "dist/worker.js"
+compatibility_date = "2025-06-01"
+
+# --- D1: persistenza delle schede personaggio ---
+# Crea il database una volta sola con:
+#   npx wrangler d1 create cybercompanion
+# poi incolla qui sotto il database_id restituito dal comando.
+# Applica lo schema con:  npm run db:migrate
+[[d1_databases]]
+binding = "DB"
+database_name = "cybercompanion"
+database_id = "PLACEHOLDER_DATABASE_ID"
+migrations_dir = "migrations"
+
+# Workers AI: espone il binding `env.AI`, usato come ultimo anello della
+# cascade LLM per la generazione narrativa del personaggio.
+[ai]
+binding = "AI"
+
+# Rate limiting nativo Cloudflare: protegge /api/generate (l'endpoint che chiama
+# l'LLM) da abusi e loop. Max 20 richieste per IP ogni 60s. Il binding e'
+# provisioned automaticamente da Cloudflare (nessuna risorsa da creare a mano);
+# `period` accetta solo 10 o 60. namespace_id e' un id arbitrario univoco.
+[[unsafe.bindings]]
+name = "GENERATE_RATE_LIMITER"
+type = "ratelimit"
+namespace_id = "2001"
+simple = { limit = 20, period = 60 }
+
+# Rate limiter separato sul login: rallenta i tentativi di indovinare la
+# password condivisa. 10 tentativi per IP al minuto.
+[[unsafe.bindings]]
+name = "LOGIN_RATE_LIMITER"
+type = "ratelimit"
+namespace_id = "2002"
+simple = { limit = 10, period = 60 }
+
+# Static Assets: serve il frontend (client/) come sito statico.
+# - run_worker_first: solo /api/* passa al Worker; tutto il resto e' statico.
+# - not_found_handling SPA: le rotte sconosciute ricadono su index.html.
+# Gli asset statici sono gratis e illimitati (non consumano richieste Worker).
+[assets]
+directory = "./client"
+binding = "ASSETS"
+not_found_handling = "single-page-application"
+run_worker_first = ["/api/*"]
+
+# Segreti da impostare con:  npx wrangler secret put <NOME>
+#   APP_PASSWORD       — password unica condivisa per accedere all'app
+#   SESSION_SECRET     — chiave HMAC per firmare i token di sessione
+#   GEMINI_API_KEY     — Google Gemini (primo LLM nel cascade, opzionale)
+#   GROQ_API_KEY       — Groq (secondo LLM nel cascade, opzionale)
+#   OPENROUTER_API_KEY — OpenRouter (terzo LLM nel cascade, opzionale)
+
+[vars]
+# Workers AI (fallback finale): 70B quantizzato per velocita', piano Free.
+AI_MODEL = "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
+# Gemini (primo provider): free tier generoso su AI Studio, nessuna carta.
+GEMINI_MODEL = "gemini-2.0-flash"
+# Groq (secondo provider): free tier veloce.
+GROQ_MODEL = "llama-3.3-70b-versatile"
+# OpenRouter (terzo provider): modello free.
+OPENROUTER_MODEL = "mistralai/mistral-7b-instruct:free"
+# Durata del token di sessione, in ore.
+SESSION_TTL_HOURS = "720"
+
+# Log in dashboard: Workers & Pages -> cybercompanion -> Observability
+[observability]
+enabled = true
+head_sampling_rate = 1
+
+[observability.logs]
+enabled = true
+invocation_logs = true
+head_sampling_rate = 1
+persist = true

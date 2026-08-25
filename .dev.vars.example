@@ -1,0 +1,24 @@
+# Copia in .dev.vars per lo sviluppo locale (npm run cf:dev).
+# In produzione questi valori vanno impostati come secret Cloudflare:
+#   npx wrangler secret put APP_PASSWORD
+#   npx wrangler secret put SESSION_SECRET
+#   npx wrangler secret put GEMINI_API_KEY
+#   ...
+
+# --- Obbligatori ---
+# Password unica condivisa: chi la conosce legge e modifica tutti i personaggi.
+APP_PASSWORD=cambia-questa-password
+# Chiave usata per firmare i token di sessione (HMAC-SHA256).
+# Generane una con:  openssl rand -hex 32
+SESSION_SECRET=00000000000000000000000000000000
+
+# --- Opzionali: cascade LLM per la generazione narrativa ---
+# Ordine: Gemini -> Groq -> OpenRouter -> Workers AI (binding env.AI, sempre disponibile).
+# Se nessuna chiave e' impostata la generazione automatica funziona comunque,
+# ma solo con le tabelle casuali del regolamento (niente prosa).
+# Gemini: https://aistudio.google.com/apikey (free tier, nessuna carta richiesta)
+GEMINI_API_KEY=AIza-your-key-here
+# Groq: https://console.groq.com (free tier)
+GROQ_API_KEY=gsk_your-key-here
+# OpenRouter: https://openrouter.ai/keys
+OPENROUTER_API_KEY=sk-or-v1-your-key-here

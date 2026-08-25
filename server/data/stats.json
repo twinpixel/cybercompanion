@@ -1,0 +1,79 @@
+{
+  "_nota": "Caratteristiche di Cyberpunk 2020, edizione italiana. Le sigle sono quelle stampate sulla Cyberscheda ufficiale (doc/Cyberpunk 2020 - Cyberscheda.pdf), non quelle inglesi. Riferimento: doc/regole/01-caratteristiche.md",
+
+  "caratteristiche": [
+    { "key": "INT",  "nome": "Intelligenza", "en": "INT",  "desc": "Ragionare, ricordare, risolvere problemi." },
+    { "key": "RIF",  "nome": "Riflessi",     "en": "REF",  "desc": "Velocita' di reazione e coordinazione. La piu' importante in combattimento." },
+    { "key": "TEC",  "nome": "Tecnologia",   "en": "TECH", "desc": "Abilita' manuale nel costruire, riparare, manomettere." },
+    { "key": "FRE",  "nome": "Freddezza",    "en": "COOL", "desc": "Autocontrollo sotto pressione, resistenza allo stordimento." },
+    { "key": "FAS",  "nome": "Fascino",      "en": "ATTR", "desc": "Aspetto fisico e capacita' di farsi notare." },
+    { "key": "FOR",  "nome": "Fortuna",      "en": "LUCK", "desc": "Punti spendibili sui tiri, si ricaricano a ogni sessione." },
+    { "key": "MOV",  "nome": "Movimento",    "en": "MA",   "desc": "Quanto si e' veloci a spostarsi." },
+    { "key": "COS",  "nome": "Costituzione", "en": "BODY", "desc": "Robustezza fisica: danni assorbiti e peso sollevato." },
+    { "key": "EMP",  "nome": "Empatia",      "en": "EMP",  "desc": "Contatto con gli altri. Cala installando cyberware." }
+  ],
+
+  "generazione": {
+    "min": 2,
+    "max": 10,
+    "_metodo_casuale": "9d10, un dado per caratteristica.",
+    "punti": [
+      { "id": "sfigato",     "nome": "Sfigato",      "totale": 45 },
+      { "id": "medio",       "nome": "Nella media",  "totale": 50 },
+      { "id": "capace",      "nome": "Capace",       "totale": 60 },
+      { "id": "eroico",      "nome": "Eroico",       "totale": 70 },
+      { "id": "leggendario", "nome": "Leggendario",  "totale": 80 }
+    ],
+    "punti_default": 60
+  },
+
+  "derivate": [
+    { "key": "corsa",       "nome": "Corsa",              "formula": "MOV * 3",  "unita": "m/turno" },
+    { "key": "salto",       "nome": "Salto",              "formula": "MOV * 3 / 4", "unita": "m" },
+    { "key": "sollevabile", "nome": "Peso sollevabile",   "formula": "COS * 40", "unita": "kg" },
+    { "key": "trasporto",   "nome": "Peso trasportabile", "formula": "COS * 10", "unita": "kg" },
+    { "key": "umanita",     "nome": "Umanita'",           "formula": "EMP * 10", "unita": "punti" },
+    { "key": "salvezza",    "nome": "Tiro salvezza",      "formula": "COS",      "unita": "" }
+  ],
+
+  "_bonus_costituzione": "Bonus resistenza: si sottrae ai danni subiti dopo l'armatura. Bonus danno: si somma ai danni inflitti in corpo a corpo. La fascia 11+ estende la tabella del manuale, che si ferma a 10 pur essendo COS>10 raggiungibile col cyberware.",
+  "bonus_costituzione": [
+    { "min": 1,  "max": 2,  "tipo": "Molto debole", "resistenza": 0,  "danno": -2 },
+    { "min": 3,  "max": 4,  "tipo": "Debole",       "resistenza": -1, "danno": -1 },
+    { "min": 5,  "max": 7,  "tipo": "Medio",        "resistenza": -2, "danno": 0 },
+    { "min": 8,  "max": 9,  "tipo": "Forte",        "resistenza": -3, "danno": 1 },
+    { "min": 10, "max": 10, "tipo": "Molto forte",  "resistenza": -4, "danno": 2 },
+    { "min": 11, "max": 99, "tipo": "Sovrumano",    "resistenza": -5, "danno": 3 }
+  ],
+
+  "_ferite": "Traccia danni standard: 10 gradi da 4 caselle, 40 caselle in totale. La Cyberscheda riporta anche 'PUNTI VITA (COSx4)', incompatibile con la traccia stampata sulla stessa pagina: e' una regola della casa e non viene usata.",
+  "ferite": [
+    { "grado": "Lieve",      "caselle": 4, "stordimento": 0, "effetto": "Nessuno" },
+    { "grado": "Grave",      "caselle": 4, "stordimento": 1, "effetto": "-2 a RIF" },
+    { "grado": "Critica",    "caselle": 4, "stordimento": 2, "effetto": "RIF, INT e FRE dimezzate" },
+    { "grado": "Mortale 0",  "caselle": 4, "stordimento": 3, "effetto": "RIF, INT e FRE ridotte a 1/3" },
+    { "grado": "Mortale 1",  "caselle": 4, "stordimento": 4, "effetto": "RIF, INT e FRE ridotte a 1/3" },
+    { "grado": "Mortale 2",  "caselle": 4, "stordimento": 5, "effetto": "RIF, INT e FRE ridotte a 1/3" },
+    { "grado": "Mortale 3",  "caselle": 4, "stordimento": 6, "effetto": "RIF, INT e FRE ridotte a 1/3" },
+    { "grado": "Mortale 4",  "caselle": 4, "stordimento": 7, "effetto": "RIF, INT e FRE ridotte a 1/3" },
+    { "grado": "Mortale 5",  "caselle": 4, "stordimento": 8, "effetto": "RIF, INT e FRE ridotte a 1/3" },
+    { "grado": "Mortale 6",  "caselle": 4, "stordimento": 9, "effetto": "RIF, INT e FRE ridotte a 1/3" }
+  ],
+
+  "localizzazioni": [
+    { "min": 1,  "max": 1,  "parte": "Testa",           "nota": "danni x2 dopo l'armatura" },
+    { "min": 2,  "max": 4,  "parte": "Tronco",          "nota": "" },
+    { "min": 5,  "max": 5,  "parte": "Braccio destro",  "nota": "" },
+    { "min": 6,  "max": 6,  "parte": "Braccio sinistro","nota": "" },
+    { "min": 7,  "max": 8,  "parte": "Gamba destra",    "nota": "" },
+    { "min": 9,  "max": 10, "parte": "Gamba sinistra",  "nota": "" }
+  ],
+
+  "difficolta": [
+    { "nome": "Facile",            "valore": 10 },
+    { "nome": "Normale",           "valore": 15 },
+    { "nome": "Difficile",         "valore": 20 },
+    { "nome": "Molto difficile",   "valore": 25 },
+    { "nome": "Quasi impossibile", "valore": 30 }
+  ]
+}
