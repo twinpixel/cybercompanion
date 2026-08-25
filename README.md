@@ -39,6 +39,12 @@ server/
   worker.template.js   API: login, CRUD su D1, generazione
   build.js             inietta i dati nel worker e li copia in client/data/
   data/                sorgente dei dati di gioco, in JSON
+  llm/                 catena di provider, struttura ripresa da poltrobot
+    catalog.js         provider, modelli, interruttori del reasoning
+    openai-compatible.js  un client per tutti: cambiano indirizzo, chiave, modello
+    workers-ai.js      ultimo anello, senza chiavi e senza quota
+    reasoning-leak.js  recupera il JSON dai modelli che pensano ad alta voce
+    index.js           ordine della catena, ripiego, panchina
 migrations/      schema D1
 doc/             PDF di riferimento e doc/regole/ con la loro estrazione
 ```
@@ -130,9 +136,11 @@ In *Settings → Secrets and variables → Actions*.
 | `CLOUDFLARE_ACCOUNT_ID` | l'Account ID Cloudflare | si |
 | `APP_PASSWORD` | la password condivisa per entrare nell'app | si |
 | `SESSION_SECRET` | `openssl rand -hex 32` | si |
+| `GROQ_API_KEY` | da [console.groq.com/keys](https://console.groq.com/keys) | no |
 | `GEMINI_API_KEY` | da [aistudio.google.com/apikey](https://aistudio.google.com/apikey) | no |
-| `GROQ_API_KEY` | da [console.groq.com](https://console.groq.com) | no |
 | `OPENROUTER_API_KEY` | da [openrouter.ai/keys](https://openrouter.ai/keys) | no |
+| `CEREBRAS_API_KEY` | da [cloud.cerebras.ai](https://cloud.cerebras.ai) | no |
+| `MISTRAL_API_KEY` | da [console.mistral.ai/api-keys](https://console.mistral.ai/api-keys) | no |
 
 **Variables** (scheda *Variables*):
 
@@ -140,10 +148,7 @@ In *Settings → Secrets and variables → Actions*.
 |---|---|
 | `D1_DATABASE_ID` | il `database_id` del passo 1 |
 
-Le tre chiavi LLM sono facoltative e vengono provate in cascata: **Gemini →
-Groq → OpenRouter → Workers AI**. L'ultimo anello e' il binding `env.AI`, che non
-richiede alcuna chiave: la generazione narrativa funziona anche senza
-configurarne nessuna, semplicemente con un modello piu' piccolo.
+Le chiavi LLM sono tutte facoltative: vedi [La catena LLM](#la-catena-llm).
 
 ### 4. Fai partire il deploy
 
@@ -154,6 +159,83 @@ secret sul Worker leggendoli dai secret GitHub.
 Al termine l'app risponde su `https://cybercompanion.<tuo-sottodominio>.workers.dev`.
 
 ---
+
+## La catena LLM
+
+La struttura e' ripresa dal repository `poltrobot`: un **catalogo dichiarativo**
+di provider (`server/llm/catalog.js`) piu' una **catena con panchina**
+(`server/llm/index.js`). Tutti i provider parlano il dialetto OpenAI, quindi ne
+basta un client solo: cambiano indirizzo, chiave e modello.
+
+```
+groq → gemini → openrouter → cerebras → mistral → workers-ai
+```
+
+Si prova il primo; chi non ha la chiave configurata **viene saltato prima di
+essere chiamato**, cosi' non si paga un errore certo per arrivare al successivo.
+In fondo alla catena sta **Workers AI**, il binding `env.AI`: non ha chiavi da
+gestire e non ha una quota che finisce a meta' sessione. E' il posto che in
+poltrobot occupa Ollama, per la stessa ragione.
+
+Se **nessun provider risponde**, la generazione non fallisce: la scheda esce
+completa di numeri, Lifepath, cyberware ed equipaggiamento — manca solo la
+prosa, e l'app te lo dice.
+
+L'ordine si cambia con la variabile `LLM_PROVIDERS` in `wrangler.toml`, i
+modelli con `<PROVIDER>_MODEL`.
+
+### Panchina
+
+Un provider che fallisce `LLM_SKIP_AFTER_FAILURES` volte di fila resta fuori per
+`LLM_SKIP_FOR_MINUTES` minuti. Senza, ogni generazione pagherebbe il suo timeout
+o il suo 429 prima di cadere oltre.
+
+La panchina vive nella memoria dell'isolate del Worker, che Cloudflare crea e
+distrugge quando vuole: e' un'ottimizzazione a conoscenza parziale, non una
+garanzia. Dopo un riavvio dell'isolate un provider in panchina viene riprovato
+subito — e va bene cosi', il costo e' un secondo, non un errore.
+
+### Modelli che pensano ad alta voce
+
+I modelli di reasoning raccontano il compito prima di svolgerlo, e qui l'output
+atteso e' un oggetto JSON: una narrazione davanti al JSON lo rende inservibile.
+
+`reasoningControls()` in `catalog.js` manda a ciascun provider **il suo**
+interruttore — `reasoning_effort` su Groq e Gemini, `reasoning.exclude` su
+OpenRouter — e non manda niente dove il campo non e' documentato, perche' un
+campo sconosciuto e' un 400. Se un provider rifiuta comunque l'interruttore, la
+richiesta viene **rispedita senza**: la risposta conta piu' della pulizia della
+richiesta.
+
+Quello che scappa lo intercetta `reasoning-leak.js`, che estrae **l'ultimo**
+oggetto JSON bilanciato del testo — l'ultimo, perche' se il modello ha ragionato
+prima, il risultato buono e' in fondo e non l'esempio citato a meta' strada.
+
+### Modelli e scadenze
+
+I nomi dei modelli cambiano spesso, e alcuni vengono spenti:
+
+| Provider | Modello | Nota |
+|---|---|---|
+| Groq | `qwen/qwen3.6-27b` | gli si puo' dire di non pensare ad alta voce |
+| Gemini | `gemini-3.6-flash` | **2.0-flash spenta il 1 giugno 2026**, 2.5-flash chiusa alle nuove chiavi |
+| OpenRouter | `openrouter/free` | instrada su piu' modelli gratuiti |
+| Cerebras | `gpt-oss-120b` | veloce, quota giornaliera piccola |
+| Mistral | `mistral-small-latest` | forte nelle lingue romanze |
+| Workers AI | `@cf/meta/llama-3.3-70b-instruct-fp8-fast` | binding, nessuna chiave |
+
+Se un modello sparisce arriva un `404` o un `400 modello rifiutato`: si cambia
+la variabile `<PROVIDER>_MODEL` in `wrangler.toml`, **senza toccare il codice**.
+
+### Diagnosi
+
+```bash
+curl https://<la-tua-app>/api/health              # catena, chi e' attivo, chi in panchina
+curl https://<la-tua-app>/api/health?providers=1  # interroga davvero ogni provider
+```
+
+Il secondo fa chiamate di rete vere, quindi dice anche se una chiave e'
+sbagliata o un modello non esiste piu'.
 
 ## Sviluppo locale
 

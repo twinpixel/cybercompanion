@@ -11,9 +11,11 @@ name: Deploy to Cloudflare
 #     CLOUDFLARE_ACCOUNT_ID   id dell'account Cloudflare
 #     APP_PASSWORD            password condivisa per entrare nell'app
 #     SESSION_SECRET          chiave HMAC dei token di sessione (openssl rand -hex 32)
-#     GEMINI_API_KEY          opzionale - cascade LLM
-#     GROQ_API_KEY            opzionale - cascade LLM
-#     OPENROUTER_API_KEY      opzionale - cascade LLM
+#     GROQ_API_KEY            opzionali - catena LLM. Senza nessuna di queste
+#     GEMINI_API_KEY          la generazione automatica funziona lo stesso,
+#     OPENROUTER_API_KEY      appoggiandosi a Workers AI in coda alla catena
+#     CEREBRAS_API_KEY
+#     MISTRAL_API_KEY
 #
 #   Variables
 #     D1_DATABASE_ID          id restituito da `npx wrangler d1 create cybercompanion`
@@ -67,14 +69,16 @@ jobs:
         env:
           APP_PASSWORD: ${{ secrets.APP_PASSWORD }}
           SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          CEREBRAS_API_KEY: ${{ secrets.CEREBRAS_API_KEY }}
+          MISTRAL_API_KEY: ${{ secrets.MISTRAL_API_KEY }}
         run: |
           node --input-type=module -e '
             import fs from "fs";
             const required = ["APP_PASSWORD", "SESSION_SECRET"];
-            const optional = ["GEMINI_API_KEY", "GROQ_API_KEY", "OPENROUTER_API_KEY"];
+            const optional = ["GROQ_API_KEY", "GEMINI_API_KEY", "OPENROUTER_API_KEY", "CEREBRAS_API_KEY", "MISTRAL_API_KEY"];
             const missing = required.filter((k) => !process.env[k]);
             if (missing.length) {
               console.error(`::error::Secret GitHub mancanti: ${missing.join(", ")}`);

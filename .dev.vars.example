@@ -12,13 +12,23 @@ APP_PASSWORD=cambia-questa-password
 # Generane una con:  openssl rand -hex 32
 SESSION_SECRET=00000000000000000000000000000000
 
-# --- Opzionali: cascade LLM per la generazione narrativa ---
-# Ordine: Gemini -> Groq -> OpenRouter -> Workers AI (binding env.AI, sempre disponibile).
-# Se nessuna chiave e' impostata la generazione automatica funziona comunque,
-# ma solo con le tabelle casuali del regolamento (niente prosa).
-# Gemini: https://aistudio.google.com/apikey (free tier, nessuna carta richiesta)
-GEMINI_API_KEY=AIza-your-key-here
-# Groq: https://console.groq.com (free tier)
+# --- Opzionali: catena LLM per la generazione narrativa ---
+# Ordine di default: groq -> gemini -> openrouter -> cerebras -> mistral -> workers-ai.
+# I provider senza chiave vengono saltati; in fondo c'e' Workers AI, che usa il
+# binding e non ha chiavi. Quindi senza nessuna di queste righe la generazione
+# automatica funziona lo stesso: la scheda esce completa, solo senza prosa se
+# nemmeno Workers AI risponde.
+#
+# L'ordine si cambia con la variabile LLM_PROVIDERS in wrangler.toml, i modelli
+# con <PROVIDER>_MODEL. I default sono in server/llm/catalog.js.
+
+# Groq: https://console.groq.com/keys (gratuito, molto veloce)
 GROQ_API_KEY=gsk_your-key-here
+# Google Gemini: https://aistudio.google.com/apikey (gratuito, nessuna carta)
+GEMINI_API_KEY=AIza-your-key-here
 # OpenRouter: https://openrouter.ai/keys
 OPENROUTER_API_KEY=sk-or-v1-your-key-here
+# Cerebras: https://cloud.cerebras.ai (piccola quota giornaliera)
+CEREBRAS_API_KEY=csk-your-key-here
+# Mistral: https://console.mistral.ai/api-keys
+MISTRAL_API_KEY=your-key-here

@@ -55,19 +55,42 @@ run_worker_first = ["/api/*"]
 # Segreti da impostare con:  npx wrangler secret put <NOME>
 #   APP_PASSWORD       — password unica condivisa per accedere all'app
 #   SESSION_SECRET     — chiave HMAC per firmare i token di sessione
-#   GEMINI_API_KEY     — Google Gemini (primo LLM nel cascade, opzionale)
-#   GROQ_API_KEY       — Groq (secondo LLM nel cascade, opzionale)
-#   OPENROUTER_API_KEY — OpenRouter (terzo LLM nel cascade, opzionale)
+#
+# Chiavi dei provider LLM, tutte facoltative. Senza nessuna la generazione
+# automatica funziona lo stesso: in coda alla catena c'e' Workers AI, che usa il
+# binding qui sopra e non ha chiavi da gestire.
+#   GROQ_API_KEY       — https://console.groq.com/keys
+#   GEMINI_API_KEY     — https://aistudio.google.com/apikey
+#   OPENROUTER_API_KEY — https://openrouter.ai/keys
+#   CEREBRAS_API_KEY   — https://cloud.cerebras.ai
+#   MISTRAL_API_KEY    — https://console.mistral.ai/api-keys
 
 [vars]
-# Workers AI (fallback finale): 70B quantizzato per velocita', piano Free.
+# Ordine della catena LLM: si prova il primo, e chi non ha la chiave configurata
+# viene saltato senza pagare l'errore. In fondo Workers AI, che non si esaurisce.
+LLM_PROVIDERS = "groq,gemini,openrouter,cerebras,mistral,workers-ai"
+
+# Modelli per provider. I valori di default stanno in server/llm/catalog.js e
+# vanno bene cosi'; queste righe servono quando un provider ritira un modello.
+# Se arriva un 404 o un 400 "modello rifiutato", si cambia qui, non nel codice.
+GROQ_MODEL = "qwen/qwen3.6-27b"
+# gemini-2.0-flash e' stato spento il 1 giugno 2026 e 2.5-flash e' chiusa alle
+# nuove chiavi: il bersaglio di migrazione indicato da Google e' la 3.6.
+GEMINI_MODEL = "gemini-3.6-flash"
+OPENROUTER_MODEL = "openrouter/free"
+CEREBRAS_MODEL = "gpt-oss-120b"
+MISTRAL_MODEL = "mistral-small-latest"
+# Workers AI, ultimo anello: 70B quantizzato per velocita', piano gratuito.
 AI_MODEL = "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
-# Gemini (primo provider): free tier generoso su AI Studio, nessuna carta.
-GEMINI_MODEL = "gemini-2.0-flash"
-# Groq (secondo provider): free tier veloce.
-GROQ_MODEL = "llama-3.3-70b-versatile"
-# OpenRouter (terzo provider): modello free.
-OPENROUTER_MODEL = "mistralai/mistral-7b-instruct:free"
+
+# Un provider che fallisce troppe volte di fila va in panchina per qualche
+# minuto, invece di far pagare a ogni generazione il suo timeout o il suo 429.
+LLM_SKIP_AFTER_FAILURES = "3"
+LLM_SKIP_FOR_MINUTES = "10"
+LLM_TIMEOUT_MS = "60000"
+LLM_TEMPERATURE = "0.9"
+LLM_MAX_TOKENS = "1200"
+
 # Durata del token di sessione, in ore.
 SESSION_TTL_HOURS = "720"
 

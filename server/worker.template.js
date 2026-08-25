@@ -7,7 +7,7 @@
  *
  * Bindings richiesti:
  *   DB                      D1, tabella `characters` (vedi migrations/)
- *   AI                      Workers AI, ultimo anello della cascade LLM
+ *   AI                      Workers AI, ultimo anello della catena LLM
  *   ASSETS                  frontend statico
  *   GENERATE_RATE_LIMITER   rate limit su /api/generate
  *   LOGIN_RATE_LIMITER      rate limit su /api/login
@@ -15,14 +15,21 @@
  * Secret:
  *   APP_PASSWORD            password unica condivisa
  *   SESSION_SECRET          chiave HMAC dei token di sessione
- *   GEMINI_API_KEY          opzionali: se assenti la generazione automatica
- *   GROQ_API_KEY            funziona lo stesso, ma solo con le tabelle casuali
- *   OPENROUTER_API_KEY      (nessuna prosa narrativa)
+ *   GROQ_API_KEY            chiavi dei provider LLM, tutte facoltative: senza
+ *   GEMINI_API_KEY          nessuna la generazione automatica funziona lo
+ *   OPENROUTER_API_KEY      stesso, con Workers AI in coda alla catena
+ *   CEREBRAS_API_KEY
+ *   MISTRAL_API_KEY
  *
  * Variabili:
- *   AI_MODEL, GEMINI_MODEL, GROQ_MODEL, OPENROUTER_MODEL, SESSION_TTL_HOURS,
- *   ALLOWED_ORIGINS (CSV di origin autorizzati al CORS)
+ *   LLM_PROVIDERS           ordine della catena, separato da virgole
+ *   <PROVIDER>_MODEL        modello per provider (vedi server/llm/catalog.js)
+ *   SESSION_TTL_HOURS, ALLOWED_ORIGINS
+ *
+ * La catena LLM sta in server/llm/, con la struttura del repository poltrobot.
  */
+
+import { creaLLM } from './llm/index.js';
 
 /* __EMBED_DATA__ */
 
@@ -30,49 +37,6 @@ const SCHEMA_VERSIONE = 1;
 const SESSION_TTL_ORE_DEFAULT = 720;      // 30 giorni
 const MAX_SCHEDA_BYTE = 256 * 1024;       // tetto al corpo di una scheda
 const MAX_PERSONAGGI = 200;               // "sono solo pochi personaggi"
-const LLM_TIMEOUT_MS = 60_000;
-
-const GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/openai/chat/completions';
-const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
-const OPENROUTER_URL = 'https://openrouter.ai/api/v1/chat/completions';
-
-// Provider OpenAI-compatibili, provati in ordine. Il primo con la chiave
-// configurata vince; se fallisce si passa al successivo, e in fondo alla fila
-// c'e' sempre Workers AI (binding, nessuna chiave da gestire).
-const PROVIDER_LLM = [
-  {
-    etichetta: 'Gemini',
-    chiaveVar: 'GEMINI_API_KEY',
-    url: GEMINI_URL,
-    modelloVar: 'GEMINI_MODEL',
-    modelloDefault: 'gemini-2.0-flash',
-    alternativi: ['gemini-2.0-flash-lite'],
-  },
-  {
-    etichetta: 'Groq',
-    chiaveVar: 'GROQ_API_KEY',
-    url: GROQ_URL,
-    modelloVar: 'GROQ_MODEL',
-    modelloDefault: 'llama-3.3-70b-versatile',
-    alternativi: ['llama-3.1-8b-instant'],
-  },
-  {
-    etichetta: 'OpenRouter',
-    chiaveVar: 'OPENROUTER_API_KEY',
-    url: OPENROUTER_URL,
-    modelloVar: 'OPENROUTER_MODEL',
-    modelloDefault: 'mistralai/mistral-7b-instruct:free',
-    alternativi: ['google/gemma-2-9b-it:free', 'meta-llama/llama-3.2-3b-instruct:free'],
-    headerExtra: { 'X-Title': 'CyberCompanion' },
-  },
-];
-
-const MODELLI_WORKERS_AI = [
-  '@cf/meta/llama-3.3-70b-instruct-fp8-fast',
-  '@cf/meta/llama-4-scout-17b-16e-instruct',
-  '@cf/meta/llama-3.2-3b-instruct',
-];
-
 // ---------------------------------------------------------------- risposte --
 
 function json(dati, status = 200, headerExtra = {}) {
@@ -634,118 +598,7 @@ function generaEquipaggiamento(classeId, denaro) {
   return { armi, armature, equipaggiamento, residuo };
 }
 
-// --------------------------------------------------------- cascade LLM -----
-
-function log(tag, ...resto) {
-  console.log(`[${tag}]`, ...resto);
-}
-
-async function fetchConTimeout(url, opzioni = {}, ms = LLM_TIMEOUT_MS) {
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), ms);
-  try {
-    return await fetch(url, { ...opzioni, signal: controller.signal });
-  } finally {
-    clearTimeout(timer);
-  }
-}
-
-function estraiJson(testo) {
-  if (!testo) return null;
-  try { return JSON.parse(testo); } catch { /* prosegue */ }
-  // Gli LLM piccoli incorniciano il JSON in ```json ... ``` o in un preambolo.
-  const m = testo.match(/\{[\s\S]*\}/);
-  if (!m) return null;
-  try { return JSON.parse(m[0]); } catch { return null; }
-}
-
-async function chiamaProviderOpenAi(provider, chiave, modello, sistema, utente) {
-  const risposta = await fetchConTimeout(provider.url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${chiave}`,
-      ...(provider.headerExtra || {}),
-    },
-    body: JSON.stringify({
-      model: modello,
-      messages: [
-        { role: 'system', content: sistema },
-        { role: 'user', content: utente },
-      ],
-      temperature: 0.9,
-      max_tokens: 1200,
-      response_format: { type: 'json_object' },
-    }),
-  });
-
-  if (!risposta.ok) {
-    const testo = await risposta.text().catch(() => '');
-    throw Object.assign(new Error(`${provider.etichetta} ${risposta.status}: ${testo.slice(0, 200)}`), {
-      status: risposta.status,
-    });
-  }
-  const dati = await risposta.json();
-  return dati?.choices?.[0]?.message?.content || '';
-}
-
-async function chiamaWorkersAi(env, sistema, utente) {
-  if (!env.AI?.run) throw new Error('Binding AI non configurato');
-  const primario = env.AI_MODEL?.trim() || MODELLI_WORKERS_AI[0];
-  const modelli = [primario, ...MODELLI_WORKERS_AI.filter((m) => m !== primario)];
-
-  let ultimoErrore;
-  for (const modello of modelli) {
-    try {
-      const out = await env.AI.run(modello, {
-        messages: [
-          { role: 'system', content: sistema },
-          { role: 'user', content: utente },
-        ],
-        max_tokens: 1200,
-        temperature: 0.9,
-      });
-      const testo = out?.response || out?.result?.response || '';
-      if (testo) { log('LLM', `Workers AI ok (${modello})`); return testo; }
-      throw new Error('risposta vuota');
-    } catch (err) {
-      ultimoErrore = err;
-      log('LLM', `Workers AI ${modello} fallito: ${err.message}`);
-    }
-  }
-  throw ultimoErrore ?? new Error('Workers AI non disponibile');
-}
-
-/**
- * Prova i provider in ordine e restituisce il primo JSON valido.
- * Se nessuno risponde restituisce null: la generazione prosegue comunque con le
- * sole tabelle casuali, senza prosa.
- */
-async function generaConLLM(env, sistema, utente) {
-  for (const provider of PROVIDER_LLM) {
-    const chiave = env[provider.chiaveVar]?.trim();
-    if (!chiave) continue;
-    const primario = env[provider.modelloVar]?.trim() || provider.modelloDefault;
-    for (const modello of [primario, ...provider.alternativi.filter((m) => m !== primario)]) {
-      try {
-        const testo = await chiamaProviderOpenAi(provider, chiave, modello, sistema, utente);
-        const dati = estraiJson(testo);
-        if (dati) { log('LLM', `${provider.etichetta} ok (${modello})`); return dati; }
-        log('LLM', `${provider.etichetta} (${modello}): JSON non interpretabile`);
-      } catch (err) {
-        log('LLM', `${provider.etichetta} (${modello}) fallito: ${err.message}`);
-        // 429/503: proviamo il modello alternativo dello stesso provider.
-        if (err.status !== 429 && err.status !== 503) break;
-      }
-    }
-  }
-  try {
-    return estraiJson(await chiamaWorkersAi(env, sistema, utente));
-  } catch (err) {
-    log('LLM', `nessun provider disponibile: ${err.message}`);
-    return null;
-  }
-}
+// ------------------------------------------------------------- prompt LLM --
 
 const SISTEMA_NARRATIVA = `Sei un game master di Cyberpunk 2020 che rifinisce schede personaggio.
 Ricevi i dati gia' tirati sui dadi e devi solo dare loro un volto e una voce.
@@ -898,11 +751,11 @@ async function generaPersonaggio(env, opzioni = {}) {
     motivazioni: lifepath.motivazioni,
   });
 
-  const narrativa = await generaConLLM(
-    env,
+  const esito = await creaLLM(env).chatJson(
     SISTEMA_NARRATIVA,
     promptNarrativa(classe, stat, lifepath, eta, cyber.installati, opzioni.richiesta)
   );
+  const narrativa = esito?.dati || null;
 
   if (narrativa) {
     const s = (v, max = 400) => (typeof v === 'string' ? v.trim().slice(0, max) : '');
@@ -924,6 +777,7 @@ async function generaPersonaggio(env, opzioni = {}) {
     scheda.background.testo = s(narrativa.background, 1500);
     scheda.background.obiettivo = s(narrativa.obiettivo, 300);
     scheda.generatoConLLM = true;
+    scheda.generatoDa = esito.provider;
   } else {
     // Nessun LLM raggiungibile: la scheda e' comunque completa e giocabile,
     // mancano solo i campi che nessuna tabella puo' tirare.
@@ -931,6 +785,7 @@ async function generaPersonaggio(env, opzioni = {}) {
     scheda.anagrafica.carattere = lifepath.motivazioni.personalita;
     scheda.background.testo = '';
     scheda.generatoConLLM = false;
+    scheda.generatoDa = null;
   }
 
   return scheda;
@@ -966,7 +821,7 @@ async function corpoJson(request) {
 async function gestisciRichiesta(request, env, ctx) {
   const inizio = Date.now();
   const url = new URL(request.url);
-  const { pathname } = url;
+  const { pathname, searchParams } = url;
   const origin = originConsentita(request, env, url);
 
   if (request.method === 'OPTIONS') return preflight(origin);
@@ -981,13 +836,13 @@ async function gestisciRichiesta(request, env, ctx) {
   let risposta;
   try {
     if (pathname === '/api/health' && request.method === 'GET') {
-      risposta = json({
-        ok: true,
-        versioneSchema: SCHEMA_VERSIONE,
-        db: !!env.DB,
-        llm: PROVIDER_LLM.filter((p) => !!env[p.chiaveVar]?.trim()).map((p) => p.etichetta),
-        workersAi: !!env.AI?.run,
-      });
+      const llm = creaLLM(env);
+      const dettaglio = { ok: true, versioneSchema: SCHEMA_VERSIONE, db: !!env.DB };
+      dettaglio.llm = { descrizione: llm.descrivi(), ...llm.stato() };
+      // ?providers=1 interroga davvero ogni provider: utile per capire se una
+      // chiave e' sbagliata, ma sono chiamate di rete, quindi non di default.
+      if (searchParams.get('providers') === '1') dettaglio.llm.providers = await llm.salute();
+      risposta = json(dettaglio);
     } else if (pathname === '/api/login' && request.method === 'POST') {
       if (!(await limitaRichieste(env.LOGIN_RATE_LIMITER, request))) {
         risposta = errore('Troppi tentativi, riprova tra un minuto', 429);

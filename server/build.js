@@ -7,7 +7,9 @@
  *      per la generazione automatica, che gira lato server;
  *   2. copia tutti i dati in client/data/, cosi' la SPA li carica come asset
  *      statici (gratis e illimitati su Cloudflare) invece di chiederli all'API;
- *   3. calcola la CACHE_VERSION del service worker dall'hash dei file client,
+ *   3. copia server/llm/ accanto al bundle: wrangler passa tutto a esbuild, che
+ *      segue gli import e li impacchetta;
+ *   4. calcola la CACHE_VERSION del service worker dall'hash dei file client,
  *      cosi' cambia da sola quando cambia la shell e nessun client resta
  *      bloccato su una versione vecchia.
  */
@@ -20,6 +22,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url)); // .../server
 const ROOT = path.resolve(__dirname, '..');
 
 const DATA_DIR = path.join(__dirname, 'data');
+const LLM_DIR = path.join(__dirname, 'llm');
 const TEMPLATE_PATH = path.join(__dirname, 'worker.template.js');
 const OUTPUT_DIR = path.join(ROOT, 'dist');
 const OUTPUT_PATH = path.join(OUTPUT_DIR, 'worker.js');
@@ -121,12 +124,18 @@ async function main() {
   await fs.mkdir(OUTPUT_DIR, { recursive: true });
   await fs.writeFile(OUTPUT_PATH, template.replace('/* __EMBED_DATA__ */', blocco), 'utf-8');
 
+  // I moduli LLM restano file separati e vengono importati dal worker: e'
+  // wrangler, con esbuild, a impacchettarli seguendo gli import.
+  await fs.cp(LLM_DIR, path.join(OUTPUT_DIR, 'llm'), { recursive: true });
+
   const nFile = await copiaDatiNelClient(dati);
   const versioneSw = await timbraServiceWorker();
 
   const stat = await fs.stat(OUTPUT_PATH);
   console.log(`Scritto ${path.relative(ROOT, OUTPUT_PATH)} (${(stat.size / 1024).toFixed(1)} KB)`);
+  const nLlm = (await fs.readdir(LLM_DIR)).filter((f) => f.endsWith('.js')).length;
   console.log(`Dati nel worker: ${EMBED.join(', ')}`);
+  console.log(`Moduli LLM copiati in dist/llm/: ${nLlm}`);
   console.log(`Dati statici in client/data/: ${nFile} file`);
   console.log(`Service worker CACHE_VERSION: ${versioneSw}`);
 }
