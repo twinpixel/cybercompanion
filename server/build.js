@@ -33,10 +33,12 @@ const CLIENT_DIR = path.join(ROOT, 'client');
 const CLIENT_DATA_DIR = path.join(CLIENT_DIR, 'data');
 const SW_PATH = path.join(CLIENT_DIR, 'sw.js');
 
-// Dati che il Worker deve avere in pancia: li usa la generazione automatica.
-// weapons.json e chromebook.json restano fuori (280 KB) perche' servono solo al
-// client, che li carica come asset statici.
-const EMBED = ['stats', 'roles', 'skills', 'lifepath', 'cyberware', 'gear'];
+// Dati che il Worker deve avere in pancia: li usano la generazione automatica e
+// la libreria dei programmi del manuale, che il Worker traduce in specifiche
+// costruibili. weapons.json, chromebook.json e pregen.json restano fuori
+// (280 KB il primo, 93 il terzo): servono solo al client, che li carica come
+// asset statici.
+const EMBED = ['stats', 'roles', 'skills', 'lifepath', 'cyberware', 'gear', 'programs'];
 
 // File il cui contenuto determina la versione della cache del service worker.
 const SW_HASH_FILES = [

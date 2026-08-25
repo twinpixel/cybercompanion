@@ -1,0 +1,3484 @@
+{
+ "_nota": "Personaggi pronti da mettere in tavola. Caratteristiche, abilita', cyberware ed equipaggiamento escono dalle tabelle del regolamento, come nella generazione automatica: fra molte schede generate e' stata scelta quella che somigliava di piu' all'archetipo della classe. Nome, aspetto, storia e note per il Master sono scritti a mano — sono l'unica cosa che le tabelle non sanno dare.",
+ "personaggi": [
+  {
+   "id": "solitario-a",
+   "nome": "Vera Kovak",
+   "soprannome": "Cardinale",
+   "classe": "solitario",
+   "sommario": "Ex scorta corporativa, adesso a contratto. La piu' solida del gruppo.",
+   "scheda": {
+    "versione": 1,
+    "anagrafica": {
+     "nome": "Vera Kovak",
+     "soprannome": "Cardinale",
+     "giocatore": "",
+     "natoA": "Praga",
+     "eta": 34,
+     "nazionalita": "Ceca",
+     "altezza": 178,
+     "peso": 74,
+     "lingue": [
+      "Inglese di strada",
+      "Italiano"
+     ],
+     "abbigliamento": "Vestiti normali, deliberatamente anonimi. Piercing al naso e al setto.",
+     "capelli": "Corti e a punte",
+     "occhi": "Cyberottica ambra, pupilla quadrata",
+     "segniParticolari": "Una cicatrice sottile dal mento all'orecchio destro. Non se l'e' mai fatta togliere.",
+     "carattere": "Silenzioso, non comunichi mai davvero",
+     "note": "Al tavolo e' la roccia: alta iniziativa, incassa, spara dritto. Giocala come una professionista annoiata che diventa gelida quando il lavoro va storto."
+    },
+    "classe": "solitario",
+    "caratteristiche": {
+     "INT": 7,
+     "RIF": 10,
+     "TEC": 6,
+     "FRE": 10,
+     "FAS": 5,
+     "FOR": 10,
+     "MOV": 5,
+     "COS": 10,
+     "EMP": 5
+    },
+    "abilita": {
+     "Senso del combattimento": 3,
+     "Fucili": 4,
+     "Pistole": 3,
+     "Armi bianche": 1,
+     "Furtivita'": 1,
+     "Mitra": 1,
+     "Atletica": 1,
+     "Lingue": 2,
+     "Nuotare": 2,
+     "Trucco - Pettinatura": 1,
+     "Resistenza": 1,
+     "Interrogare": 1,
+     "Armi pesanti": 1,
+     "Suonare strumenti": 1,
+     "Insegnare": 1,
+     "Schivare - Divincolarsi": 1,
+     "Scassinare": 1,
+     "Matematica": 1,
+     "Guardaroba - Stile": 1
+    },
+    "abilitaClasseScelte": [],
+    "cyberware": [
+     {
+      "nome": "Processore neurale",
+      "categoria": "Neuroware",
+      "pu": 6,
+      "costo": 1000,
+      "desc": "Prerequisito per tutti gli impianti neurali. Da solo non fa nulla."
+     },
+     {
+      "nome": "Cyberottica (occhio)",
+      "categoria": "Cyberottica",
+      "pu": 4,
+      "costo": 500,
+      "desc": "Occhio artificiale. Va comprato per ciascun occhio; ospita fino a 3 opzioni."
+     },
+     {
+      "nome": "Opzione: mirino",
+      "categoria": "Cyberottica",
+      "pu": 1,
+      "costo": 600,
+      "desc": "+1 al tiro per colpire con armi intelligenti collegate."
+     }
+    ],
+    "armi": [
+     {
+      "nome": "Ares Predator II",
+      "tipo": "PST",
+      "precisione": "0",
+      "occultabilita": "J",
+      "reperibilita": "P",
+      "danni": "4D6+1 (12mmCL)",
+      "caricatore": "15",
+      "cadenza": "1",
+      "affidabilita": "MA",
+      "gittata": "50",
+      "costo_eb": "550",
+      "descrizione": "La migliore amica dell’uomo",
+      "inUso": true
+     },
+     {
+      "nome": "Militech Ronin",
+      "tipo": "FCL",
+      "precisione": "1",
+      "occultabilita": "N",
+      "reperibilita": "C",
+      "danni": "5D6 (5.56N)",
+      "caricatore": "35",
+      "cadenza": "3/30",
+      "affidabilita": "MA",
+      "gittata": "400",
+      "costo_eb": "450",
+      "descrizione": "Solo 3KG, lungo 35 pollici, moderno, leggero e versatile, versione aggiornata del M -16B Militech Ronin Commando Ed. FCL MTR 2 N P 2D6+3 (10mm) 40 40 MA 200 625 Senza rinculo e molto accurato, anche in 9mm(600E$), 11mm (700E$, 35clp, 20rof, AFF=ST), 12mm(800E$, 30clp, 20rof, AFF=ST, +1PR) Militech Ronin Compact",
+      "inUso": false
+     }
+    ],
+    "armature": [
+     {
+      "nome": "Giubbotto di kevlar leggero",
+      "vp": 10,
+      "ingombro": 0,
+      "costo": 150,
+      "copre": "Tronco"
+     }
+    ],
+    "equipaggiamento": [],
+    "veicoli": [],
+    "denaro": {
+     "contanti": 250,
+     "banca": 0
+    },
+    "umanita": {
+     "attuale": 59,
+     "iniziale": 70
+    },
+    "ferite": {
+     "caselle": 0
+    },
+    "reputazione": 0,
+    "puntiIncremento": 0,
+    "background": {
+     "origini": {
+      "etnia": "Europea occidentale",
+      "lingua": "Italiano"
+     },
+     "famiglia": {
+      "rango": "Signori del crimine",
+      "status": "Nella media, ma sempre in movimento",
+      "genitoriVivi": true,
+      "tragedia": null
+     },
+     "infanzia": "In una fattoria o in campagna",
+     "motivazioni": {
+      "personalita": "Silenzioso, non comunichi mai davvero",
+      "personaPiuCara": "Te stesso, e nessun altro",
+      "cosaContaDiPiu": "L'amore",
+      "comeVediGliAltri": "Le persone non sono affidabili",
+      "oggettoPiuPrezioso": "Una fotografia"
+     },
+     "testo": "Dodici anni di scorta a un dirigente Arasaka le hanno insegnato due cose: dove guardare, e quando andarsene. Se n'e' andata la notte in cui le hanno chiesto di lasciare passare qualcuno. Non l'ha lasciato passare, e il dirigente e' morto lo stesso: lo hanno fatto dall'interno. Da allora lavora a contratto e non firma niente che non abbia letto due volte.",
+     "obiettivo": "Sapere chi, nella torre, quella notte diede l'ordine.",
+     "fratelli": [
+      {
+       "chi": "Fratellastro maggiore",
+       "rapporto": "E' il tuo idolo"
+      },
+      {
+       "chi": "Sorella minore",
+       "rapporto": "E' il tuo idolo"
+      },
+      {
+       "chi": "Fratello adottivo",
+       "rapporto": "Ti protegge da sempre"
+      }
+     ]
+    },
+    "eventi": [
+     {
+      "anno": 16,
+      "tipo": "nulla",
+      "testo": "Un anno tranquillo, per una volta"
+     },
+     {
+      "anno": 17,
+      "tipo": "amore",
+      "testo": "Coinvolgimento sentimentale",
+      "dettaglio": "Una storia felice, ancora in corso"
+     },
+     {
+      "anno": 18,
+      "tipo": "amore",
+      "testo": "Coinvolgimento sentimentale",
+      "dettaglio": "E' stato ucciso"
+     },
+     {
+      "anno": 19,
+      "tipo": "nemico",
+      "testo": "Ti sei fatto un nemico",
+      "dettaglio": "Un fixer — Non hai pagato quello che dovevi"
+     },
+     {
+      "anno": 20,
+      "tipo": "fortuna",
+      "testo": "Un colpo di fortuna",
+      "dettaglio": "Hai trovato un mentore che ti ha insegnato il mestiere"
+     },
+     {
+      "anno": 21,
+      "tipo": "disgrazia",
+      "testo": "Grossi guai",
+      "dettaglio": "Hai perso l'unica persona a cui tenevi"
+     },
+     {
+      "anno": 22,
+      "tipo": "nulla",
+      "testo": "Un anno tranquillo, per una volta"
+     },
+     {
+      "anno": 23,
+      "tipo": "nulla",
+      "testo": "Un anno di lavoro e niente altro"
+     },
+     {
+      "anno": 24,
+      "tipo": "amico",
+      "testo": "Hai stretto un'amicizia",
+      "dettaglio": "Un compagno d'infanzia — Vi conoscete da sempre"
+     },
+     {
+      "anno": 25,
+      "tipo": "disgrazia",
+      "testo": "Grossi guai",
+      "dettaglio": "Hai perso un arto in un incidente"
+     },
+     {
+      "anno": 26,
+      "tipo": "nulla",
+      "testo": "Un anno tranquillo, per una volta"
+     },
+     {
+      "anno": 27,
+      "tipo": "amore",
+      "testo": "Coinvolgimento sentimentale",
+      "dettaglio": "L'hai lasciato tu, senza spiegazioni"
+     },
+     {
+      "anno": 28,
+      "tipo": "amore",
+      "testo": "Coinvolgimento sentimentale",
+      "dettaglio": "Una storia felice, finita bene"
+     },
+     {
+      "anno": 29,
+      "tipo": "disgrazia",
+      "testo": "Grossi guai",
+      "dettaglio": "Hai perso l'unica persona a cui tenevi"
+     },
+     {
+      "anno": 30,
+      "tipo": "disgrazia",
+      "testo": "Grossi guai",
+      "dettaglio": "Hai perso un arto in un incidente"
+     },
+     {
+      "anno": 31,
+      "tipo": "amore",
+      "testo": "Coinvolgimento sentimentale",
+      "dettaglio": "Una storia felice, ancora in corso"
+     },
+     {
+      "anno": 32,
+      "tipo": "disgrazia",
+      "testo": "Grossi guai",
+      "dettaglio": "Hai perso un arto in un incidente"
+     },
+     {
+      "anno": 33,
+      "tipo": "disgrazia",
+      "testo": "Grossi guai",
+      "dettaglio": "Hai perso un arto in un incidente"
+     }
+    ],
+    "generatoConLLM": false
+   }
+  },
+  {
+   "id": "solitario-b",
+   "nome": "Tobia Renna",
+   "soprannome": "Sette",
+   "classe": "solitario",
+   "sommario": "Cresciuto in una banda, uscito vivo. Piu' rapido che robusto.",
+   "scheda": {
+    "versione": 1,
+    "anagrafica": {
+     "nome": "Tobia Renna",
+     "soprannome": "Sette",
+     "giocatore": "",
+     "natoA": "Night City, Watson",
+     "eta": 27,
+     "nazionalita": "Statunitense",
+     "altezza": 172,
+     "peso": 68,
+     "lingue": [
+      "Inglese di strada",
+      "Spagnolo"
+     ],
+     "abbigliamento": "Stracci sovrapposti, eleganza da barbone. Unghie lunghe, laccate di nero.",
+     "capelli": "Selvaggi, in tutte le direzioni",
+     "occhi": "Castani, uno leggermente piu' chiaro",
+     "segniParticolari": "Sette tacche tatuate sull'avambraccio sinistro. Non dice cosa contano.",
+     "carattere": "Arrogante e pieno di te",
+     "note": "Personaggio d'ingresso: meno letale di Vera ma piu' agile e piu' simpatico. Ottimo per un giocatore alla prima partita."
+    },
+    "classe": "solitario",
+    "caratteristiche": {
+     "INT": 5,
+     "RIF": 10,
+     "TEC": 5,
+     "FRE": 9,
+     "FAS": 5,
+     "FOR": 5,
+     "MOV": 6,
+     "COS": 8,
+     "EMP": 5
+    },
+    "abilita": {
+     "Senso del combattimento": 3,
+     "Fucili": 4,
+     "Pistole": 1,
+     "Armi bianche": 2,
+     "Furtivita'": 1,
+     "Atletica": 1,
+     "Lingue": 2,
+     "Oratoria": 1,
+     "Arti marziali": 1,
+     "Percepire emozioni": 1,
+     "Interrogare": 1,
+     "Sopravvivenza": 1,
+     "Scassinare": 1,
+     "Intervistare": 1,
+     "Biologia - Zoologia": 1,
+     "Schivare - Divincolarsi": 1,
+     "Composizione": 1
+    },
+    "abilitaClasseScelte": [],
+    "cyberware": [
+     {
+      "nome": "Processore neurale",
+      "categoria": "Neuroware",
+      "pu": 8,
+      "costo": 1000,
+      "desc": "Prerequisito per tutti gli impianti neurali. Da solo non fa nulla."
+     },
+     {
+      "nome": "Cyberottica (occhio)",
+      "categoria": "Cyberottica",
+      "pu": 2,
+      "costo": 500,
+      "desc": "Occhio artificiale. Va comprato per ciascun occhio; ospita fino a 3 opzioni."
+     },
+     {
+      "nome": "Opzione: mirino",
+      "categoria": "Cyberottica",
+      "pu": 3,
+      "costo": 600,
+      "desc": "+1 al tiro per colpire con armi intelligenti collegate."
+     }
+    ],
+    "armi": [
+     {
+      "nome": "Ares Predator II",
+      "tipo": "PST",
+      "precisione": "0",
+      "occultabilita": "J",
+      "reperibilita": "P",
+      "danni": "4D6+1 (12mmCL)",
+      "caricatore": "15",
+      "cadenza": "1",
+      "affidabilita": "MA",
+      "gittata": "50",
+      "costo_eb": "550",
+      "descrizione": "La migliore amica dell’uomo",
+      "inUso": true
+     },
+     {
+      "nome": "Militech Ronin",
+      "tipo": "FCL",
+      "precisione": "1",
+      "occultabilita": "N",
+      "reperibilita": "C",
+      "danni": "5D6 (5.56N)",
+      "caricatore": "35",
+      "cadenza": "3/30",
+      "affidabilita": "MA",
+      "gittata": "400",
+      "costo_eb": "450",
+      "descrizione": "Solo 3KG, lungo 35 pollici, moderno, leggero e versatile, versione aggiornata del M -16B Militech Ronin Commando Ed. FCL MTR 2 N P 2D6+3 (10mm) 40 40 MA 200 625 Senza rinculo e molto accurato, anche in 9mm(600E$), 11mm (700E$, 35clp, 20rof, AFF=ST), 12mm(800E$, 30clp, 20rof, AFF=ST, +1PR) Militech Ronin Compact",
+      "inUso": false
+     }
+    ],
+    "armature": [
+     {
+      "nome": "Giubbotto di kevlar leggero",
+      "vp": 10,
+      "ingombro": 0,
+      "costo": 150,
+      "copre": "Tronco"
+     }
+    ],
+    "equipaggiamento": [],
+    "veicoli": [],
+    "denaro": {
+     "contanti": 250,
+     "banca": 0
+    },
+    "umanita": {
+     "attuale": 57,
+     "iniziale": 70
+    },
+    "ferite": {
+     "caselle": 0
+    },
+    "reputazione": 0,
+    "puntiIncremento": 0,
+    "background": {
+     "origini": {
+      "etnia": "Ispanoamericana",
+      "lingua": "Spagnolo"
+     },
+     "famiglia": {
+      "rango": "Signori del crimine",
+      "status": "Nella media, con qualche stretta ogni tanto",
+      "genitoriVivi": true,
+      "tragedia": null
+     },
+     "infanzia": "A bordo di una nave della flotta pirata",
+     "motivazioni": {
+      "personalita": "Arrogante e pieno di te",
+      "personaPiuCara": "Un animale",
+      "cosaContaDiPiu": "La vendetta",
+      "comeVediGliAltri": "Le persone vanno protette",
+      "oggettoPiuPrezioso": "Una lettera mai spedita"
+     },
+     "testo": "A quindici anni correva per i Maelstrom, a diciannove ha capito che nessuno della sua leva era arrivato ai venticinque. Se n'e' tirato fuori senza tradire nessuno, il che gli e' costato due dita e un anno passato a nascondersi. Adesso lavora pulito, o quasi, e paga da bere a chiunque della vecchia banda incontri per strada.",
+     "obiettivo": "Tirare fuori sua sorella minore prima che tocchi a lei.",
+     "fratelli": [
+      {
+       "chi": "Fratello minore",
+       "rapporto": "E' il tuo idolo"
+      }
+     ]
+    },
+    "eventi": [
+     {
+      "anno": 16,
+      "tipo": "amore",
+      "testo": "Coinvolgimento sentimentale",
+      "dettaglio": "Una storia felice, ancora in corso"
+     },
+     {
+      "anno": 17,
+      "tipo": "nulla",
+      "testo": "Un anno tranquillo, per una volta"
+     },
+     {
+      "anno": 18,
+      "tipo": "disgrazia",
+      "testo": "Grossi guai",
+      "dettaglio": "Sei diventato dipendente da una sostanza"
+     },
+     {
+      "anno": 19,
+      "tipo": "disgrazia",
+      "testo": "Grossi guai",
+      "dettaglio": "Sei stato tradito da un socio e hai perso tutto"
+     },
+     {
+      "anno": 20,
+      "tipo": "nemico",
+      "testo": "Ti sei fatto un nemico",
+      "dettaglio": "Un parente — Una questione di eredita'"
+     },
+     {
+      "anno": 21,
+      "tipo": "fortuna",
+      "testo": "Un colpo di fortuna",
+      "dettaglio": "Hai recuperato un pezzo di cyberware di alta qualita'"
+     },
+     {
+      "anno": 22,
+      "tipo": "nulla",
+      "testo": "Un anno di lavoro e niente altro"
+     },
+     {
+      "anno": 23,
+      "tipo": "nulla",
+      "testo": "Un anno tranquillo, per una volta"
+     },
+     {
+      "anno": 24,
+      "tipo": "amico",
+      "testo": "Hai stretto un'amicizia",
+      "dettaglio": "Un medtech di strada — Ti ha rimesso insieme piu' di una volta"
+     },
+     {
+      "anno": 25,
+      "tipo": "disgrazia",
+      "testo": "Grossi guai",
+      "dettaglio": "Hai perso l'unica persona a cui tenevi"
+     },
+     {
+      "anno": 26,
+      "tipo": "nulla",
+      "testo": "Un anno tranquillo, per una volta"
+     }
+    ],
+    "generatoConLLM": false
+   }
+  },
+  {
+   "id": "netrunner-a",
+   "nome": "Ada Ferraro",
+   "soprannome": "Sesamo",
+   "classe": "netrunner",
+   "sommario": "Giovane, velocissima, deck costruito in casa pezzo per pezzo.",
+   "scheda": {
+    "versione": 1,
+    "anagrafica": {
+     "nome": "Ada Ferraro",
+     "soprannome": "Sesamo",
+     "giocatore": "",
+     "natoA": "Napoli",
+     "eta": 26,
+     "nazionalita": "Italiana",
+     "altezza": 165,
+     "peso": 54,
+     "lingue": [
+      "Inglese di strada",
+      "Russo"
+     ],
+     "abbigliamento": "Minigonna e calze strappate. Lenti a contatto animate.",
+     "capelli": "Selvaggi, in tutte le direzioni",
+     "occhi": "Neri, cerchiati",
+     "segniParticolari": "Prese d'interfaccia dietro l'orecchio, lasciate scoperte per scelta.",
+     "carattere": "Arrogante e pieno di te",
+     "note": "La netrunner da mettere in mano al giocatore che vuole giocare le sessioni di netrun. INT, RIF e TEC al massimo: entra ovunque, ma incassa poco. Tienila lontana dal combattimento vero."
+    },
+    "classe": "netrunner",
+    "caratteristiche": {
+     "INT": 10,
+     "RIF": 10,
+     "TEC": 10,
+     "FRE": 7,
+     "FAS": 7,
+     "FOR": 6,
+     "MOV": 6,
+     "COS": 5,
+     "EMP": 5
+    },
+    "abilita": {
+     "Hacking": 3,
+     "Uso computer": 2,
+     "Programmare": 1,
+     "Elettronica": 1,
+     "Biblioteconomia": 1,
+     "Tecnologia di base": 1,
+     "Cibertecnologia": 1,
+     "Istruzione - Conoscenze": 1,
+     "Individuare": 1,
+     "Lingue": 2,
+     "Criminologia": 1,
+     "Armi bianche": 1,
+     "Travestimento": 1,
+     "Pilotare AV": 1,
+     "Scherma": 1,
+     "Suonare strumenti": 1,
+     "Pistole": 1,
+     "Guidare macc. pesanti": 1,
+     "Guidare autoveicoli": 1,
+     "Gioco d'azzardo": 1,
+     "Atletica": 1,
+     "Pronto soccorso": 1,
+     "Interrogare": 1,
+     "Nuotare": 1
+    },
+    "abilitaClasseScelte": [],
+    "cyberware": [
+     {
+      "nome": "Processore neurale",
+      "categoria": "Neuroware",
+      "pu": 11,
+      "costo": 1000,
+      "desc": "Prerequisito per tutti gli impianti neurali. Da solo non fa nulla."
+     },
+     {
+      "nome": "Prese d'interfaccia",
+      "categoria": "Neuroware",
+      "pu": 7,
+      "costo": 200,
+      "desc": "Prese alle tempie o ai polsi: collegano il corpo a deck, veicoli e armi intelligenti."
+     },
+     {
+      "nome": "Alloggio per chip",
+      "categoria": "Neuroware",
+      "pu": 6,
+      "costo": 500,
+      "desc": "Accetta chip di abilita' e di memoria."
+     },
+     {
+      "nome": "Cyberottica (occhio)",
+      "categoria": "Cyberottica",
+      "pu": 8,
+      "costo": 500,
+      "desc": "Occhio artificiale. Va comprato per ciascun occhio; ospita fino a 3 opzioni."
+     }
+    ],
+    "armi": [
+     {
+      "nome": "Militech Arms Avenger",
+      "tipo": "PST",
+      "precisione": "0",
+      "occultabilita": "J",
+      "reperibilita": "E",
+      "danni": "2D6+1 (9mm)",
+      "caricatore": "10",
+      "cadenza": "2",
+      "affidabilita": "MA",
+      "gittata": "50",
+      "costo_eb": "250",
+      "descrizione": "Arma da professionisti, ben fatta e alta prec e alta portata Militech Elect ronics Taser PST EXO 1 J C Stordimento 10 1 ST 10 60 Piccolo come una lampadina tascabile",
+      "inUso": true
+     },
+     {
+      "nome": "Dai Lung \"Han\"",
+      "tipo": "PST",
+      "precisione": "0",
+      "occultabilita": "J",
+      "reperibilita": "P",
+      "danni": "2D6+3 (10mm)",
+      "caricatore": "8",
+      "cadenza": "1",
+      "affidabilita": "ST",
+      "gittata": "50",
+      "costo_eb": "225",
+      "descrizione": "Popolare tra contrabbandieri asiatici, pirati, banditi",
+      "inUso": false
+     }
+    ],
+    "armature": [
+     {
+      "nome": "Giubbotto da mitragliere",
+      "vp": 20,
+      "ingombro": 2,
+      "costo": 500,
+      "copre": "Tronco, braccia"
+     },
+     {
+      "nome": "Elmetto di nylon",
+      "vp": 20,
+      "ingombro": 0,
+      "costo": 100,
+      "copre": "Testa"
+     }
+    ],
+    "equipaggiamento": [
+     {
+      "nome": "Corda e rampino (30 m)",
+      "quantita": 1,
+      "note": "Varie"
+     },
+     {
+      "nome": "Kit da scasso",
+      "quantita": 1,
+      "note": "Intrusione"
+     },
+     {
+      "nome": "Torcia tattica",
+      "quantita": 1,
+      "note": "Varie"
+     },
+     {
+      "nome": "Kit di pronto soccorso",
+      "quantita": 1,
+      "note": "Medico"
+     },
+     {
+      "nome": "Fondina Speedraw",
+      "quantita": 1,
+      "note": "+1 all'iniziativa in estrazione rapida"
+     }
+    ],
+    "veicoli": [],
+    "denaro": {
+     "contanti": 285,
+     "banca": 0
+    },
+    "umanita": {
+     "attuale": 58,
+     "iniziale": 90
+    },
+    "ferite": {
+     "caselle": 0
+    },
+    "reputazione": 0,
+    "puntiIncremento": 0,
+    "background": {
+     "origini": {
+      "etnia": "Centroeuropea o slava",
+      "lingua": "Russo"
+     },
+     "famiglia": {
+      "rango": "Residenti di un'arcologia",
+      "status": "Poveri, ma con una reputazione rispettata",
+      "genitoriVivi": true,
+      "tragedia": null
+     },
+     "infanzia": "Nella periferia corporativa, ordinata e sorvegliata",
+     "motivazioni": {
+      "personalita": "Arrogante e pieno di te",
+      "personaPiuCara": "Un genitore",
+      "cosaContaDiPiu": "La vendetta",
+      "comeVediGliAltri": "Le persone sono merce",
+      "oggettoPiuPrezioso": "Un capo di abbigliamento"
+     },
+     "testo": "Ha imparato a programmare su un terminale rubato a una scuola che l'aveva gia' espulsa. Il suo deck non ha un pezzo originale: ogni componente e' stato recuperato, riparato o scambiato, e lei sa esattamente che cosa fa ognuno. Non ha mai lavorato per un'azienda e ne va fiera, il che al tavolo significa che ha meno soldi di tutti.",
+     "obiettivo": "Scrivere un programma che nessuno abbia mai scritto prima.",
+     "fratelli": [
+      {
+       "chi": "Gemella",
+       "rapporto": "Neutrale, vi vedete alle feste"
+      },
+      {
+       "chi": "Fratellastro maggiore",
+       "rapporto": "E' il tuo idolo"
+      },
+      {
+       "chi": "Sorella minore",
+       "rapporto": "E' scomparso e lo stai cercando"
+      }
+     ]
+    },
+    "eventi": [
+     {
+      "anno": 16,
+      "tipo": "nulla",
+      "testo": "Un anno di lavoro e niente altro"
+     },
+     {
+      "anno": 17,
+      "tipo": "nemico",
+      "testo": "Ti sei fatto un nemico",
+      "dettaglio": "Un dirigente corporativo — Hai rubato dati che gli appartenevano"
+     },
+     {
+      "anno": 18,
+      "tipo": "disgrazia",
+      "testo": "Grossi guai",
+      "dettaglio": "Hai perso l'unica persona a cui tenevi"
+     },
+     {
+      "anno": 19,
+      "tipo": "nulla",
+      "testo": "Un anno tranquillo, per una volta"
+     },
+     {
+      "anno": 20,
+      "tipo": "amore",
+      "testo": "Coinvolgimento sentimentale",
+      "dettaglio": "E' stato ucciso"
+     },
+     {
+      "anno": 21,
+      "tipo": "amore",
+      "testo": "Coinvolgimento sentimentale",
+      "dettaglio": "E' stato ucciso"
+     },
+     {
+      "anno": 22,
+      "tipo": "nulla",
+      "testo": "Un anno di lavoro e niente altro"
+     },
+     {
+      "anno": 23,
+      "tipo": "nulla",
+      "testo": "Un anno tranquillo, per una volta"
+     },
+     {
+      "anno": 24,
+      "tipo": "disgrazia",
+      "testo": "Grossi guai",
+      "dettaglio": "Hai contratto un debito enorme con la persona sbagliata"
+     },
+     {
+      "anno": 25,
+      "tipo": "disgrazia",
+      "testo": "Grossi guai",
+      "dettaglio": "Sei stato costretto a fuggire dalla citta'"
+     }
+    ],
+    "generatoConLLM": false
+   }
+  },
+  {
+   "id": "netrunner-b",
+   "nome": "Nikos Varela",
+   "soprannome": "Cassandra",
+   "classe": "netrunner",
+   "sommario": "Vecchia scuola. E' sopravvissuto a un programma Nero e da allora non corre piu' rischi.",
+   "scheda": {
+    "versione": 1,
+    "anagrafica": {
+     "nome": "Nikos Varela",
+     "soprannome": "Cassandra",
+     "giocatore": "",
+     "natoA": "Salonicco",
+     "eta": 33,
+     "nazionalita": "Greco",
+     "altezza": 180,
+     "peso": 79,
+     "lingue": [
+      "Inglese di strada",
+      "Pacifico creolo"
+     ],
+     "abbigliamento": "Jeans consumati e giubbotto militare. Guanti senza dita, di pelle nera.",
+     "capelli": "Selvaggi, in tutte le direzioni",
+     "occhi": "Grigi, uno artificiale",
+     "segniParticolari": "Tremore alla mano sinistra, residuo di un Nero preso in pieno.",
+     "carattere": "Lunatico e violento quando esplodi",
+     "note": "Il netrunner per chi vuole giocare di testa: parla poco, prepara molto, e ha sempre una via d'uscita gia' pronta. Al Master conviene lasciargli il tempo di preparare: e' li' che il personaggio brilla."
+    },
+    "classe": "netrunner",
+    "caratteristiche": {
+     "INT": 10,
+     "RIF": 8,
+     "TEC": 9,
+     "FRE": 5,
+     "FAS": 4,
+     "FOR": 5,
+     "MOV": 4,
+     "COS": 5,
+     "EMP": 7
+    },
+    "abilita": {
+     "Hacking": 3,
+     "Programmare": 2,
+     "Uso computer": 1,
+     "Elettronica": 1,
+     "Cibertecnologia": 1,
+     "Biblioteconomia": 1,
+     "Tecnologia di base": 1,
+     "Lingue": 2,
+     "Danzare": 1,
+     "Con. della criminalita'": 1,
+     "Scherma": 2,
+     "Pronto soccorso": 1,
+     "Farmacologia": 1,
+     "Medicina legale": 1,
+     "Criminologia": 1,
+     "Intervistare": 1,
+     "Resistenza": 1,
+     "Contabilita'": 1,
+     "Suonare strumenti": 1,
+     "Guidare autoveicoli": 1
+    },
+    "abilitaClasseScelte": [],
+    "cyberware": [
+     {
+      "nome": "Processore neurale",
+      "categoria": "Neuroware",
+      "pu": 4,
+      "costo": 1000,
+      "desc": "Prerequisito per tutti gli impianti neurali. Da solo non fa nulla."
+     },
+     {
+      "nome": "Prese d'interfaccia",
+      "categoria": "Neuroware",
+      "pu": 8,
+      "costo": 200,
+      "desc": "Prese alle tempie o ai polsi: collegano il corpo a deck, veicoli e armi intelligenti."
+     },
+     {
+      "nome": "Alloggio per chip",
+      "categoria": "Neuroware",
+      "pu": 1,
+      "costo": 500,
+      "desc": "Accetta chip di abilita' e di memoria."
+     },
+     {
+      "nome": "Cyberottica (occhio)",
+      "categoria": "Cyberottica",
+      "pu": 9,
+      "costo": 500,
+      "desc": "Occhio artificiale. Va comprato per ciascun occhio; ospita fino a 3 opzioni."
+     }
+    ],
+    "armi": [
+     {
+      "nome": "Militech Arms Avenger",
+      "tipo": "PST",
+      "precisione": "0",
+      "occultabilita": "J",
+      "reperibilita": "E",
+      "danni": "2D6+1 (9mm)",
+      "caricatore": "10",
+      "cadenza": "2",
+      "affidabilita": "MA",
+      "gittata": "50",
+      "costo_eb": "250",
+      "descrizione": "Arma da professionisti, ben fatta e alta prec e alta portata Militech Elect ronics Taser PST EXO 1 J C Stordimento 10 1 ST 10 60 Piccolo come una lampadina tascabile",
+      "inUso": true
+     },
+     {
+      "nome": "Dai Lung \"Han\"",
+      "tipo": "PST",
+      "precisione": "0",
+      "occultabilita": "J",
+      "reperibilita": "P",
+      "danni": "2D6+3 (10mm)",
+      "caricatore": "8",
+      "cadenza": "1",
+      "affidabilita": "ST",
+      "gittata": "50",
+      "costo_eb": "225",
+      "descrizione": "Popolare tra contrabbandieri asiatici, pirati, banditi",
+      "inUso": false
+     }
+    ],
+    "armature": [
+     {
+      "nome": "Giubbotto da mitragliere",
+      "vp": 20,
+      "ingombro": 2,
+      "costo": 500,
+      "copre": "Tronco, braccia"
+     },
+     {
+      "nome": "Elmetto di nylon",
+      "vp": 20,
+      "ingombro": 0,
+      "costo": 100,
+      "copre": "Testa"
+     }
+    ],
+    "equipaggiamento": [
+     {
+      "nome": "Kit di pronto soccorso",
+      "quantita": 1,
+      "note": "Medico"
+     },
+     {
+      "nome": "Corda e rampino (30 m)",
+      "quantita": 1,
+      "note": "Varie"
+     },
+     {
+      "nome": "Agenda elettronica",
+      "quantita": 1,
+      "note": "Elettronica"
+     },
+     {
+      "nome": "Kit da scasso",
+      "quantita": 1,
+      "note": "Intrusione"
+     },
+     {
+      "nome": "Torcia tattica",
+      "quantita": 1,
+      "note": "Varie"
+     }
+    ],
+    "veicoli": [],
+    "denaro": {
+     "contanti": 255,
+     "banca": 0
+    },
+    "umanita": {
+     "attuale": 78,
+     "iniziale": 100
+    },
+    "ferite": {
+     "caselle": 0
+    },
+    "reputazione": 0,
+    "puntiIncremento": 0,
+    "background": {
+     "origini": {
+      "etnia": "Delle isole del Pacifico",
+      "lingua": "Pacifico creolo"
+     },
+     "famiglia": {
+      "rango": "Tecnici corporativi",
+      "status": "Nella media, protetti da una corporazione",
+      "genitoriVivi": false,
+      "tragedia": "La famiglia e' in carcere, tu sei l'unico fuori"
+     },
+     "infanzia": "A bordo di una nave della flotta pirata",
+     "motivazioni": {
+      "personalita": "Lunatico e violento quando esplodi",
+      "personaPiuCara": "Un personaggio pubblico che non hai mai incontrato",
+      "cosaContaDiPiu": "Il denaro, sopra ogni cosa",
+      "comeVediGliAltri": "Le persone non sono affidabili",
+      "oggettoPiuPrezioso": "Un giocattolo dell'infanzia"
+     },
+     "testo": "Faceva questo mestiere quando ancora si chiamava in un altro modo. Nel 2016 un Nero lo ha preso in pieno mentre era in una fortezza militare: si e' svegliato tre settimane dopo con undici punti di INT in meno di quelli che aveva e un tremore che non se n'e' piu' andato. Adesso entra solo dopo aver studiato il sistema per giorni, e la sua paranoia ha salvato piu' squadre di qualsiasi arma.",
+     "obiettivo": "Arrivare alla pensione. Sul serio.",
+     "fratelli": [
+      {
+       "chi": "Gemello",
+       "rapporto": "E' scomparso e lo stai cercando"
+      },
+      {
+       "chi": "Fratello adottivo",
+       "rapporto": "Ti protegge da sempre"
+      },
+      {
+       "chi": "Gemello",
+       "rapporto": "E' geloso di te"
+      },
+      {
+       "chi": "Sorella minore",
+       "rapporto": "Non vi parlate da anni"
+      }
+     ]
+    },
+    "eventi": [
+     {
+      "anno": 16,
+      "tipo": "disgrazia",
+      "testo": "Grossi guai",
+      "dettaglio": "Sei stato accusato di un crimine che non hai commesso"
+     },
+     {
+      "anno": 17,
+      "tipo": "nemico",
+      "testo": "Ti sei fatto un nemico",
+      "dettaglio": "Un poliziotto — Gli hai fatto perdere una promozione"
+     },
+     {
+      "anno": 18,
+      "tipo": "amore",
+      "testo": "Coinvolgimento sentimentale",
+      "dettaglio": "E' stato ucciso"
+     },
+     {
+      "anno": 19,
+      "tipo": "nulla",
+      "testo": "Un anno tranquillo, per una volta"
+     },
+     {
+      "anno": 20,
+      "tipo": "nemico",
+      "testo": "Ti sei fatto un nemico",
+      "dettaglio": "Un ex amante — Lo hai lasciato nel modo peggiore"
+     },
+     {
+      "anno": 21,
+      "tipo": "nemico",
+      "testo": "Ti sei fatto un nemico",
+      "dettaglio": "Un fixer — Non hai pagato quello che dovevi"
+     },
+     {
+      "anno": 22,
+      "tipo": "nemico",
+      "testo": "Ti sei fatto un nemico",
+      "dettaglio": "Un dirigente corporativo — Hai rubato dati che gli appartenevano"
+     },
+     {
+      "anno": 23,
+      "tipo": "amore",
+      "testo": "Coinvolgimento sentimentale",
+      "dettaglio": "E' stato ucciso"
+     },
+     {
+      "anno": 24,
+      "tipo": "amico",
+      "testo": "Hai stretto un'amicizia",
+      "dettaglio": "Un rockerboy — Ti fa da megafono quando ne hai bisogno"
+     },
+     {
+      "anno": 25,
+      "tipo": "nulla",
+      "testo": "Un anno di lavoro e niente altro"
+     },
+     {
+      "anno": 26,
+      "tipo": "disgrazia",
+      "testo": "Grossi guai",
+      "dettaglio": "Hai contratto un debito enorme con la persona sbagliata"
+     },
+     {
+      "anno": 27,
+      "tipo": "nulla",
+      "testo": "Un anno di lavoro e niente altro"
+     },
+     {
+      "anno": 28,
+      "tipo": "nemico",
+      "testo": "Ti sei fatto un nemico",
+      "dettaglio": "Un dirigente corporativo — Hai rubato dati che gli appartenevano"
+     },
+     {
+      "anno": 29,
+      "tipo": "disgrazia",
+      "testo": "Grossi guai",
+      "dettaglio": "Hai contratto un debito enorme con la persona sbagliata"
+     },
+     {
+      "anno": 30,
+      "tipo": "nulla",
+      "testo": "Un anno tranquillo, per una volta"
+     },
+     {
+      "anno": 31,
+      "tipo": "disgrazia",
+      "testo": "Grossi guai",
+      "dettaglio": "Sei stato tradito da un socio e hai perso tutto"
+     },
+     {
+      "anno": 32,
+      "tipo": "nulla",
+      "testo": "Un anno di lavoro e niente altro"
+     }
+    ],
+    "generatoConLLM": false
+   }
+  },
+  {
+   "id": "tecnico",
+   "nome": "Wanda Osei",
+   "soprannome": "Chiave inglese",
+   "classe": "tecnico",
+   "sommario": "Ripara qualunque cosa con quello che ha in tasca. Di solito basta.",
+   "scheda": {
+    "versione": 1,
+    "anagrafica": {
+     "nome": "Wanda Osei",
+     "soprannome": "Chiave inglese",
+     "giocatore": "",
+     "natoA": "Accra",
+     "eta": 29,
+     "nazionalita": "Ghanese",
+     "altezza": 169,
+     "peso": 66,
+     "lingue": [
+      "Inglese di strada",
+      "Portoghese"
+     ],
+     "abbigliamento": "Stracci sovrapposti, eleganza da barbone. Cicatrici rituali sul petto.",
+     "capelli": "Dreadlock intrecciate con fili di rame",
+     "occhi": "Scuri, con lenti di lavoro montate su un archetto",
+     "segniParticolari": "Mani perennemente sporche di grasso. Ha smesso di scusarsene.",
+     "carattere": "Cordiale ed estroverso con chiunque",
+     "note": "Il personaggio che risolve i problemi che non si risolvono sparando. Dalle sempre una scena in cui e' l'unica che puo' fare qualcosa."
+    },
+    "classe": "tecnico",
+    "caratteristiche": {
+     "INT": 10,
+     "RIF": 10,
+     "TEC": 9,
+     "FRE": 5,
+     "FAS": 5,
+     "FOR": 5,
+     "MOV": 5,
+     "COS": 5,
+     "EMP": 4
+    },
+    "abilita": {
+     "Riparazioni di fortuna": 3,
+     "Tecnologia di base": 5,
+     "Cibertecnologia": 1,
+     "Elettronica": 1,
+     "Insegnare": 1,
+     "Istruzione - Conoscenze": 1,
+     "Farmacologia": 1,
+     "Borseggiare": 1,
+     "Lingue": 2,
+     "Sopravvivenza": 1,
+     "Percepire emozioni": 1,
+     "Lottare": 1,
+     "Armi bianche": 1,
+     "Pilotare aerei": 1,
+     "Nascondersi - Seminare": 1,
+     "Atletica": 1,
+     "Pistole": 2,
+     "Botanica": 1,
+     "Falsificare": 1,
+     "Guidare autoveicoli": 1,
+     "Biologia - Zoologia": 1,
+     "Armi pesanti": 1
+    },
+    "abilitaClasseScelte": [
+     "Travestimento",
+     "Farmacologia",
+     "Borseggiare"
+    ],
+    "cyberware": [
+     {
+      "nome": "Processore neurale",
+      "categoria": "Neuroware",
+      "pu": 5,
+      "costo": 1000,
+      "desc": "Prerequisito per tutti gli impianti neurali. Da solo non fa nulla."
+     },
+     {
+      "nome": "Prese d'interfaccia",
+      "categoria": "Neuroware",
+      "pu": 7,
+      "costo": 200,
+      "desc": "Prese alle tempie o ai polsi: collegano il corpo a deck, veicoli e armi intelligenti."
+     },
+     {
+      "nome": "Opzione: mano attrezzo",
+      "categoria": "Cyberarti",
+      "pu": 1,
+      "costo": 500,
+      "desc": "Set di attrezzi retrattili: +2 a Tecnologia di base."
+     }
+    ],
+    "armi": [
+     {
+      "nome": "Militech Arms Avenger",
+      "tipo": "PST",
+      "precisione": "0",
+      "occultabilita": "J",
+      "reperibilita": "E",
+      "danni": "2D6+1 (9mm)",
+      "caricatore": "10",
+      "cadenza": "2",
+      "affidabilita": "MA",
+      "gittata": "50",
+      "costo_eb": "250",
+      "descrizione": "Arma da professionisti, ben fatta e alta prec e alta portata Militech Elect ronics Taser PST EXO 1 J C Stordimento 10 1 ST 10 60 Piccolo come una lampadina tascabile",
+      "inUso": true
+     },
+     {
+      "nome": "Coltello da sopravvivenza",
+      "tipo": "BNC",
+      "precisione": "0",
+      "occultabilita": "J",
+      "reperibilita": "C",
+      "danni": "1D6",
+      "caricatore": "NO",
+      "cadenza": "NO",
+      "affidabilita": "MA",
+      "gittata": "1",
+      "costo_eb": "50",
+      "descrizione": "",
+      "inUso": false
+     }
+    ],
+    "armature": [
+     {
+      "nome": "Giubbotto da mitragliere",
+      "vp": 20,
+      "ingombro": 2,
+      "costo": 500,
+      "copre": "Tronco, braccia"
+     },
+     {
+      "nome": "Elmetto di nylon",
+      "vp": 20,
+      "ingombro": 0,
+      "costo": 100,
+      "copre": "Testa"
+     }
+    ],
+    "equipaggiamento": [
+     {
+      "nome": "Agenda elettronica",
+      "quantita": 1,
+      "note": "Elettronica"
+     },
+     {
+      "nome": "Kit di pronto soccorso",
+      "quantita": 1,
+      "note": "Medico"
+     }
+    ],
+    "veicoli": [],
+    "denaro": {
+     "contanti": 250,
+     "banca": 0
+    },
+    "umanita": {
+     "attuale": 47,
+     "iniziale": 60
+    },
+    "ferite": {
+     "caselle": 0
+    },
+    "reputazione": 0,
+    "puntiIncremento": 0,
+    "background": {
+     "origini": {
+      "etnia": "Centro o sudamericana",
+      "lingua": "Portoghese"
+     },
+     "famiglia": {
+      "rango": "Flotta pirata",
+      "status": "Hanno perso tutto e sono finiti in strada",
+      "genitoriVivi": false,
+      "tragedia": "Sulla famiglia pesa una vendetta mai chiusa"
+     },
+     "infanzia": "In un branco nomade, sempre sulla strada",
+     "motivazioni": {
+      "personalita": "Cordiale ed estroverso con chiunque",
+      "personaPiuCara": "Nessuno al mondo",
+      "cosaContaDiPiu": "La parola data",
+      "comeVediGliAltri": "Neutrale: ognuno per se'",
+      "oggettoPiuPrezioso": "Una registrazione"
+     },
+     "testo": "Ha imparato smontando i generatori del quartiere quando saltava la corrente, cioe' sempre. Adesso ha un banco in un retrobottega e una lista di clienti che non entrano dalla porta principale. Non chiede mai a cosa serve quello che le portano da aggiustare, ma se lo ricorda.",
+     "obiettivo": "Aprire un'officina vera, con l'insegna e tutto.",
+     "fratelli": []
+    },
+    "eventi": [
+     {
+      "anno": 16,
+      "tipo": "nulla",
+      "testo": "Un anno di lavoro e niente altro"
+     },
+     {
+      "anno": 17,
+      "tipo": "nemico",
+      "testo": "Ti sei fatto un nemico",
+      "dettaglio": "Un ex socio — Lo hai tradito in un colpo"
+     },
+     {
+      "anno": 18,
+      "tipo": "nemico",
+      "testo": "Ti sei fatto un nemico",
+      "dettaglio": "Un fixer — Non hai pagato quello che dovevi"
+     },
+     {
+      "anno": 19,
+      "tipo": "fortuna",
+      "testo": "Un colpo di fortuna",
+      "dettaglio": "Hai fatto un favore alla persona giusta"
+     },
+     {
+      "anno": 20,
+      "tipo": "nemico",
+      "testo": "Ti sei fatto un nemico",
+      "dettaglio": "Un parente — Una questione di eredita'"
+     },
+     {
+      "anno": 21,
+      "tipo": "amore",
+      "testo": "Coinvolgimento sentimentale",
+      "dettaglio": "Ti ha lasciato per qualcun altro"
+     },
+     {
+      "anno": 22,
+      "tipo": "amico",
+      "testo": "Hai stretto un'amicizia",
+      "dettaglio": "Un ex insegnante — L'unico adulto che ha creduto in te"
+     },
+     {
+      "anno": 23,
+      "tipo": "nulla",
+      "testo": "Un anno di lavoro e niente altro"
+     },
+     {
+      "anno": 24,
+      "tipo": "nulla",
+      "testo": "Un anno tranquillo, per una volta"
+     },
+     {
+      "anno": 25,
+      "tipo": "nulla",
+      "testo": "Un anno tranquillo, per una volta"
+     },
+     {
+      "anno": 26,
+      "tipo": "nulla",
+      "testo": "Un anno di lavoro e niente altro"
+     },
+     {
+      "anno": 27,
+      "tipo": "fortuna",
+      "testo": "Un colpo di fortuna",
+      "dettaglio": "Un colpo e' andato meglio del previsto: 1d6 x 1000 eb"
+     },
+     {
+      "anno": 28,
+      "tipo": "disgrazia",
+      "testo": "Grossi guai",
+      "dettaglio": "Un tuo errore ha ucciso qualcuno"
+     }
+    ],
+    "generatoConLLM": false
+   }
+  },
+  {
+   "id": "tecnomedico",
+   "nome": "Emiliano Cruz",
+   "soprannome": "Il Sarto",
+   "classe": "tecnomedico",
+   "sommario": "Cuce ferite nei retrobottega e non fa domande. Le risposte le sa gia'.",
+   "scheda": {
+    "versione": 1,
+    "anagrafica": {
+     "nome": "Emiliano Cruz",
+     "soprannome": "Il Sarto",
+     "giocatore": "",
+     "natoA": "Bogota",
+     "eta": 41,
+     "nazionalita": "Colombiano",
+     "altezza": 175,
+     "peso": 81,
+     "lingue": [
+      "Inglese di strada",
+      "Spagnolo"
+     ],
+     "abbigliamento": "Jeans consumati e giubbotto militare. Cicatrici rituali sul petto.",
+     "capelli": "Selvaggi, in tutte le direzioni",
+     "occhi": "Verdi, stanchi",
+     "segniParticolari": "Camice sempre pulito, in un posto dove niente lo e'.",
+     "carattere": "Ribelle e ostile all'autorita'",
+     "note": "Tenetelo vivo: senza tecnomedico, il gruppo paga le cliniche a peso d'oro. EMP alta, e' anche il personaggio che tiene insieme la squadra quando le cose vanno male."
+    },
+    "classe": "tecnomedico",
+    "caratteristiche": {
+     "INT": 10,
+     "RIF": 5,
+     "TEC": 10,
+     "FRE": 6,
+     "FAS": 4,
+     "FOR": 5,
+     "MOV": 5,
+     "COS": 5,
+     "EMP": 8
+    },
+    "abilita": {
+     "Tecnomedicina": 3,
+     "Farmacologia": 1,
+     "Utilizzare serbatoi criogenici": 1,
+     "Diagnosticare malattie": 1,
+     "Biblioteconomia": 1,
+     "Istruzione - Conoscenze": 1,
+     "Tecnologia di base": 1,
+     "Lingue": 2,
+     "Nuotare": 1,
+     "Geologia": 1,
+     "Atletica": 1,
+     "Pronto soccorso": 1,
+     "Composizione": 1,
+     "Matematica": 1,
+     "Psicologia": 1,
+     "Mondanita'": 1,
+     "Schivare - Divincolarsi": 1,
+     "Sopravvivenza": 1,
+     "Chimica - Fisica": 1
+    },
+    "abilitaClasseScelte": [],
+    "cyberware": [
+     {
+      "nome": "Processore neurale",
+      "categoria": "Neuroware",
+      "pu": 6,
+      "costo": 1000,
+      "desc": "Prerequisito per tutti gli impianti neurali. Da solo non fa nulla."
+     },
+     {
+      "nome": "Cyberottica (occhio)",
+      "categoria": "Cyberottica",
+      "pu": 10,
+      "costo": 500,
+      "desc": "Occhio artificiale. Va comprato per ciascun occhio; ospita fino a 3 opzioni."
+     },
+     {
+      "nome": "Opzione: teleobiettivo",
+      "categoria": "Cyberottica",
+      "pu": 1,
+      "costo": 500,
+      "desc": "Zoom fino a 20x."
+     }
+    ],
+    "armi": [
+     {
+      "nome": "Militech Arms Avenger",
+      "tipo": "PST",
+      "precisione": "0",
+      "occultabilita": "J",
+      "reperibilita": "E",
+      "danni": "2D6+1 (9mm)",
+      "caricatore": "10",
+      "cadenza": "2",
+      "affidabilita": "MA",
+      "gittata": "50",
+      "costo_eb": "250",
+      "descrizione": "Arma da professionisti, ben fatta e alta prec e alta portata Militech Elect ronics Taser PST EXO 1 J C Stordimento 10 1 ST 10 60 Piccolo come una lampadina tascabile",
+      "inUso": true
+     },
+     {
+      "nome": "Coltello da sopravvivenza",
+      "tipo": "BNC",
+      "precisione": "0",
+      "occultabilita": "J",
+      "reperibilita": "C",
+      "danni": "1D6",
+      "caricatore": "NO",
+      "cadenza": "NO",
+      "affidabilita": "MA",
+      "gittata": "1",
+      "costo_eb": "50",
+      "descrizione": "",
+      "inUso": false
+     }
+    ],
+    "armature": [
+     {
+      "nome": "Giubbotto da mitragliere",
+      "vp": 20,
+      "ingombro": 2,
+      "costo": 500,
+      "copre": "Tronco, braccia"
+     },
+     {
+      "nome": "Elmetto di nylon",
+      "vp": 20,
+      "ingombro": 0,
+      "costo": 100,
+      "copre": "Testa"
+     }
+    ],
+    "equipaggiamento": [
+     {
+      "nome": "Corda e rampino (30 m)",
+      "quantita": 1,
+      "note": "Varie"
+     },
+     {
+      "nome": "Kit rimozione allarmi",
+      "quantita": 1,
+      "note": "+1 ai tiri TEC contro serrature e sensori"
+     },
+     {
+      "nome": "Cellulare",
+      "quantita": 1,
+      "note": "Elettronica"
+     },
+     {
+      "nome": "Kit di pronto soccorso",
+      "quantita": 1,
+      "note": "Medico"
+     }
+    ],
+    "veicoli": [],
+    "denaro": {
+     "contanti": 260,
+     "banca": 0
+    },
+    "umanita": {
+     "attuale": 83,
+     "iniziale": 100
+    },
+    "ferite": {
+     "caselle": 0
+    },
+    "reputazione": 0,
+    "puntiIncremento": 0,
+    "background": {
+     "origini": {
+      "etnia": "Ispanoamericana",
+      "lingua": "Spagnolo"
+     },
+     "famiglia": {
+      "rango": "Famiglia di gang",
+      "status": "In condizioni agiate grazie a soldi sporchi",
+      "genitoriVivi": true,
+      "tragedia": null
+     },
+     "infanzia": "In un branco nomade, sempre sulla strada",
+     "motivazioni": {
+      "personalita": "Ribelle e ostile all'autorita'",
+      "personaPiuCara": "Te stesso, e nessun altro",
+      "cosaContaDiPiu": "L'amore",
+      "comeVediGliAltri": "Neutrale: ognuno per se'",
+      "oggettoPiuPrezioso": "Un capo di abbigliamento"
+     },
+     "testo": "E' stato un chirurgo vero, in un ospedale vero, finche' non ha operato la persona sbagliata su richiesta della persona giusta. Adesso ha un tavolo, due serbatoi criogenici e la reputazione di non aver mai perso nessuno che sia arrivato ancora vivo. Beve, ma mai prima di operare.",
+     "obiettivo": "Rimettere insieme abbastanza gente da pareggiare il conto.",
+     "fratelli": [
+      {
+       "chi": "Fratello adottivo",
+       "rapporto": "Vi odiate a vicenda"
+      }
+     ]
+    },
+    "eventi": [
+     {
+      "anno": 16,
+      "tipo": "fortuna",
+      "testo": "Un colpo di fortuna",
+      "dettaglio": "Un contatto corporativo ti deve un favore"
+     },
+     {
+      "anno": 17,
+      "tipo": "nemico",
+      "testo": "Ti sei fatto un nemico",
+      "dettaglio": "Un capo gang — Hai ucciso uno dei suoi"
+     },
+     {
+      "anno": 18,
+      "tipo": "fortuna",
+      "testo": "Un colpo di fortuna",
+      "dettaglio": "Hai ereditato un veicolo"
+     },
+     {
+      "anno": 19,
+      "tipo": "nulla",
+      "testo": "Un anno tranquillo, per una volta"
+     },
+     {
+      "anno": 20,
+      "tipo": "disgrazia",
+      "testo": "Grossi guai",
+      "dettaglio": "Una corporazione ti ha messo sulla lista nera"
+     },
+     {
+      "anno": 21,
+      "tipo": "amico",
+      "testo": "Hai stretto un'amicizia",
+      "dettaglio": "Un commilitone — Vi siete salvati la vita a vicenda"
+     },
+     {
+      "anno": 22,
+      "tipo": "fortuna",
+      "testo": "Un colpo di fortuna",
+      "dettaglio": "Hai vinto una somma importante al gioco"
+     },
+     {
+      "anno": 23,
+      "tipo": "fortuna",
+      "testo": "Un colpo di fortuna",
+      "dettaglio": "Un colpo e' andato meglio del previsto: 1d6 x 1000 eb"
+     },
+     {
+      "anno": 24,
+      "tipo": "nemico",
+      "testo": "Ti sei fatto un nemico",
+      "dettaglio": "Un ex amante — Lo hai lasciato nel modo peggiore"
+     },
+     {
+      "anno": 25,
+      "tipo": "disgrazia",
+      "testo": "Grossi guai",
+      "dettaglio": "Sei finito in prigione per un anno"
+     },
+     {
+      "anno": 26,
+      "tipo": "amore",
+      "testo": "Coinvolgimento sentimentale",
+      "dettaglio": "Ti ha lasciato per qualcun altro"
+     },
+     {
+      "anno": 27,
+      "tipo": "amore",
+      "testo": "Coinvolgimento sentimentale",
+      "dettaglio": "L'hai lasciato tu, senza spiegazioni"
+     },
+     {
+      "anno": 28,
+      "tipo": "amico",
+      "testo": "Hai stretto un'amicizia",
+      "dettaglio": "Un rockerboy — Ti fa da megafono quando ne hai bisogno"
+     },
+     {
+      "anno": 29,
+      "tipo": "fortuna",
+      "testo": "Un colpo di fortuna",
+      "dettaglio": "Sei sopravvissuto a qualcosa che non avrebbe dovuto lasciarti vivo"
+     },
+     {
+      "anno": 30,
+      "tipo": "disgrazia",
+      "testo": "Grossi guai",
+      "dettaglio": "Sei stato accusato di un crimine che non hai commesso"
+     },
+     {
+      "anno": 31,
+      "tipo": "nemico",
+      "testo": "Ti sei fatto un nemico",
+      "dettaglio": "Un dirigente corporativo — Hai rubato dati che gli appartenevano"
+     },
+     {
+      "anno": 32,
+      "tipo": "nemico",
+      "testo": "Ti sei fatto un nemico",
+      "dettaglio": "Un Solo — Lo hai umiliato in pubblico"
+     },
+     {
+      "anno": 33,
+      "tipo": "nemico",
+      "testo": "Ti sei fatto un nemico",
+      "dettaglio": "Un giornalista — Ha una registrazione che ti incastra"
+     },
+     {
+      "anno": 34,
+      "tipo": "disgrazia",
+      "testo": "Grossi guai",
+      "dettaglio": "Hai perso un arto in un incidente"
+     },
+     {
+      "anno": 35,
+      "tipo": "amore",
+      "testo": "Coinvolgimento sentimentale",
+      "dettaglio": "E' sparito nel nulla"
+     },
+     {
+      "anno": 36,
+      "tipo": "amore",
+      "testo": "Coinvolgimento sentimentale",
+      "dettaglio": "Una storia felice, ancora in corso"
+     },
+     {
+      "anno": 37,
+      "tipo": "nemico",
+      "testo": "Ti sei fatto un nemico",
+      "dettaglio": "Un poliziotto — Gli hai fatto perdere una promozione"
+     },
+     {
+      "anno": 38,
+      "tipo": "amico",
+      "testo": "Hai stretto un'amicizia",
+      "dettaglio": "Un poliziotto stanco — Chiude un occhio, per vecchia amicizia"
+     },
+     {
+      "anno": 39,
+      "tipo": "nulla",
+      "testo": "Un anno di lavoro e niente altro"
+     },
+     {
+      "anno": 40,
+      "tipo": "disgrazia",
+      "testo": "Grossi guai",
+      "dettaglio": "Hai perso l'unica persona a cui tenevi"
+     }
+    ],
+    "generatoConLLM": false
+   }
+  },
+  {
+   "id": "rocker",
+   "nome": "Mira Solis",
+   "soprannome": "Fiamma",
+   "classe": "rocker",
+   "sommario": "Suona in locali che non dovrebbero esistere e riempie le strade quando parla.",
+   "scheda": {
+    "versione": 1,
+    "anagrafica": {
+     "nome": "Mira Solis",
+     "soprannome": "Fiamma",
+     "giocatore": "",
+     "natoA": "Night City, Heywood",
+     "eta": 24,
+     "nazionalita": "Statunitense",
+     "altezza": 163,
+     "peso": 52,
+     "lingue": [
+      "Inglese di strada",
+      "Portoghese"
+     ],
+     "abbigliamento": "Completo corporativo su misura. Un dente d'oro con microchip incastonato.",
+     "capelli": "Selvaggi, in tutte le direzioni",
+     "occhi": "Nocciola, truccati pesante",
+     "segniParticolari": "Capelli che cambiano colore col calore. Costano piu' del suo amplificatore.",
+     "carattere": "Stabile e affidabile, la roccia del gruppo",
+     "note": "Non e' un personaggio da combattimento: e' la voce del gruppo. Leadership carismatica trascina la folla, e una folla in Night City e' un'arma. Dalle scene sociali, non sparatorie."
+    },
+    "classe": "rocker",
+    "caratteristiche": {
+     "INT": 5,
+     "RIF": 5,
+     "TEC": 5,
+     "FRE": 10,
+     "FAS": 10,
+     "FOR": 5,
+     "MOV": 5,
+     "COS": 5,
+     "EMP": 9
+    },
+    "abilita": {
+     "Leadership carismatica": 3,
+     "Persuadere - Raggirare": 2,
+     "Recitare": 1,
+     "Suonare strumenti": 1,
+     "Lingue": 2,
+     "Atletica": 1,
+     "Resistenza alla tortura": 1,
+     "Schivare - Divincolarsi": 1,
+     "Nascondersi - Seminare": 1,
+     "Mondanita'": 1
+    },
+    "abilitaClasseScelte": [],
+    "cyberware": [
+     {
+      "nome": "Tatuaggio luminoso",
+      "categoria": "Modaware",
+      "pu": 3,
+      "costo": 100,
+      "desc": "Tatuaggio bioluminescente, cambia colore a comando."
+     },
+     {
+      "nome": "Capelli tecnologici",
+      "categoria": "Modaware",
+      "pu": 1,
+      "costo": 200,
+      "desc": "Capelli fotosensibili che cambiano colore con l'umore."
+     },
+     {
+      "nome": "Cyberudito (orecchio)",
+      "categoria": "Cyberudito",
+      "pu": 5,
+      "costo": 500,
+      "desc": "Orecchio artificiale, ospita fino a 3 opzioni."
+     }
+    ],
+    "armi": [
+     {
+      "nome": "Dai Lung \"Han\"",
+      "tipo": "PST",
+      "precisione": "0",
+      "occultabilita": "J",
+      "reperibilita": "P",
+      "danni": "2D6+3 (10mm)",
+      "caricatore": "8",
+      "cadenza": "1",
+      "affidabilita": "ST",
+      "gittata": "50",
+      "costo_eb": "225",
+      "descrizione": "Popolare tra contrabbandieri asiatici, pirati, banditi",
+      "inUso": true
+     },
+     {
+      "nome": "Coltello da sopravvivenza",
+      "tipo": "BNC",
+      "precisione": "0",
+      "occultabilita": "J",
+      "reperibilita": "C",
+      "danni": "1D6",
+      "caricatore": "NO",
+      "cadenza": "NO",
+      "affidabilita": "MA",
+      "gittata": "1",
+      "costo_eb": "50",
+      "descrizione": "",
+      "inUso": false
+     }
+    ],
+    "armature": [
+     {
+      "nome": "Giubbotto di kevlar leggero",
+      "vp": 10,
+      "ingombro": 0,
+      "costo": 150,
+      "copre": "Tronco"
+     },
+     {
+      "nome": "Elmetto d'acciaio",
+      "vp": 14,
+      "ingombro": 0,
+      "costo": 20,
+      "copre": "Testa"
+     }
+    ],
+    "equipaggiamento": [],
+    "veicoli": [],
+    "denaro": {
+     "contanti": 255,
+     "banca": 0
+    },
+    "umanita": {
+     "attuale": 91,
+     "iniziale": 100
+    },
+    "ferite": {
+     "caselle": 0
+    },
+    "reputazione": 0,
+    "puntiIncremento": 0,
+    "background": {
+     "origini": {
+      "etnia": "Centro o sudamericana",
+      "lingua": "Portoghese"
+     },
+     "famiglia": {
+      "rango": "Dirigenti corporativi di alto livello",
+      "status": "In condizioni agiate grazie a soldi sporchi",
+      "genitoriVivi": true,
+      "tragedia": null
+     },
+     "infanzia": "In un quartiere un tempo elegante, ora marcio",
+     "motivazioni": {
+      "personalita": "Stabile e affidabile, la roccia del gruppo",
+      "personaPiuCara": "Te stesso, e nessun altro",
+      "cosaContaDiPiu": "L'onore",
+      "comeVediGliAltri": "Le persone vanno protette",
+      "oggettoPiuPrezioso": "Un attrezzo di lavoro"
+     },
+     "testo": "Ha cominciato a cantare sui tetti perche' nessun locale la faceva salire sul palco. Adesso i locali la chiamano e lei sceglie: suona dove serve, cioe' dove la gente ha bisogno di sentirsi dire qualcosa. Una sua canzone ha fatto scendere in strada tremila persone. Da allora tre aziende diverse hanno provato a metterla sotto contratto e una ha provato a farla tacere.",
+     "obiettivo": "Riempire lo stadio. E dire, da li', quello che non si puo' dire.",
+     "fratelli": [
+      {
+       "chi": "Sorella minore",
+       "rapporto": "E' il tuo idolo"
+      },
+      {
+       "chi": "Sorella maggiore",
+       "rapporto": "E' geloso di te"
+      },
+      {
+       "chi": "Fratellastro maggiore",
+       "rapporto": "Neutrale, vi vedete alle feste"
+      },
+      {
+       "chi": "Sorellastra minore",
+       "rapporto": "Vi odiate a vicenda"
+      },
+      {
+       "chi": "Sorella minore",
+       "rapporto": "Ti protegge da sempre"
+      }
+     ]
+    },
+    "eventi": [
+     {
+      "anno": 16,
+      "tipo": "disgrazia",
+      "testo": "Grossi guai",
+      "dettaglio": "Sei stato costretto a fuggire dalla citta'"
+     },
+     {
+      "anno": 17,
+      "tipo": "disgrazia",
+      "testo": "Grossi guai",
+      "dettaglio": "Hai contratto un debito enorme con la persona sbagliata"
+     },
+     {
+      "anno": 18,
+      "tipo": "disgrazia",
+      "testo": "Grossi guai",
+      "dettaglio": "Sei stato accusato di un crimine che non hai commesso"
+     },
+     {
+      "anno": 19,
+      "tipo": "fortuna",
+      "testo": "Un colpo di fortuna",
+      "dettaglio": "Hai ereditato un veicolo"
+     },
+     {
+      "anno": 20,
+      "tipo": "amore",
+      "testo": "Coinvolgimento sentimentale",
+      "dettaglio": "Una storia felice, finita bene"
+     },
+     {
+      "anno": 21,
+      "tipo": "amore",
+      "testo": "Coinvolgimento sentimentale",
+      "dettaglio": "Una storia felice, finita bene"
+     },
+     {
+      "anno": 22,
+      "tipo": "nemico",
+      "testo": "Ti sei fatto un nemico",
+      "dettaglio": "Un parente — Una questione di eredita'"
+     },
+     {
+      "anno": 23,
+      "tipo": "amore",
+      "testo": "Coinvolgimento sentimentale",
+      "dettaglio": "Ti ha lasciato per qualcun altro"
+     }
+    ],
+    "generatoConLLM": false
+   }
+  },
+  {
+   "id": "reporter",
+   "nome": "Gianni Brambilla",
+   "soprannome": "Il Tafano",
+   "classe": "reporter",
+   "sommario": "Fa domande a cui nessuno vuole rispondere, e le fa in diretta.",
+   "scheda": {
+    "versione": 1,
+    "anagrafica": {
+     "nome": "Gianni Brambilla",
+     "soprannome": "Il Tafano",
+     "giocatore": "",
+     "natoA": "Milano",
+     "eta": 31,
+     "nazionalita": "Italiano",
+     "altezza": 174,
+     "peso": 70,
+     "lingue": [
+      "Inglese di strada",
+      "Swahili"
+     ],
+     "abbigliamento": "Pelle da biker, borchie e toppe. Tatuaggi che coprono braccia e collo.",
+     "capelli": "Corti e ordinati, da impiegato",
+     "occhi": "Azzurri",
+     "segniParticolari": "Registratore d'epoca sempre in tasca. Funziona ancora.",
+     "carattere": "Lunatico e violento quando esplodi",
+     "note": "Credibilita' alta: quello che dice, la gente ci crede. E' la chiave per far succedere cose che nessuna sparatoria otterrebbe. Ottimo per far muovere la trama."
+    },
+    "classe": "reporter",
+    "caratteristiche": {
+     "INT": 10,
+     "RIF": 6,
+     "TEC": 5,
+     "FRE": 5,
+     "FAS": 8,
+     "FOR": 5,
+     "MOV": 5,
+     "COS": 6,
+     "EMP": 8
+    },
+    "abilita": {
+     "Credibilita'": 3,
+     "Composizione": 4,
+     "Percepire emozioni": 3,
+     "Intervistare": 1,
+     "Persuadere - Raggirare": 1,
+     "Conosc. della strada": 1,
+     "Lingue": 3,
+     "Sedurre": 1,
+     "Guidare autoveicoli": 1,
+     "Pronto soccorso": 1,
+     "Trucco - Pettinatura": 1,
+     "Psicologia": 1,
+     "Atletica": 1,
+     "Chimica - Fisica": 1,
+     "Nascondersi - Seminare": 1,
+     "Antropologia": 1,
+     "Leadership": 1
+    },
+    "abilitaClasseScelte": [],
+    "cyberware": [
+     {
+      "nome": "Cyberottica (occhio)",
+      "categoria": "Cyberottica",
+      "pu": 8,
+      "costo": 500,
+      "desc": "Occhio artificiale. Va comprato per ciascun occhio; ospita fino a 3 opzioni."
+     },
+     {
+      "nome": "Opzione: microvideo",
+      "categoria": "Cyberottica",
+      "pu": 2,
+      "costo": 400,
+      "desc": "Registra cio' che si vede."
+     },
+     {
+      "nome": "Cyberudito (orecchio)",
+      "categoria": "Cyberudito",
+      "pu": 6,
+      "costo": 500,
+      "desc": "Orecchio artificiale, ospita fino a 3 opzioni."
+     }
+    ],
+    "armi": [
+     {
+      "nome": "Militech Arms Avenger",
+      "tipo": "PST",
+      "precisione": "0",
+      "occultabilita": "J",
+      "reperibilita": "E",
+      "danni": "2D6+1 (9mm)",
+      "caricatore": "10",
+      "cadenza": "2",
+      "affidabilita": "MA",
+      "gittata": "50",
+      "costo_eb": "250",
+      "descrizione": "Arma da professionisti, ben fatta e alta prec e alta portata Militech Elect ronics Taser PST EXO 1 J C Stordimento 10 1 ST 10 60 Piccolo come una lampadina tascabile",
+      "inUso": true
+     },
+     {
+      "nome": "Dai Lung \"Han\"",
+      "tipo": "PST",
+      "precisione": "0",
+      "occultabilita": "J",
+      "reperibilita": "P",
+      "danni": "2D6+3 (10mm)",
+      "caricatore": "8",
+      "cadenza": "1",
+      "affidabilita": "ST",
+      "gittata": "50",
+      "costo_eb": "225",
+      "descrizione": "Popolare tra contrabbandieri asiatici, pirati, banditi",
+      "inUso": false
+     }
+    ],
+    "armature": [
+     {
+      "nome": "Giubbotto di kevlar pesante",
+      "vp": 18,
+      "ingombro": 2,
+      "costo": 300,
+      "copre": "Tronco"
+     },
+     {
+      "nome": "Elmetto d'acciaio",
+      "vp": 14,
+      "ingombro": 0,
+      "costo": 20,
+      "copre": "Testa"
+     }
+    ],
+    "equipaggiamento": [
+     {
+      "nome": "Razioni da campo (7 giorni)",
+      "quantita": 1,
+      "note": "Varie"
+     }
+    ],
+    "veicoli": [],
+    "denaro": {
+     "contanti": 255,
+     "banca": 0
+    },
+    "umanita": {
+     "attuale": 84,
+     "iniziale": 100
+    },
+    "ferite": {
+     "caselle": 0
+    },
+    "reputazione": 0,
+    "puntiIncremento": 0,
+    "background": {
+     "origini": {
+      "etnia": "Africana",
+      "lingua": "Swahili"
+     },
+     "famiglia": {
+      "rango": "Flotta pirata",
+      "status": "In condizioni agiate, non e' mai mancato nulla",
+      "genitoriVivi": false,
+      "tragedia": "La famiglia si e' dispersa ai quattro venti"
+     },
+     "infanzia": "In un branco nomade, sempre sulla strada",
+     "motivazioni": {
+      "personalita": "Lunatico e violento quando esplodi",
+      "personaPiuCara": "Un animale",
+      "cosaContaDiPiu": "L'amicizia",
+      "comeVediGliAltri": "Le persone sono bersagli",
+      "oggettoPiuPrezioso": "Una lettera mai spedita"
+     },
+     "testo": "Ha bruciato tre testate in dieci anni, sempre allo stesso modo: pubblicando quello che gli avevano detto di non pubblicare. Adesso trasmette per conto suo e ha un pubblico che lo segue proprio perche' nessuno lo assume. Sa che questo lo rende utile a molta gente pericolosa, e lo usa.",
+     "obiettivo": "Mandare in onda il nome di chi ha comprato il consiglio comunale.",
+     "fratelli": [
+      {
+       "chi": "Gemella",
+       "rapporto": "Ti protegge da sempre"
+      },
+      {
+       "chi": "Sorellastra minore",
+       "rapporto": "Ti considera un fallito"
+      },
+      {
+       "chi": "Sorellastra minore",
+       "rapporto": "Ti deve la vita"
+      },
+      {
+       "chi": "Fratello adottivo",
+       "rapporto": "Neutrale, vi vedete alle feste"
+      },
+      {
+       "chi": "Sorellastra minore",
+       "rapporto": "Non vi parlate da anni"
+      }
+     ]
+    },
+    "eventi": [
+     {
+      "anno": 16,
+      "tipo": "amore",
+      "testo": "Coinvolgimento sentimentale",
+      "dettaglio": "La distanza vi ha logorati"
+     },
+     {
+      "anno": 17,
+      "tipo": "nulla",
+      "testo": "Un anno di lavoro e niente altro"
+     },
+     {
+      "anno": 18,
+      "tipo": "nulla",
+      "testo": "Un anno di lavoro e niente altro"
+     },
+     {
+      "anno": 19,
+      "tipo": "disgrazia",
+      "testo": "Grossi guai",
+      "dettaglio": "Hai contratto un debito enorme con la persona sbagliata"
+     },
+     {
+      "anno": 20,
+      "tipo": "amore",
+      "testo": "Coinvolgimento sentimentale",
+      "dettaglio": "Una storia felice, finita bene"
+     },
+     {
+      "anno": 21,
+      "tipo": "disgrazia",
+      "testo": "Grossi guai",
+      "dettaglio": "Hai contratto un debito enorme con la persona sbagliata"
+     },
+     {
+      "anno": 22,
+      "tipo": "amore",
+      "testo": "Coinvolgimento sentimentale",
+      "dettaglio": "Una storia felice, ancora in corso"
+     },
+     {
+      "anno": 23,
+      "tipo": "nemico",
+      "testo": "Ti sei fatto un nemico",
+      "dettaglio": "Un netrunner — Hai bruciato il suo deck"
+     },
+     {
+      "anno": 24,
+      "tipo": "disgrazia",
+      "testo": "Grossi guai",
+      "dettaglio": "Un tuo errore ha ucciso qualcuno"
+     },
+     {
+      "anno": 25,
+      "tipo": "amore",
+      "testo": "Coinvolgimento sentimentale",
+      "dettaglio": "E' sparito nel nulla"
+     },
+     {
+      "anno": 26,
+      "tipo": "disgrazia",
+      "testo": "Grossi guai",
+      "dettaglio": "Sei stato costretto a fuggire dalla citta'"
+     },
+     {
+      "anno": 27,
+      "tipo": "amore",
+      "testo": "Coinvolgimento sentimentale",
+      "dettaglio": "E' sparito nel nulla"
+     },
+     {
+      "anno": 28,
+      "tipo": "nulla",
+      "testo": "Un anno di lavoro e niente altro"
+     },
+     {
+      "anno": 29,
+      "tipo": "amore",
+      "testo": "Coinvolgimento sentimentale",
+      "dettaglio": "La sua famiglia vi ha divisi"
+     },
+     {
+      "anno": 30,
+      "tipo": "amore",
+      "testo": "Coinvolgimento sentimentale",
+      "dettaglio": "L'hai lasciato tu, senza spiegazioni"
+     }
+    ],
+    "generatoConLLM": false
+   }
+  },
+  {
+   "id": "poliziotto",
+   "nome": "Rosa Iancu",
+   "soprannome": "Ferro",
+   "classe": "poliziotto",
+   "sommario": "Sergente NCPD, pulita in un distretto che non lo e'. Per quanto ancora, non si sa.",
+   "scheda": {
+    "versione": 1,
+    "anagrafica": {
+     "nome": "Rosa Iancu",
+     "soprannome": "Ferro",
+     "giocatore": "",
+     "natoA": "Bucarest",
+     "eta": 38,
+     "nazionalita": "Rumena",
+     "altezza": 170,
+     "peso": 72,
+     "lingue": [
+      "Inglese di strada",
+      "Italiano"
+     ],
+     "abbigliamento": "Mimetica da combattimento. Occhiali a specchio, mai tolti.",
+     "capelli": "Tinti di un colore impossibile",
+     "occhi": "Neri",
+     "segniParticolari": "Distintivo del sesto distretto, tenuto lucido.",
+     "carattere": "Cinico e sarcastico su tutto",
+     "note": "Autorita' apre porte che nessun'altra classe apre. Ma se il gruppo fa qualcosa di illegale davanti a lei, il tavolo ha un problema interessante: usalo."
+    },
+    "classe": "poliziotto",
+    "caratteristiche": {
+     "INT": 5,
+     "RIF": 10,
+     "TEC": 5,
+     "FRE": 10,
+     "FAS": 5,
+     "FOR": 5,
+     "MOV": 5,
+     "COS": 10,
+     "EMP": 4
+    },
+    "abilita": {
+     "Autorita'": 3,
+     "Interrogare": 3,
+     "Pistole": 2,
+     "Individuare": 2,
+     "Percepire emozioni": 1,
+     "Lottare": 1,
+     "Lingue": 2,
+     "Botanica": 1,
+     "Con. della criminalita'": 1,
+     "Guidare autoveicoli": 1,
+     "Geologia": 1,
+     "Biologia - Zoologia": 1,
+     "Arti marziali": 1,
+     "Borseggiare": 1,
+     "Scherma": 1,
+     "Scassinare": 1,
+     "Composizione": 1
+    },
+    "abilitaClasseScelte": [],
+    "cyberware": [
+     {
+      "nome": "Processore neurale",
+      "categoria": "Neuroware",
+      "pu": 2,
+      "costo": 1000,
+      "desc": "Prerequisito per tutti gli impianti neurali. Da solo non fa nulla."
+     },
+     {
+      "nome": "Cyberottica (occhio)",
+      "categoria": "Cyberottica",
+      "pu": 5,
+      "costo": 500,
+      "desc": "Occhio artificiale. Va comprato per ciascun occhio; ospita fino a 3 opzioni."
+     }
+    ],
+    "armi": [
+     {
+      "nome": "Federated Arms X-9",
+      "tipo": "PST",
+      "precisione": "0",
+      "occultabilita": "J",
+      "reperibilita": "E",
+      "danni": "2D6+1 (9mm)",
+      "caricatore": "12",
+      "cadenza": "2",
+      "affidabilita": "ST",
+      "gittata": "50",
+      "costo_eb": "300",
+      "descrizione": "Pistola d’ordinanza per l’U.S. Army ed esercito della CEE",
+      "inUso": true
+     },
+     {
+      "nome": "Arasaka WSA",
+      "tipo": "PST",
+      "precisione": "0",
+      "occultabilita": "J",
+      "reperibilita": "C",
+      "danni": "2D6+3 (10mm)",
+      "caricatore": "15",
+      "cadenza": "2",
+      "affidabilita": "MA",
+      "gittata": "50",
+      "costo_eb": "400",
+      "descrizione": "Guardie Arasaka",
+      "inUso": false
+     }
+    ],
+    "armature": [
+     {
+      "nome": "Giubbotto di pelle",
+      "vp": 4,
+      "ingombro": 0,
+      "costo": 50,
+      "copre": "Tronco, braccia"
+     }
+    ],
+    "equipaggiamento": [],
+    "veicoli": [],
+    "denaro": {
+     "contanti": 250,
+     "banca": 0
+    },
+    "umanita": {
+     "attuale": 43,
+     "iniziale": 50
+    },
+    "ferite": {
+     "caselle": 0
+    },
+    "reputazione": 0,
+    "puntiIncremento": 0,
+    "background": {
+     "origini": {
+      "etnia": "Europea occidentale",
+      "lingua": "Italiano"
+     },
+     "famiglia": {
+      "rango": "Signori del crimine",
+      "status": "Poveri, ma con una reputazione rispettata",
+      "genitoriVivi": true,
+      "tragedia": null
+     },
+     "infanzia": "In un quartiere un tempo elegante, ora marcio",
+     "motivazioni": {
+      "personalita": "Cinico e sarcastico su tutto",
+      "personaPiuCara": "Te stesso, e nessun altro",
+      "cosaContaDiPiu": "Il denaro, sopra ogni cosa",
+      "comeVediGliAltri": "Le persone sono ostacoli",
+      "oggettoPiuPrezioso": "Un attrezzo di lavoro"
+     },
+     "testo": "Diciotto anni di servizio nello stesso distretto, e ancora sergente: promuovono chi firma, e lei non firma. I colleghi la rispettano e la evitano nello stesso momento. Continua a mettersi la divisa ogni mattina perche' e' convinta che il giorno in cui smette, quel quartiere resta senza nessuno.",
+     "obiettivo": "Arrivare al capitano che copre i Maelstrom, con prove che reggano.",
+     "fratelli": [
+      {
+       "chi": "Gemella",
+       "rapporto": "E' il tuo idolo"
+      }
+     ]
+    },
+    "eventi": [
+     {
+      "anno": 16,
+      "tipo": "amore",
+      "testo": "Coinvolgimento sentimentale",
+      "dettaglio": "Ti ha lasciato per qualcun altro"
+     },
+     {
+      "anno": 17,
+      "tipo": "disgrazia",
+      "testo": "Grossi guai",
+      "dettaglio": "Hai perso l'unica persona a cui tenevi"
+     },
+     {
+      "anno": 18,
+      "tipo": "amore",
+      "testo": "Coinvolgimento sentimentale",
+      "dettaglio": "E' sparito nel nulla"
+     },
+     {
+      "anno": 19,
+      "tipo": "nemico",
+      "testo": "Ti sei fatto un nemico",
+      "dettaglio": "Un parente — Una questione di eredita'"
+     },
+     {
+      "anno": 20,
+      "tipo": "nulla",
+      "testo": "Un anno di lavoro e niente altro"
+     },
+     {
+      "anno": 21,
+      "tipo": "nemico",
+      "testo": "Ti sei fatto un nemico",
+      "dettaglio": "Un ex amante — Lo hai lasciato nel modo peggiore"
+     },
+     {
+      "anno": 22,
+      "tipo": "fortuna",
+      "testo": "Un colpo di fortuna",
+      "dettaglio": "Un colpo e' andato meglio del previsto: 1d6 x 1000 eb"
+     },
+     {
+      "anno": 23,
+      "tipo": "nemico",
+      "testo": "Ti sei fatto un nemico",
+      "dettaglio": "Un ex socio — Lo hai tradito in un colpo"
+     },
+     {
+      "anno": 24,
+      "tipo": "amore",
+      "testo": "Coinvolgimento sentimentale",
+      "dettaglio": "Ti ha lasciato per qualcun altro"
+     },
+     {
+      "anno": 25,
+      "tipo": "disgrazia",
+      "testo": "Grossi guai",
+      "dettaglio": "Sei stato accusato di un crimine che non hai commesso"
+     },
+     {
+      "anno": 26,
+      "tipo": "amico",
+      "testo": "Hai stretto un'amicizia",
+      "dettaglio": "Un barista — Sa tutto di tutti e parla solo con te"
+     },
+     {
+      "anno": 27,
+      "tipo": "amore",
+      "testo": "Coinvolgimento sentimentale",
+      "dettaglio": "Una storia felice, ancora in corso"
+     },
+     {
+      "anno": 28,
+      "tipo": "nemico",
+      "testo": "Ti sei fatto un nemico",
+      "dettaglio": "Un fixer — Non hai pagato quello che dovevi"
+     },
+     {
+      "anno": 29,
+      "tipo": "amore",
+      "testo": "Coinvolgimento sentimentale",
+      "dettaglio": "Una relazione tossica, durata troppo"
+     },
+     {
+      "anno": 30,
+      "tipo": "nemico",
+      "testo": "Ti sei fatto un nemico",
+      "dettaglio": "Un ex socio — Lo hai tradito in un colpo"
+     },
+     {
+      "anno": 31,
+      "tipo": "nemico",
+      "testo": "Ti sei fatto un nemico",
+      "dettaglio": "Un Solo — Lo hai umiliato in pubblico"
+     },
+     {
+      "anno": 32,
+      "tipo": "amore",
+      "testo": "Coinvolgimento sentimentale",
+      "dettaglio": "Un amore mai dichiarato"
+     },
+     {
+      "anno": 33,
+      "tipo": "nulla",
+      "testo": "Un anno di lavoro e niente altro"
+     },
+     {
+      "anno": 34,
+      "tipo": "amico",
+      "testo": "Hai stretto un'amicizia",
+      "dettaglio": "Un rockerboy — Ti fa da megafono quando ne hai bisogno"
+     },
+     {
+      "anno": 35,
+      "tipo": "amico",
+      "testo": "Hai stretto un'amicizia",
+      "dettaglio": "Un techie — Ti tiene in vita l'equipaggiamento"
+     },
+     {
+      "anno": 36,
+      "tipo": "nemico",
+      "testo": "Ti sei fatto un nemico",
+      "dettaglio": "Un capo gang — Hai ucciso uno dei suoi"
+     },
+     {
+      "anno": 37,
+      "tipo": "disgrazia",
+      "testo": "Grossi guai",
+      "dettaglio": "Sei finito in prigione per un anno"
+     }
+    ],
+    "generatoConLLM": false
+   }
+  },
+  {
+   "id": "corporativo",
+   "nome": "Damiano Ferretti",
+   "soprannome": "Il Sorriso",
+   "classe": "corporativo",
+   "sommario": "Dirigente di medio livello con un budget e nessuno scrupolo.",
+   "scheda": {
+    "versione": 1,
+    "anagrafica": {
+     "nome": "Damiano Ferretti",
+     "soprannome": "Il Sorriso",
+     "giocatore": "",
+     "natoA": "Roma",
+     "eta": 36,
+     "nazionalita": "Italiano",
+     "altezza": 183,
+     "peso": 78,
+     "lingue": [
+      "Inglese di strada",
+      "Russo"
+     ],
+     "abbigliamento": "Stracci sovrapposti, eleganza da barbone. Guanti senza dita, di pelle nera.",
+     "capelli": "Lunghi e lisci fino alla vita",
+     "occhi": "Grigi, cyberottica con registrazione",
+     "segniParticolari": "Non ha una piega fuori posto. Mai.",
+     "carattere": "Onesto e degno di fiducia",
+     "note": "Risorse 3 significa che il gruppo ha accesso a soldi e mezzi aziendali. E' il personaggio piu' pericoloso da avere in squadra: e' anche il piu' comodo. Il Master decida presto a chi risponde davvero."
+    },
+    "classe": "corporativo",
+    "caratteristiche": {
+     "INT": 10,
+     "RIF": 5,
+     "TEC": 4,
+     "FRE": 10,
+     "FAS": 10,
+     "FOR": 4,
+     "MOV": 5,
+     "COS": 5,
+     "EMP": 6
+    },
+    "abilita": {
+     "Risorse": 3,
+     "Giocare in borsa": 1,
+     "Persuadere - Raggirare": 3,
+     "Mondanita'": 1,
+     "Percepire emozioni": 1,
+     "Biblioteconomia": 1,
+     "Individuare": 1,
+     "Lingue": 3,
+     "Lottare": 2,
+     "Con. della criminalita'": 1,
+     "Specializzazione": 1,
+     "Gioco d'azzardo": 1,
+     "Atletica": 1,
+     "Scherma": 1,
+     "Furtivita'": 1,
+     "Insegnare": 1
+    },
+    "abilitaClasseScelte": [],
+    "cyberware": [
+     {
+      "nome": "Orologio dermale",
+      "categoria": "Modaware",
+      "pu": 2,
+      "costo": 100,
+      "desc": "Display a cristalli liquidi sotto la pelle del polso."
+     },
+     {
+      "nome": "Cyberudito (orecchio)",
+      "categoria": "Cyberudito",
+      "pu": 5,
+      "costo": 500,
+      "desc": "Orecchio artificiale, ospita fino a 3 opzioni."
+     },
+     {
+      "nome": "Opzione: innesto telefonico",
+      "categoria": "Cyberudito",
+      "pu": 0,
+      "costo": 200,
+      "desc": "Telefono cellulare nell'orecchio."
+     },
+     {
+      "nome": "Opzione: vano nascosto",
+      "categoria": "Cyberarti",
+      "pu": 1,
+      "costo": 200,
+      "desc": "Scomparto occultabile nell'arto."
+     },
+     {
+      "nome": "Filtri nasali",
+      "categoria": "Impianti interni",
+      "pu": 1,
+      "costo": 200,
+      "desc": "Immune a gas e sostanze inalate."
+     },
+     {
+      "nome": "Opzione: udito amplificato",
+      "categoria": "Cyberudito",
+      "pu": 0,
+      "costo": 100,
+      "desc": "+2 a Individuare per l'udito."
+     }
+    ],
+    "armi": [
+     {
+      "nome": "Federated Arms X-9",
+      "tipo": "PST",
+      "precisione": "0",
+      "occultabilita": "J",
+      "reperibilita": "E",
+      "danni": "2D6+1 (9mm)",
+      "caricatore": "12",
+      "cadenza": "2",
+      "affidabilita": "ST",
+      "gittata": "50",
+      "costo_eb": "300",
+      "descrizione": "Pistola d’ordinanza per l’U.S. Army ed esercito della CEE",
+      "inUso": true
+     },
+     {
+      "nome": "Arasaka WSA",
+      "tipo": "PST",
+      "precisione": "0",
+      "occultabilita": "J",
+      "reperibilita": "C",
+      "danni": "2D6+3 (10mm)",
+      "caricatore": "15",
+      "cadenza": "2",
+      "affidabilita": "MA",
+      "gittata": "50",
+      "costo_eb": "400",
+      "descrizione": "Guardie Arasaka",
+      "inUso": false
+     }
+    ],
+    "armature": [
+     {
+      "nome": "Giubbotto da mitragliere",
+      "vp": 20,
+      "ingombro": 2,
+      "costo": 500,
+      "copre": "Tronco, braccia"
+     },
+     {
+      "nome": "Elmetto di nylon",
+      "vp": 20,
+      "ingombro": 0,
+      "costo": 100,
+      "copre": "Testa"
+     }
+    ],
+    "equipaggiamento": [
+     {
+      "nome": "Fondina Speedraw",
+      "quantita": 1,
+      "note": "+1 all'iniziativa in estrazione rapida"
+     },
+     {
+      "nome": "Razioni da campo (7 giorni)",
+      "quantita": 1,
+      "note": "Varie"
+     },
+     {
+      "nome": "Cellulare",
+      "quantita": 1,
+      "note": "Elettronica"
+     },
+     {
+      "nome": "Kit rimozione allarmi",
+      "quantita": 1,
+      "note": "+1 ai tiri TEC contro serrature e sensori"
+     },
+     {
+      "nome": "Documenti falsi",
+      "quantita": 1,
+      "note": "Illegale"
+     }
+    ],
+    "veicoli": [],
+    "denaro": {
+     "contanti": 2090,
+     "banca": 0
+    },
+    "umanita": {
+     "attuale": 61,
+     "iniziale": 70
+    },
+    "ferite": {
+     "caselle": 0
+    },
+    "reputazione": 0,
+    "puntiIncremento": 0,
+    "background": {
+     "origini": {
+      "etnia": "Centroeuropea o slava",
+      "lingua": "Russo"
+     },
+     "famiglia": {
+      "rango": "Flotta pirata",
+      "status": "In condizioni agiate grazie a soldi sporchi",
+      "genitoriVivi": false,
+      "tragedia": "La famiglia ha perso tutto per un tradimento"
+     },
+     "infanzia": "In un quartiere un tempo elegante, ora marcio",
+     "motivazioni": {
+      "personalita": "Onesto e degno di fiducia",
+      "personaPiuCara": "Te stesso, e nessun altro",
+      "cosaContaDiPiu": "Il denaro, sopra ogni cosa",
+      "comeVediGliAltri": "Le persone hanno valore in se'",
+      "oggettoPiuPrezioso": "Un capo di abbigliamento"
+     },
+     "testo": "Vende soluzioni, che nella sua azienda e' il modo di dire \"problemi altrui\". Ha un ufficio al ventesimo piano, un'auto con autista e la certezza che chiunque abbia un prezzo, incluso se stesso. La squadra la usa: quando serve un permesso, un pagamento o una porta che si apre, lui la apre. Poi presenta il conto.",
+     "obiettivo": "Il ventunesimo piano. E dopo il ventiduesimo.",
+     "fratelli": []
+    },
+    "eventi": [
+     {
+      "anno": 16,
+      "tipo": "disgrazia",
+      "testo": "Grossi guai",
+      "dettaglio": "Hai perso un arto in un incidente"
+     },
+     {
+      "anno": 17,
+      "tipo": "nulla",
+      "testo": "Un anno di lavoro e niente altro"
+     },
+     {
+      "anno": 18,
+      "tipo": "fortuna",
+      "testo": "Un colpo di fortuna",
+      "dettaglio": "Hai fatto un favore alla persona giusta"
+     },
+     {
+      "anno": 19,
+      "tipo": "fortuna",
+      "testo": "Un colpo di fortuna",
+      "dettaglio": "Hai trovato un mentore che ti ha insegnato il mestiere"
+     },
+     {
+      "anno": 20,
+      "tipo": "disgrazia",
+      "testo": "Grossi guai",
+      "dettaglio": "Hai perso l'unica persona a cui tenevi"
+     },
+     {
+      "anno": 21,
+      "tipo": "disgrazia",
+      "testo": "Grossi guai",
+      "dettaglio": "Sei stato tradito da un socio e hai perso tutto"
+     },
+     {
+      "anno": 22,
+      "tipo": "nemico",
+      "testo": "Ti sei fatto un nemico",
+      "dettaglio": "Un poliziotto — Gli hai fatto perdere una promozione"
+     },
+     {
+      "anno": 23,
+      "tipo": "nemico",
+      "testo": "Ti sei fatto un nemico",
+      "dettaglio": "Un ex socio — Lo hai tradito in un colpo"
+     },
+     {
+      "anno": 24,
+      "tipo": "amore",
+      "testo": "Coinvolgimento sentimentale",
+      "dettaglio": "Una relazione tossica, durata troppo"
+     },
+     {
+      "anno": 25,
+      "tipo": "disgrazia",
+      "testo": "Grossi guai",
+      "dettaglio": "Sei stato accusato di un crimine che non hai commesso"
+     },
+     {
+      "anno": 26,
+      "tipo": "nulla",
+      "testo": "Un anno tranquillo, per una volta"
+     },
+     {
+      "anno": 27,
+      "tipo": "amore",
+      "testo": "Coinvolgimento sentimentale",
+      "dettaglio": "Una relazione tossica, durata troppo"
+     },
+     {
+      "anno": 28,
+      "tipo": "disgrazia",
+      "testo": "Grossi guai",
+      "dettaglio": "Un tuo errore ha ucciso qualcuno"
+     },
+     {
+      "anno": 29,
+      "tipo": "nemico",
+      "testo": "Ti sei fatto un nemico",
+      "dettaglio": "Un fixer — Non hai pagato quello che dovevi"
+     },
+     {
+      "anno": 30,
+      "tipo": "nemico",
+      "testo": "Ti sei fatto un nemico",
+      "dettaglio": "Un Solo — Lo hai umiliato in pubblico"
+     },
+     {
+      "anno": 31,
+      "tipo": "nemico",
+      "testo": "Ti sei fatto un nemico",
+      "dettaglio": "Un dirigente corporativo — Hai rubato dati che gli appartenevano"
+     },
+     {
+      "anno": 32,
+      "tipo": "disgrazia",
+      "testo": "Grossi guai",
+      "dettaglio": "Sei finito in prigione per un anno"
+     },
+     {
+      "anno": 33,
+      "tipo": "nulla",
+      "testo": "Un anno di lavoro e niente altro"
+     },
+     {
+      "anno": 34,
+      "tipo": "nulla",
+      "testo": "Un anno tranquillo, per una volta"
+     },
+     {
+      "anno": 35,
+      "tipo": "amore",
+      "testo": "Coinvolgimento sentimentale",
+      "dettaglio": "E' sparito nel nulla"
+     }
+    ],
+    "generatoConLLM": false
+   }
+  },
+  {
+   "id": "ricettatore",
+   "nome": "Halima Diarra",
+   "soprannome": "La Zia",
+   "classe": "ricettatore",
+   "sommario": "Conosce tutti. Tutti le devono qualcosa. Nessuno sa quanto le deve davvero.",
+   "scheda": {
+    "versione": 1,
+    "anagrafica": {
+     "nome": "Halima Diarra",
+     "soprannome": "La Zia",
+     "giocatore": "",
+     "natoA": "Bamako",
+     "eta": 45,
+     "nazionalita": "Maliana",
+     "altezza": 158,
+     "peso": 63,
+     "lingue": [
+      "Inglese di strada",
+      "Spagnolo"
+     ],
+     "abbigliamento": "Jeans consumati e giubbotto militare. Orecchini a catena su tutto l'orecchio.",
+     "capelli": "Corti e ordinati, da impiegato",
+     "occhi": "Scuri, che non si perdono niente",
+     "segniParticolari": "Tiene banco da un tavolino davanti a un bar. Sempre lo stesso tavolino.",
+     "carattere": "Cinico e sarcastico su tutto",
+     "note": "Contatti 3: e' il modo pulito per dare al gruppo un aggancio quando la trama si blocca. Personaggio ideale da giocare come PNG se al tavolo non c'e' un giocatore per lei."
+    },
+    "classe": "ricettatore",
+    "caratteristiche": {
+     "INT": 10,
+     "RIF": 7,
+     "TEC": 5,
+     "FRE": 5,
+     "FAS": 6,
+     "FOR": 6,
+     "MOV": 5,
+     "COS": 7,
+     "EMP": 7
+    },
+    "abilita": {
+     "Contatti": 3,
+     "Persuadere - Raggirare": 4,
+     "Conosc. della strada": 2,
+     "Pistole": 2,
+     "Lottare": 1,
+     "Falsificare": 1,
+     "Individuare": 1,
+     "Lingue": 2,
+     "Resistenza": 1,
+     "Sedurre": 1,
+     "Botanica": 1,
+     "Sopravvivenza": 1,
+     "Armi da tiro": 1,
+     "Percepire emozioni": 1,
+     "Oratoria": 1,
+     "Istruzione - Conoscenze": 1,
+     "Arte": 1,
+     "Specializzazione": 1,
+     "Medicina legale": 2,
+     "Insegnare": 1
+    },
+    "abilitaClasseScelte": [],
+    "cyberware": [
+     {
+      "nome": "Cyberudito (orecchio)",
+      "categoria": "Cyberudito",
+      "pu": 11,
+      "costo": 500,
+      "desc": "Orecchio artificiale, ospita fino a 3 opzioni."
+     },
+     {
+      "nome": "Opzione: rilevatore di cimici",
+      "categoria": "Cyberudito",
+      "pu": 0,
+      "costo": 500,
+      "desc": "Segnala microspie nel raggio di 10 m."
+     },
+     {
+      "nome": "Cyberottica (occhio)",
+      "categoria": "Cyberottica",
+      "pu": 9,
+      "costo": 500,
+      "desc": "Occhio artificiale. Va comprato per ciascun occhio; ospita fino a 3 opzioni."
+     }
+    ],
+    "armi": [
+     {
+      "nome": "Dai Lung \"Han\"",
+      "tipo": "PST",
+      "precisione": "0",
+      "occultabilita": "J",
+      "reperibilita": "P",
+      "danni": "2D6+3 (10mm)",
+      "caricatore": "8",
+      "cadenza": "1",
+      "affidabilita": "ST",
+      "gittata": "50",
+      "costo_eb": "225",
+      "descrizione": "Popolare tra contrabbandieri asiatici, pirati, banditi",
+      "inUso": true
+     },
+     {
+      "nome": "Militech Arms Avenger",
+      "tipo": "PST",
+      "precisione": "0",
+      "occultabilita": "J",
+      "reperibilita": "E",
+      "danni": "2D6+1 (9mm)",
+      "caricatore": "10",
+      "cadenza": "2",
+      "affidabilita": "MA",
+      "gittata": "50",
+      "costo_eb": "250",
+      "descrizione": "Arma da professionisti, ben fatta e alta prec e alta portata Militech Elect ronics Taser PST EXO 1 J C Stordimento 10 1 ST 10 60 Piccolo come una lampadina tascabile",
+      "inUso": false
+     },
+     {
+      "nome": "Coltello da sopravvivenza",
+      "tipo": "BNC",
+      "precisione": "0",
+      "occultabilita": "J",
+      "reperibilita": "C",
+      "danni": "1D6",
+      "caricatore": "NO",
+      "cadenza": "NO",
+      "affidabilita": "MA",
+      "gittata": "1",
+      "costo_eb": "50",
+      "descrizione": "",
+      "inUso": false
+     }
+    ],
+    "armature": [
+     {
+      "nome": "Giubbotto di kevlar medio",
+      "vp": 14,
+      "ingombro": 1,
+      "costo": 200,
+      "copre": "Tronco"
+     },
+     {
+      "nome": "Elmetto d'acciaio",
+      "vp": 14,
+      "ingombro": 0,
+      "costo": 20,
+      "copre": "Testa"
+     }
+    ],
+    "equipaggiamento": [],
+    "veicoli": [],
+    "denaro": {
+     "contanti": 255,
+     "banca": 0
+    },
+    "umanita": {
+     "attuale": 70,
+     "iniziale": 90
+    },
+    "ferite": {
+     "caselle": 0
+    },
+    "reputazione": 0,
+    "puntiIncremento": 0,
+    "background": {
+     "origini": {
+      "etnia": "Ispanoamericana",
+      "lingua": "Spagnolo"
+     },
+     "famiglia": {
+      "rango": "Signori del crimine",
+      "status": "Hanno perso tutto e sono finiti in strada",
+      "genitoriVivi": true,
+      "tragedia": null
+     },
+     "infanzia": "In un quartiere un tempo elegante, ora marcio",
+     "motivazioni": {
+      "personalita": "Cinico e sarcastico su tutto",
+      "personaPiuCara": "Un amico",
+      "cosaContaDiPiu": "L'onore",
+      "comeVediGliAltri": "Le persone non sono affidabili",
+      "oggettoPiuPrezioso": "Una registrazione"
+     },
+     "testo": "Non ha un negozio, un ufficio o un'insegna: ha un tavolino, un caffe' che si raffredda e trent'anni di favori fatti alle persone giuste. Se serve qualcosa in questa citta', si passa da lei. Non tratta armi e non tratta persone: e' l'unica regola che ha, e non l'ha mai spiegata a nessuno.",
+     "obiettivo": "Che il quartiere resti in piedi anche quando lei non ci sara' piu'.",
+     "fratelli": [
+      {
+       "chi": "Fratellastro maggiore",
+       "rapporto": "Neutrale, vi vedete alle feste"
+      }
+     ]
+    },
+    "eventi": [
+     {
+      "anno": 16,
+      "tipo": "nemico",
+      "testo": "Ti sei fatto un nemico",
+      "dettaglio": "Un fixer — Non hai pagato quello che dovevi"
+     },
+     {
+      "anno": 17,
+      "tipo": "nemico",
+      "testo": "Ti sei fatto un nemico",
+      "dettaglio": "Un netrunner — Hai bruciato il suo deck"
+     },
+     {
+      "anno": 18,
+      "tipo": "disgrazia",
+      "testo": "Grossi guai",
+      "dettaglio": "Una corporazione ti ha messo sulla lista nera"
+     },
+     {
+      "anno": 19,
+      "tipo": "disgrazia",
+      "testo": "Grossi guai",
+      "dettaglio": "Sei finito in prigione per un anno"
+     },
+     {
+      "anno": 20,
+      "tipo": "disgrazia",
+      "testo": "Grossi guai",
+      "dettaglio": "Hai contratto un debito enorme con la persona sbagliata"
+     },
+     {
+      "anno": 21,
+      "tipo": "nulla",
+      "testo": "Un anno tranquillo, per una volta"
+     },
+     {
+      "anno": 22,
+      "tipo": "amore",
+      "testo": "Coinvolgimento sentimentale",
+      "dettaglio": "La sua famiglia vi ha divisi"
+     },
+     {
+      "anno": 23,
+      "tipo": "disgrazia",
+      "testo": "Grossi guai",
+      "dettaglio": "Sei finito in prigione per un anno"
+     },
+     {
+      "anno": 24,
+      "tipo": "nulla",
+      "testo": "Un anno di lavoro e niente altro"
+     },
+     {
+      "anno": 25,
+      "tipo": "nulla",
+      "testo": "Un anno tranquillo, per una volta"
+     },
+     {
+      "anno": 26,
+      "tipo": "amore",
+      "testo": "Coinvolgimento sentimentale",
+      "dettaglio": "Una storia felice, finita bene"
+     },
+     {
+      "anno": 27,
+      "tipo": "amore",
+      "testo": "Coinvolgimento sentimentale",
+      "dettaglio": "E' stato ucciso"
+     },
+     {
+      "anno": 28,
+      "tipo": "nemico",
+      "testo": "Ti sei fatto un nemico",
+      "dettaglio": "Un poliziotto — Gli hai fatto perdere una promozione"
+     },
+     {
+      "anno": 29,
+      "tipo": "amico",
+      "testo": "Hai stretto un'amicizia",
+      "dettaglio": "Un ex insegnante — L'unico adulto che ha creduto in te"
+     },
+     {
+      "anno": 30,
+      "tipo": "amico",
+      "testo": "Hai stretto un'amicizia",
+      "dettaglio": "Un compagno d'infanzia — Vi conoscete da sempre"
+     },
+     {
+      "anno": 31,
+      "tipo": "nulla",
+      "testo": "Un anno tranquillo, per una volta"
+     },
+     {
+      "anno": 32,
+      "tipo": "nemico",
+      "testo": "Ti sei fatto un nemico",
+      "dettaglio": "Un netrunner — Hai bruciato il suo deck"
+     },
+     {
+      "anno": 33,
+      "tipo": "amore",
+      "testo": "Coinvolgimento sentimentale",
+      "dettaglio": "E' sparito nel nulla"
+     },
+     {
+      "anno": 34,
+      "tipo": "amore",
+      "testo": "Coinvolgimento sentimentale",
+      "dettaglio": "E' sparito nel nulla"
+     },
+     {
+      "anno": 35,
+      "tipo": "nemico",
+      "testo": "Ti sei fatto un nemico",
+      "dettaglio": "Un netrunner — Hai bruciato il suo deck"
+     },
+     {
+      "anno": 36,
+      "tipo": "amore",
+      "testo": "Coinvolgimento sentimentale",
+      "dettaglio": "La sua famiglia vi ha divisi"
+     },
+     {
+      "anno": 37,
+      "tipo": "nulla",
+      "testo": "Un anno di lavoro e niente altro"
+     },
+     {
+      "anno": 38,
+      "tipo": "nulla",
+      "testo": "Un anno di lavoro e niente altro"
+     },
+     {
+      "anno": 39,
+      "tipo": "nemico",
+      "testo": "Ti sei fatto un nemico",
+      "dettaglio": "Un ex amante — Lo hai lasciato nel modo peggiore"
+     },
+     {
+      "anno": 40,
+      "tipo": "nulla",
+      "testo": "Un anno di lavoro e niente altro"
+     },
+     {
+      "anno": 41,
+      "tipo": "nemico",
+      "testo": "Ti sei fatto un nemico",
+      "dettaglio": "Un dirigente corporativo — Hai rubato dati che gli appartenevano"
+     },
+     {
+      "anno": 42,
+      "tipo": "disgrazia",
+      "testo": "Grossi guai",
+      "dettaglio": "Sei stato costretto a fuggire dalla citta'"
+     },
+     {
+      "anno": 43,
+      "tipo": "nemico",
+      "testo": "Ti sei fatto un nemico",
+      "dettaglio": "Un ex socio — Lo hai tradito in un colpo"
+     },
+     {
+      "anno": 44,
+      "tipo": "nemico",
+      "testo": "Ti sei fatto un nemico",
+      "dettaglio": "Un giornalista — Ha una registrazione che ti incastra"
+     }
+    ],
+    "generatoConLLM": false
+   }
+  },
+  {
+   "id": "nomade",
+   "nome": "Kai Duarte",
+   "soprannome": "Ruggine",
+   "classe": "nomade",
+   "sommario": "Guida qualunque cosa abbia ruote. La famiglia viene prima di tutto, incluso il contratto.",
+   "scheda": {
+    "versione": 1,
+    "anagrafica": {
+     "nome": "Kai Duarte",
+     "soprannome": "Ruggine",
+     "giocatore": "",
+     "natoA": "In movimento, sulla Interstatale 5",
+     "eta": 22,
+     "nazionalita": "Nomade, famiglia Duarte",
+     "altezza": 176,
+     "peso": 71,
+     "lingue": [
+      "Inglese di strada",
+      "Italiano"
+     ],
+     "abbigliamento": "Tuta da lavoro tecnica, tasche ovunque. Orecchini a catena su tutto l'orecchio.",
+     "capelli": "Corti e ordinati, da impiegato",
+     "occhi": "Verdi",
+     "segniParticolari": "Chiavi della propria moto al collo, anche quando la moto non c'e'.",
+     "carattere": "Cinico e sarcastico su tutto",
+     "note": "Il mezzo di trasporto del gruppo, e la ragione per cui esiste una via di fuga. Famiglia 3 significa che, una volta a sessione, arrivano dei rinforzi che nessuno si aspettava."
+    },
+    "classe": "nomade",
+    "caratteristiche": {
+     "INT": 5,
+     "RIF": 8,
+     "TEC": 10,
+     "FRE": 6,
+     "FAS": 5,
+     "FOR": 5,
+     "MOV": 5,
+     "COS": 10,
+     "EMP": 5
+    },
+    "abilita": {
+     "Famiglia": 3,
+     "Guidare autoveicoli": 3,
+     "Sopravvivenza": 1,
+     "Fucili": 1,
+     "Tecnologia di base": 1,
+     "Armi bianche": 1,
+     "Lingue": 2,
+     "Arti marziali": 1,
+     "Pistole": 1,
+     "Furtivita'": 1,
+     "Istruzione - Conoscenze": 1,
+     "Intimidire": 1,
+     "Persuadere - Raggirare": 1,
+     "Pronto soccorso": 1,
+     "Suonare strumenti": 1
+    },
+    "abilitaClasseScelte": [],
+    "cyberware": [
+     {
+      "nome": "Cyberudito (orecchio)",
+      "categoria": "Cyberudito",
+      "pu": 6,
+      "costo": 500,
+      "desc": "Orecchio artificiale, ospita fino a 3 opzioni."
+     },
+     {
+      "nome": "Filtri nasali",
+      "categoria": "Impianti interni",
+      "pu": 2,
+      "costo": 200,
+      "desc": "Immune a gas e sostanze inalate."
+     }
+    ],
+    "armi": [
+     {
+      "nome": "Militech Ronin",
+      "tipo": "FCL",
+      "precisione": "1",
+      "occultabilita": "N",
+      "reperibilita": "C",
+      "danni": "5D6 (5.56N)",
+      "caricatore": "35",
+      "cadenza": "3/30",
+      "affidabilita": "MA",
+      "gittata": "400",
+      "costo_eb": "450",
+      "descrizione": "Solo 3KG, lungo 35 pollici, moderno, leggero e versatile, versione aggiornata del M -16B Militech Ronin Commando Ed. FCL MTR 2 N P 2D6+3 (10mm) 40 40 MA 200 625 Senza rinculo e molto accurato, anche in 9mm(600E$), 11mm (700E$, 35clp, 20rof, AFF=ST), 12mm(800E$, 30clp, 20rof, AFF=ST, +1PR) Militech Ronin Compact",
+      "inUso": true
+     },
+     {
+      "nome": "Coltello da sopravvivenza",
+      "tipo": "BNC",
+      "precisione": "0",
+      "occultabilita": "J",
+      "reperibilita": "C",
+      "danni": "1D6",
+      "caricatore": "NO",
+      "cadenza": "NO",
+      "affidabilita": "MA",
+      "gittata": "1",
+      "costo_eb": "50",
+      "descrizione": "",
+      "inUso": false
+     },
+     {
+      "nome": "Militech Arms Avenger",
+      "tipo": "PST",
+      "precisione": "0",
+      "occultabilita": "J",
+      "reperibilita": "E",
+      "danni": "2D6+1 (9mm)",
+      "caricatore": "10",
+      "cadenza": "2",
+      "affidabilita": "MA",
+      "gittata": "50",
+      "costo_eb": "250",
+      "descrizione": "Arma da professionisti, ben fatta e alta prec e alta portata Militech Elect ronics Taser PST EXO 1 J C Stordimento 10 1 ST 10 60 Piccolo come una lampadina tascabile",
+      "inUso": false
+     }
+    ],
+    "armature": [
+     {
+      "nome": "Giubbotto di kevlar pesante",
+      "vp": 18,
+      "ingombro": 2,
+      "costo": 300,
+      "copre": "Tronco"
+     }
+    ],
+    "equipaggiamento": [],
+    "veicoli": [],
+    "denaro": {
+     "contanti": 250,
+     "banca": 0
+    },
+    "umanita": {
+     "attuale": 52,
+     "iniziale": 60
+    },
+    "ferite": {
+     "caselle": 0
+    },
+    "reputazione": 0,
+    "puntiIncremento": 0,
+    "background": {
+     "origini": {
+      "etnia": "Europea occidentale",
+      "lingua": "Italiano"
+     },
+     "famiglia": {
+      "rango": "Quadri corporativi di medio livello",
+      "status": "In condizioni agiate, non e' mai mancato nulla",
+      "genitoriVivi": false,
+      "tragedia": "La famiglia si e' dispersa ai quattro venti"
+     },
+     "infanzia": "Nella periferia corporativa, ordinata e sorvegliata",
+     "motivazioni": {
+      "personalita": "Cinico e sarcastico su tutto",
+      "personaPiuCara": "Nessuno al mondo",
+      "cosaContaDiPiu": "La vendetta",
+      "comeVediGliAltri": "Le persone hanno valore in se'",
+      "oggettoPiuPrezioso": "Un attrezzo di lavoro"
+     },
+     "testo": "Ventidue anni e nessuna notte passata nello stesso posto per piu' di una settimana. La famiglia Duarte fa trasporti lungo la costa, il che significa merce legale il giorno e il resto la notte. Kai e' stato mandato in citta' per imparare come funziona, ed e' rimasto perche' ci ha trovato gente che gli piace.",
+     "obiettivo": "Tornare al convoglio con qualcosa che valga il viaggio.",
+     "fratelli": [
+      {
+       "chi": "Sorella minore",
+       "rapporto": "E' geloso di te"
+      },
+      {
+       "chi": "Fratellastro maggiore",
+       "rapporto": "Ti considera un fallito"
+      }
+     ]
+    },
+    "eventi": [
+     {
+      "anno": 16,
+      "tipo": "amico",
+      "testo": "Hai stretto un'amicizia",
+      "dettaglio": "Un ex insegnante — L'unico adulto che ha creduto in te"
+     },
+     {
+      "anno": 17,
+      "tipo": "nulla",
+      "testo": "Un anno tranquillo, per una volta"
+     },
+     {
+      "anno": 18,
+      "tipo": "nemico",
+      "testo": "Ti sei fatto un nemico",
+      "dettaglio": "Un dirigente corporativo — Hai rubato dati che gli appartenevano"
+     },
+     {
+      "anno": 19,
+      "tipo": "disgrazia",
+      "testo": "Grossi guai",
+      "dettaglio": "Sei stato tradito da un socio e hai perso tutto"
+     },
+     {
+      "anno": 20,
+      "tipo": "amico",
+      "testo": "Hai stretto un'amicizia",
+      "dettaglio": "Un compagno d'infanzia — Vi conoscete da sempre"
+     },
+     {
+      "anno": 21,
+      "tipo": "nulla",
+      "testo": "Un anno tranquillo, per una volta"
+     }
+    ],
+    "generatoConLLM": false
+   }
+  }
+ ]
+}

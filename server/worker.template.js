@@ -45,6 +45,7 @@ import {
   creaSessione, caricaDifesa, entraNetrunner, azioneRunner, azioneMaster,
   vista, ruoloPerToken, TIPI_NODO, LIVELLI_ALLARME, UM_DECK_DEFAULT,
 } from './netrun/sessione.js';
+import { libreriaProgrammi, programmaDiLibreria } from './netrun/libreria.js';
 
 /* __EMBED_DATA__ */
 
@@ -970,6 +971,29 @@ async function corpoJson(request) {
   }
 }
 
+/**
+ * Traduce le difese citate per nome nelle specifiche complete.
+ *
+ * I sistemi gia' pronti indicano i programmi di guardia col loro nome sul
+ * manuale (`{ programmaLibreria: 'Patrol', nodo: 'n1' }`): tenere le specifiche
+ * intere anche li' vorrebbe dire avere due copie degli stessi 62 programmi, che
+ * prima o poi divergono.
+ */
+function risolviDifese(difese) {
+  if (!Array.isArray(difese)) return { difese: [] };
+  const risolte = [];
+  for (const d of difese) {
+    if (d?.programmaLibreria) {
+      const spec = programmaDiLibreria(GAME_DATA.programs, d.programmaLibreria);
+      if (!spec) return { errore: `Programma non in libreria: ${d.programmaLibreria}` };
+      risolte.push({ programma: spec, nodo: d.nodo });
+    } else {
+      risolte.push(d);
+    }
+  }
+  return { difese: risolte };
+}
+
 // ------------------------------------------------------------------ router --
 
 async function gestisciRichiesta(request, env, ctx) {
@@ -1249,8 +1273,15 @@ async function rotteProtette(request, env, url, pathname) {
 
   // ------------------------------------------------------ sessioni di netrun --
 
+
   if (pathname === '/api/netrun/sessioni/catalogo' && request.method === 'GET') {
     return json({ tipiNodo: TIPI_NODO, livelliAllarme: LIVELLI_ALLARME, umDeckDefault: UM_DECK_DEFAULT });
+  }
+
+  // I programmi del manuale, tradotti in specifiche che la console sa aprire e
+  // modificare. Il conto viene rifatto qui: la libreria non porta numeri suoi.
+  if (pathname === '/api/netrun/libreria' && request.method === 'GET') {
+    return json({ programmi: libreriaProgrammi(GAME_DATA.programs) });
   }
 
   // La stanza vive in un Durable Object indirizzato dal nome della sessione:
@@ -1262,15 +1293,29 @@ async function rotteProtette(request, env, url, pathname) {
     const stanza = env.NETRUN.get(env.NETRUN.idFromName(codice));
 
     // Il corpo viene riscritto per aggiungere il codice, che la stanza non
-    // conosce: il Durable Object sa di se' solo cio' che gli si passa.
+    // conosce: il Durable Object sa di se' solo cio' che gli si passa. Nello
+    // stesso passaggio si risolvono le difese citate per nome — i sistemi gia'
+    // pronti indicano i programmi di guardia cosi', e la stanza vuole invece la
+    // specifica intera.
+    let corpo;
+    if (request.method === 'POST') {
+      corpo = { ...(await request.json().catch(() => ({}))), id: codice };
+      const risolta = risolviDifese(corpo.difese);
+      if (risolta.errore) return errore(risolta.errore, 400);
+      if (corpo.difese) corpo.difese = risolta.difese;
+      if (corpo.programmaLibreria) {
+        const spec = programmaDiLibreria(GAME_DATA.programs, corpo.programmaLibreria);
+        if (!spec) return errore(`Programma non in libreria: ${corpo.programmaLibreria}`, 400);
+        corpo.programma = spec;
+      }
+    }
+
     const inoltro = new Request(
       `https://stanza/${sotto || ''}`,
       {
         method: request.method,
         headers: request.headers,
-        body: request.method === 'POST'
-          ? JSON.stringify({ ...(await request.json().catch(() => ({}))), id: codice })
-          : undefined,
+        body: request.method === 'POST' ? JSON.stringify(corpo) : undefined,
       }
     );
     return stanza.fetch(inoltro);

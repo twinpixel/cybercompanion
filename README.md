@@ -42,6 +42,13 @@ lanciadadi sta nella barra alta di **ogni** schermata.
   mentre gli altri combattono. I due vedono cose diverse: il netrunner scopre
   il sistema muovendocisi dentro. Lo stato vive in un Durable Object, il
   tavolo si aggiorna da solo.
+- **Roba gia' pronta per stasera.** Dodici personaggi completi, uno per classe
+  piu' un secondo Solitario e un secondo Netrunner, con storia e nota per il
+  Master: si mettono in archivio con un clic. Dieci sistemi da violare, dal
+  chiosco di noodle alla fortezza di un'IA, con nodi, Mura, collegamenti e
+  programmi di guardia gia' al loro posto. E i 62 programmi del manuale,
+  tradotti dalle loro formule in specifiche costruibili: si aprono nella
+  console, si modificano e si caricano in un deck come quelli scritti da zero.
 - **Lanciadadi sempre pronto.** In barra, in ogni schermata: set completo da d2
   a d100, quantita', modificatore, il d10 aperto di Cyberpunk e lo storico dei
   tiri.
@@ -60,7 +67,7 @@ client/          SPA vanilla, nessun framework. Servita come Static Assets.
   ui.js          mattoni condivisi: campi, selettori, schermate di attesa
   dadi.js        lanciadadi di barra, d10 aperto compreso
   combat.js      elenco scontri, schieramento, vista del combattimento
-  netrun.js      console dei programmi e tavolo della sessione di netrun
+  netrun.js      console dei programmi, libreria del manuale, tavolo del netrun
   pdf.js         generatore PDF minimale, font base-14, zero dipendenze
   scheda-pdf.js  impaginazione della cyberscheda su A4
   data/          generata dal build: i cataloghi di gioco come asset statici
@@ -70,6 +77,7 @@ server/
   data/                sorgente dei dati di gioco, in JSON
   combat/              motore del combattimento: tabelle, risoluzione, IA dei PNG
   netrun/              programmi del Net e sessione a due posti
+    libreria.js        traduce le formule del manuale in programmi costruibili
   lib/                 dadi condivisi
   llm/                 catena di provider, struttura ripresa da poltrobot
     catalog.js         provider, modelli, interruttori del reasoning
@@ -94,6 +102,50 @@ armi, 280 KB, resta cosi' fuori dal bundle.
 Il modello di riferimento per questa impostazione e' il repository
 `harry_squatter`, da cui sono ripresi la struttura del build, il router a stack
 di viste, la cascade LLM e il flusso di deploy.
+
+## Materiale gia' pronto
+
+| File | Cosa contiene |
+|---|---|
+| `server/data/pregen.json` | 12 personaggi completi, uno per classe |
+| `server/data/netrun-sistemi.json` | 10 sistemi da violare, con difese e ganci |
+| `server/data/programs.json` | i 62 programmi del manuale, con la formula scomposta |
+
+I personaggi pronti non sono scritti a mano da zero: caratteristiche, abilita',
+cyberware ed equipaggiamento escono dalle stesse tabelle della generazione
+automatica, e fra molte schede generate e' stata scelta quella che somigliava di
+piu' all'archetipo della classe. A mano ci sono nome, aspetto, storia, obiettivo
+e la nota che dice al Master come giocarlo — l'unica cosa che le tabelle non
+sanno dare. `test/pronti.test.js` verifica che ognuno passi la validazione
+dell'API, non abbia caratteristiche da rottame e sappia fare il proprio mestiere.
+
+I sistemi citano i programmi di guardia **per nome**: il Worker li risolve in
+specifiche complete quando la sessione si apre, cosi' non esiste una seconda
+copia degli stessi programmi che prima o poi diverge dalla prima. Anche qui i
+test controllano che ogni collegamento fra nodi esista e valga nei due sensi,
+che da ogni nodo si raggiunga ogni altro e che ogni difesa citi un programma che
+esiste davvero.
+
+### La libreria del manuale
+
+`server/netrun/libreria.js` ritraduce in specifiche costruibili le formule che
+il documento stampa accanto a ogni programma:
+
+```
+Anti-IC (20) + Rapidita' (2) + For (3) + Icona animata (3) = Diff 28
+```
+
+Tutte e 62 si leggono senza etichette orfane, e la difficolta' ricalcolata dalle
+regole torna a quella stampata — tranne in undici schede, dove **e' il PDF a
+sbagliare il conto**: otto non sommano i propri addendi, tre Demoni dimenticano
+del tutto la Funzione del programma. La libreria non nasconde la differenza: la
+riporta accanto alla voce, con entrambi i numeri.
+
+Un caso merita una nota: dove la Forza stampata e la formula non vanno
+d'accordo comanda la formula, perche' e' l'unica delle due cifre verificabile
+(i suoi addendi devono sommare alla difficolta' scritta accanto). La Forza da
+sola, in qualche scheda, e' un intervallo — `5/7` — oppure la Forza *effettiva
+in gioco* di un Demone, gia' scalata dei suoi sottoprogrammi.
 
 ## Dati di gioco
 
@@ -362,6 +414,7 @@ richiedono l'header `Authorization: Bearer <token>`.
 | `GET` `POST` | `/api/npc-templates` | modelli di PNG riutilizzabili |
 | `PUT` `DELETE` | `/api/npc-templates/:id` | aggiorna ed elimina un modello |
 | `GET` | `/api/netrun/catalogo` | Funzioni, icone, optional, modi della Forza |
+| `GET` | `/api/netrun/libreria` | i 62 programmi del manuale, gia' scomposti |
 | `POST` | `/api/netrun/calcola` | difficolta', UM, prezzo e tempo di un programma |
 | `POST` | `/api/netrun/modifica` | quanto costa cambiare un programma scritto |
 | `POST` | `/api/netrun/scrivi` | tiro di scrittura |

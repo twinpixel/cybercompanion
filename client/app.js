@@ -435,6 +435,7 @@ function vistaLista() {
       azioni.style.marginBottom = '20px';
       azioni.append(
         bottone('Genera personaggio', () => vaiA(vistaGenerazione()), 'btn-primario'),
+        bottone('Personaggi pronti', () => vaiA(vistaPronti())),
         bottone('Scheda vuota', () => apriEditor(schedaVuota(), null)),
         bottone('Importa JSON', () => importaJson())
       );
@@ -469,6 +470,91 @@ function vistaLista() {
       return root;
     },
   };
+}
+
+// ------------------------------------------------- personaggi gia' pronti --
+
+/**
+ * Dodici personaggi completi, uno per classe piu' un secondo Solitario e un
+ * secondo Netrunner. Caratteristiche, abilita' e cyberware escono dalle stesse
+ * tabelle della generazione automatica; nome, storia e nota per il Master sono
+ * scritti a mano. Servono a far partire una partita stasera, senza che nessuno
+ * debba costruire una scheda da zero.
+ */
+let promessaPronti = null;
+function caricaPronti() {
+  if (!promessaPronti) {
+    promessaPronti = fetch('/data/pregen.json').then((r) => r.json()).then((d) => d.personaggi);
+  }
+  return promessaPronti;
+}
+
+function vistaPronti() {
+  return {
+    titolo: 'Personaggi pronti',
+    render() {
+      const root = el('div');
+      root.append(
+        el('h1', 'titolo-vista', 'Personaggi pronti'),
+        el('p', 'sottotitolo-vista',
+          'Dodici schede complete, una per classe. Aprine una per leggerla e modificarla, o mettila subito in archivio.')
+      );
+
+      const lista = el('div');
+      lista.append(schermataAttesa('Carico i personaggi'));
+      root.append(lista);
+
+      caricaPronti().then((pronti) => {
+        lista.innerHTML = '';
+        for (const p of pronti) {
+          const carta = el('div', 'pronto');
+          const testa = el('div', 'testa');
+          testa.append(el('span', 'nome', p.nome));
+          if (p.soprannome) testa.append(el('span', 'handle', `\u201c${p.soprannome}\u201d`));
+          testa.append(el('span', 'classe', classeLeggibile(p.classe)));
+          carta.append(testa);
+          carta.append(el('div', 'sommario', p.sommario));
+
+          const c = p.scheda.caratteristiche;
+          const stat = el('div', 'stat-riga');
+          for (const k of CHIAVI_STAT) stat.append(el('span', 'v', `${k} ${c[k]}`));
+          carta.append(stat);
+
+          const azioni = el('div', 'riga-azioni');
+          azioni.append(
+            bottone('Apri', () => apriEditor(JSON.parse(JSON.stringify(p.scheda)), null, { modificata: true }), 'btn-piccolo'),
+            bottone('Metti in archivio', async (e) => {
+              const b = e.currentTarget;
+              b.disabled = true;
+              b.textContent = 'Salvo\u2026';
+              try {
+                await api('/characters', { method: 'POST', body: { scheda: p.scheda } });
+                stato.listaScaduta = true;
+                b.textContent = 'In archivio';
+                toast(`${p.nome} e\u2019 fra le tue schede.`);
+              } catch (err) {
+                toast(err.message, { errore: true });
+                b.disabled = false;
+                b.textContent = 'Metti in archivio';
+              }
+            }, 'btn-piccolo btn-primario')
+          );
+          carta.append(azioni);
+          lista.append(carta);
+        }
+      }).catch((err) => {
+        lista.innerHTML = '';
+        lista.append(el('div', 'vuoto', `Non riesco a caricarli: ${err.message}`));
+      });
+
+      return root;
+    },
+  };
+}
+
+function classeLeggibile(id) {
+  const c = stato.cataloghi?.roles?.classi.find((x) => x.id === id);
+  return c ? c.nome : id;
 }
 
 async function apriPersonaggio(id) {

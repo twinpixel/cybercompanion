@@ -134,14 +134,25 @@
         const s = escapePdf(inWinAnsi(contenuto));
         if (!s) return doc;
 
+        // La spaziatura fra i caratteri allarga il testo, e va contata nella
+        // larghezza: senza, un testo allineato a destra viene disegnato piu' a
+        // destra di dove dovrebbe finire, tanto piu' quanto e' lungo.
+        const spaziatura = p.spaziatura || 0;
+        const larghezza = larghezzaTesto(contenuto, dim, grassetto)
+          + spaziatura * inWinAnsi(contenuto).length;
+
         let px = x;
-        if (p.allineamento === 'destra') px = x - larghezzaTesto(contenuto, dim, grassetto);
-        else if (p.allineamento === 'centro') px = x - larghezzaTesto(contenuto, dim, grassetto) / 2;
+        if (p.allineamento === 'destra') px = x - larghezza;
+        else if (p.allineamento === 'centro') px = x - larghezza / 2;
 
         const c = p.colore || [0, 0, 0];
+        // `Tc` va sempre dichiarato, anche a zero: nel PDF fa parte dello stato
+        // grafico e sopravvive alla fine del blocco di testo. Ometterlo faceva
+        // ereditare la spaziatura dell'ultimo titolo a tutto cio' che veniva
+        // dopo, che percio' veniva disegnato piu' largo di quanto misurato.
         corrente.ops.push(
           `BT /${font} ${dim} Tf ${c[0]} ${c[1]} ${c[2]} rg` +
-          (p.spaziatura ? ` ${p.spaziatura} Tc` : '') +
+          ` ${spaziatura} Tc` +
           ` 1 0 0 1 ${px.toFixed(2)} ${(A4.altezza - y).toFixed(2)} Tm (${s}) Tj ET`
         );
         return doc;

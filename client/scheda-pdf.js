@@ -420,24 +420,34 @@
 
     // --- background ---
     const bg = scheda.background || {};
-    y = assicuraSpazio(doc, y, 90, scheda, cat);
+    y = assicuraSpazio(doc, y, 40, scheda, cat);
     y = titoloSezione(doc, y, 'Origini e motivazioni');
     const mot = bg.motivazioni || {};
     const fam = bg.famiglia || {};
     const orig = bg.origini || {};
-    const colonna = (COLONNA_GRANDE - 16) / 2;
-    let y1 = y, y2 = y;
-    if (orig.etnia) y1 = rigaValore(doc, M, y1, colonna, 'Origini', orig.etnia);
-    if (fam.rango) y1 = rigaValore(doc, M, y1, colonna, 'Famiglia', fam.rango);
-    if (bg.infanzia) y1 = rigaValore(doc, M, y1, colonna, 'Infanzia', bg.infanzia);
-    if (fam.tragedia) y1 = rigaValore(doc, M, y1, colonna, 'Tragedia', fam.tragedia);
 
-    const x2 = M + colonna + 16;
-    if (mot.personalita) y2 = rigaValore(doc, x2, y2, colonna, "Carattere", mot.personalita);
-    if (mot.cosaContaDiPiu) y2 = rigaValore(doc, x2, y2, colonna, 'Cio che conta', mot.cosaContaDiPiu);
-    if (mot.personaPiuCara) y2 = rigaValore(doc, x2, y2, colonna, 'Tiene di piu a', mot.personaPiuCara);
-    if (mot.oggettoPiuPrezioso) y2 = rigaValore(doc, x2, y2, colonna, 'Oggetto piu caro', mot.oggettoPiuPrezioso);
-    y = Math.max(y1, y2) + 4;
+    // Una riga sotto l'altra, a tutta larghezza. Su due colonne affiancate il
+    // valore e' allineato a destra a meta' pagina, e le voci lunghe del Lifepath
+    // ("Nella media, in un quartiere in decadenza") sbordavano nella colonna
+    // accanto: qui ogni riga ha tutta la pagina per se'.
+    const righe = [
+      ['Origini', orig.etnia],
+      ['Famiglia', fam.rango],
+      ['Status', fam.status],
+      ['Infanzia', bg.infanzia],
+      ['Tragedia', fam.tragedia],
+      ['Carattere', mot.personalita],
+      ['Cio che conta', mot.cosaContaDiPiu],
+      ['Tiene di piu a', mot.personaPiuCara],
+      ['Come vede gli altri', mot.comeVediGliAltri],
+      ['Oggetto piu caro', mot.oggettoPiuPrezioso],
+    ];
+    for (const [etichetta, valore] of righe) {
+      if (!valore) continue;
+      y = assicuraSpazio(doc, y, 14, scheda, cat);
+      y = rigaValore(doc, M, y, COLONNA_GRANDE, etichetta, valore);
+    }
+    y += 4;
 
     if (bg.testo) {
       y = assicuraSpazio(doc, y, 80, scheda, cat);

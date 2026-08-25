@@ -74,6 +74,23 @@ await passo('il lanciadadi c\'e\' e tira', async () => {
   await page.click('.modale-azioni button');
 });
 
+await passo('i personaggi pronti si mettono in archivio', async () => {
+  await page.click('.area:has(.n:text-is("Schede"))');
+  await page.waitForSelector('button:has-text("Personaggi pronti")', { timeout: 8000 });
+  await page.click('button:has-text("Personaggi pronti")');
+  await page.waitForSelector('.pronto', { timeout: 8000 });
+  const quanti = await page.locator('.pronto').count();
+  if (quanti !== 12) throw new Error(`attesi 12 personaggi pronti, trovati ${quanti}`);
+
+  await page.locator('.pronto:has-text("Ada Ferraro") button:has-text("Metti in archivio")').click();
+  await page.waitForSelector('.pronto:has-text("Ada Ferraro") button:has-text("In archivio")', { timeout: 10000 });
+  await page.screenshot({ path: `${SC}/screenshot-16-pronti.png`, fullPage: true });
+  await page.goBack();
+  await page.waitForSelector('.scheda-riga:has-text("Ada Ferraro")', { timeout: 8000 });
+  await page.goBack();
+  await page.waitForSelector('.aree', { timeout: 8000 });
+});
+
 await passo('si entra nelle schede', async () => {
   await page.click('.area:has(.n:text-is("Schede"))');
   await page.waitForSelector('.titolo-vista', { timeout: 8000 });
@@ -334,9 +351,31 @@ await passo('il programma si salva in libreria', async () => {
 
 let codiceSessione = null;
 
+await passo('la libreria del manuale si apre e si copia', async () => {
+  // Si e' nell'elenco dei programmi: il passo precedente ci e' tornato sopra.
+  await page.waitForSelector('button:has-text("Libreria del manuale")', { timeout: 8000 });
+  await page.click('button:has-text("Libreria del manuale")');
+  await page.waitForSelector('.pronto', { timeout: 10000 });
+
+  const quanti = await page.locator('.pronto').count();
+  if (quanti !== 62) throw new Error(`attesi 62 programmi del manuale, trovati ${quanti}`);
+
+  await page.fill('input[placeholder^="Cerca per nome"]', 'hellhound');
+  await page.waitForFunction(() => document.querySelectorAll('.pronto').length <= 3, null, { timeout: 5000 });
+
+  await page.fill('input[placeholder^="Cerca per nome"]', 'crusher');
+  await page.waitForSelector('.pronto:has-text("Crusher")', { timeout: 5000 });
+  await page.locator('.pronto:has-text("Crusher") button:has-text("Copia in libreria")').click();
+  await page.waitForSelector('.pronto:has-text("Crusher") button:has-text("Copiato")', { timeout: 10000 });
+  await page.screenshot({ path: `${SC}/screenshot-17-libreria.png`, fullPage: true });
+  await page.goBack();
+  await page.waitForSelector('.scheda-riga:has-text("Crusher")', { timeout: 8000 });
+});
+
 await passo('il Master allestisce un sistema e apre la sessione', async () => {
   await page.goBack();                       // all'hub
   await page.waitForSelector('.aree', { timeout: 8000 });
+  codiceSessione = null;
   await page.click('.area:has(.n:text-is("Netrun"))');
   await page.waitForSelector('button:has-text("Allestisci un sistema")', { timeout: 8000 });
   await page.click('button:has-text("Allestisci un sistema")');
@@ -345,7 +384,17 @@ await passo('il Master allestisce un sistema e apre la sessione', async () => {
   codiceSessione = await page.locator('.campo:has(label:text-is("Codice della sessione")) input').inputValue();
   if (!/^[A-Z0-9]{6}$/.test(codiceSessione)) throw new Error(`codice inatteso: ${codiceSessione}`);
 
-  await page.click('button:has-text("Metti di guardia un programma")');
+  // Un sistema gia' allestito: nodi, Mura e programmi di guardia in un colpo.
+  await page.click('button:has-text("Parti da un sistema pronto")');
+  await page.waitForSelector('.modale .pronto', { timeout: 8000 });
+  const sistemi = await page.locator('.modale .pronto').count();
+  if (sistemi !== 10) throw new Error(`attesi 10 sistemi pronti, trovati ${sistemi}`);
+  await page.locator('.modale .pronto:has-text("Distretto NCPD") button:has-text("Usa questo")').click();
+  await page.waitForSelector('.pannello:has-text("Centrale")', { timeout: 8000 });
+  const difese = await page.locator('.abilita-riga:has-text("dal manuale")').count();
+  if (difese !== 4) throw new Error(`il distretto NCPD ha 4 difese, trovate ${difese}`);
+
+  await page.click('button:has-text("Dai tuoi programmi")');
   await page.waitForSelector('.modale .abilita-riga:has-text("Sesamo")', { timeout: 8000 });
   await page.locator('.modale .abilita-riga:has-text("Sesamo")').first().locator('button').click();
   await page.waitForSelector('.modale:has-text("Su quale nodo")', { timeout: 5000 });
@@ -374,7 +423,7 @@ await passo('il netrunner entra dal proprio dispositivo', async () => {
   await runner.locator('.campo:has(label:text-is("Codice della sessione")) input').fill(codiceSessione);
   await runner.locator('.campo:has(label:text-is("Come ti chiami nel Net")) input').fill('Spettro');
 
-  await runner.click('button:has-text("Carica un programma")');
+  await runner.click('button:has-text("Dai tuoi programmi")');
   await runner.waitForSelector('.modale .abilita-riga:has-text("Sesamo")', { timeout: 8000 });
   await runner.locator('.modale .abilita-riga:has-text("Sesamo")').first().locator('button').click();
 

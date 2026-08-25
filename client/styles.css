@@ -888,3 +888,46 @@ table.dati tr:hover td { background: rgba(0, 229, 255, .03); }
   .griglia-3, .griglia-4, .conti-numeri { grid-template-columns: repeat(2, 1fr); }
   .dadi-totale { font-size: 34px; }
 }
+
+/* ------------------------------------------------- schede gia' pronte ---- */
+
+.pronto {
+  padding: 12px 14px;
+  margin-bottom: 10px;
+  background: var(--fondo-2);
+  border: 1px solid var(--bordo);
+  border-left: 3px solid var(--ciano-scuro);
+  border-radius: var(--raggio);
+}
+.pronto .testa { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.pronto .testa .nome { font-weight: 600; font-size: 15px; }
+.pronto .testa .handle { font-family: var(--mono); font-size: 12px; color: var(--ciano); }
+.pronto .testa .classe {
+  margin-left: auto;
+  padding: 2px 8px;
+  border: 1px solid var(--bordo-vivo);
+  border-radius: 999px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--testo-fioco);
+}
+.pronto .testa .diff-facile { color: var(--verde); border-color: #24512f; }
+.pronto .testa .diff-media { color: var(--ciano); border-color: var(--ciano-scuro); }
+.pronto .testa .diff-difficile { color: var(--giallo); border-color: #6a4a20; }
+.pronto .testa .diff-letale { color: var(--magenta); border-color: #52243a; }
+.pronto .sommario { margin-top: 5px; font-size: 13px; color: var(--testo-tenue); line-height: 1.45; }
+.pronto .campo-aiuto { margin-top: 6px; }
+.pronto .riga-azioni { margin-top: 10px; }
+
+.stat-riga { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
+.stat-riga .v {
+  padding: 2px 7px;
+  background: var(--fondo-3);
+  border: 1px solid var(--bordo);
+  border-radius: var(--raggio);
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--testo-tenue);
+}

@@ -30,6 +30,24 @@ const statoNetrun = {
   timer: null,
 };
 
+/** I 62 programmi del manuale, tradotti dal Worker in specifiche costruibili. */
+let promessaLibreria = null;
+function caricaLibreria() {
+  if (!promessaLibreria) {
+    promessaLibreria = api('/netrun/libreria').then((d) => d.programmi);
+  }
+  return promessaLibreria;
+}
+
+/** I sistemi gia' allestiti: sono un asset statico, non passano dall'API. */
+let promessaSistemi = null;
+function caricaSistemiPronti() {
+  if (!promessaSistemi) {
+    promessaSistemi = fetch('/data/netrun-sistemi.json').then((r) => r.json()).then((d) => d.sistemi);
+  }
+  return promessaSistemi;
+}
+
 async function caricaCatalogoNetrun() {
   if (!statoNetrun.catalogo) statoNetrun.catalogo = await api('/netrun/catalogo');
   return statoNetrun.catalogo;
@@ -80,7 +98,10 @@ function vistaProgrammi() {
 
       const azioni = el('div', 'riga-azioni');
       azioni.style.margin = '0 0 20px';
-      azioni.append(bottone('Nuovo programma', () => apriCostruttore(programmaVuotoClient(), null), 'btn-primario'));
+      azioni.append(
+        bottone('Nuovo programma', () => apriCostruttore(programmaVuotoClient(), null), 'btn-primario'),
+        bottone('Libreria del manuale', () => vaiA(vistaLibreria()))
+      );
       root.append(azioni);
 
       if (!statoNetrun.programmi.length) {
@@ -101,6 +122,123 @@ function vistaProgrammi() {
         riga.addEventListener('click', () => caricaProgramma(p.id));
         root.append(riga);
       }
+      return root;
+    },
+  };
+}
+
+/**
+ * I programmi del manuale, pronti da aprire o da copiare.
+ *
+ * Non sono un elenco da leggere: ognuno arriva con la propria specifica, quindi
+ * si apre nel costruttore, si modifica e si carica in un deck come se lo avessi
+ * scritto tu. Il conto viene rifatto dalle regole, non copiato dal PDF: dove i
+ * due numeri non coincidono la riga lo dice, invece di far finta di niente.
+ */
+function vistaLibreria() {
+  const filtro = { testo: '', classe: '' };
+
+  return {
+    titolo: 'Libreria del manuale',
+    render() {
+      const root = el('div');
+      root.append(
+        el('h1', 'titolo-vista', 'Libreria del manuale'),
+        el('p', 'sottotitolo-vista',
+          'I programmi del regolamento, gia' + "\u2019" + ' scomposti in Funzioni, Forza, icona e optional.')
+      );
+
+      const cerca = el('input');
+      cerca.type = 'text';
+      cerca.placeholder = 'Cerca per nome o per quello che fa\u2026';
+      root.append(cerca);
+
+      const classi = el('div', 'pillole');
+      root.append(classi);
+
+      const lista = el('div');
+      lista.append(schermataAttesa('Carico la libreria'));
+      root.append(lista);
+
+      caricaLibreria().then((programmi) => {
+        const tutteLeClassi = [...new Set(programmi.map((p) => p.classe))].sort();
+
+        const disegnaClassi = () => {
+          classi.innerHTML = '';
+          for (const c of ['', ...tutteLeClassi]) {
+            const b = el('button', `pillola${filtro.classe === c ? ' attiva' : ''}`);
+            b.type = 'button';
+            b.textContent = c || 'tutti';
+            b.addEventListener('click', () => { filtro.classe = c; ridisegna(); });
+            classi.append(b);
+          }
+        };
+
+        const ridisegna = () => {
+          disegnaClassi();
+          lista.innerHTML = '';
+          const t = filtro.testo.trim().toLowerCase();
+          const trovati = programmi.filter((p) => (
+            (!filtro.classe || p.classe === filtro.classe)
+            && (!t || p.nome.toLowerCase().includes(t) || (p.alias || '').toLowerCase().includes(t)
+                || p.descrizione.toLowerCase().includes(t))
+          ));
+
+          lista.append(el('p', 'campo-aiuto',
+            `${trovati.length} programm${trovati.length === 1 ? 'o' : 'i'} su ${programmi.length}.`));
+
+          for (const p of trovati) {
+            const carta = el('div', 'pronto');
+            const testa = el('div', 'testa');
+            testa.append(el('span', 'nome', p.nome));
+            if (p.alias) testa.append(el('span', 'handle', `\u201c${p.alias}\u201d`));
+            testa.append(el('span', 'classe', p.classe));
+            carta.append(testa);
+            carta.append(el('div', 'stat-riga',));
+            const numeri = carta.querySelector('.stat-riga');
+            for (const [k, v] of [['Forza', p.forza], ['Diff', p.difficolta], ['UM', p.um], ['E$', p.costo]]) {
+              numeri.append(el('span', 'v', `${k} ${v}`));
+            }
+            if (p.descrizione) carta.append(el('div', 'sommario', p.descrizione));
+            carta.append(el('div', 'campo-aiuto', p.formula));
+            if (p.divergenza) {
+              carta.append(avviso(
+                `Sul manuale questa scheda porta difficolta\u2019 ${p.divergenza.stampata}, ma i suoi stessi addendi ` +
+                `sommano ${p.divergenza.calcolata}. Qui vale il conto delle regole.` +
+                (p.funzioneDallaClasse ? ' La formula stampata, fra l\u2019altro, dimentica la Funzione del programma.' : '')
+              ));
+            }
+
+            const azioni = el('div', 'riga-azioni');
+            azioni.append(
+              bottone('Apri nel costruttore', () => apriCostruttore(JSON.parse(JSON.stringify(p.spec)), null), 'btn-piccolo'),
+              bottone('Copia in libreria', async (e) => {
+                const b = e.currentTarget;
+                b.disabled = true;
+                b.textContent = 'Salvo\u2026';
+                try {
+                  await api('/programs', { method: 'POST', body: { programma: p.spec } });
+                  b.textContent = 'Copiato';
+                  toast(`${p.nome} e\u2019 nella tua libreria.`);
+                } catch (err) {
+                  toast(err.message, { errore: true });
+                  b.disabled = false;
+                  b.textContent = 'Copia in libreria';
+                }
+              }, 'btn-piccolo btn-primario')
+            );
+            carta.append(azioni);
+            lista.append(carta);
+          }
+        };
+
+        cerca.addEventListener('input', () => { filtro.testo = cerca.value; ridisegna(); });
+        ridisegna();
+      }).catch((err) => {
+        lista.innerHTML = '';
+        lista.append(el('div', 'vuoto', `Libreria non raggiungibile: ${err.message}`));
+      });
+
       return root;
     },
   };
@@ -507,6 +645,7 @@ function nodoVuoto(i) {
 function vistaAllestimento() {
   const bozza = {
     codice: codiceCasuale(),
+    pronto: null,
     nome: 'Incursione',
     sistema: 'Arasaka, filiale di Night City',
     nodi: [
@@ -521,6 +660,29 @@ function vistaAllestimento() {
     render() {
       const root = el('div');
       root.append(el('h1', 'titolo-vista', 'Allestisci il sistema'));
+
+      const scorciatoia = el('div', 'riga-azioni');
+      scorciatoia.style.margin = '0 0 16px';
+      scorciatoia.append(bottone('Parti da un sistema pronto', () => scegliSistemaPronto((sistema) => {
+        bozza.nome = sistema.nome;
+        bozza.sistema = sistema.sistema;
+        bozza.nodi = JSON.parse(JSON.stringify(sistema.nodi));
+        bozza.difese = sistema.difese.map((d) => ({
+          nome: d.programma, nodo: d.nodo, programmaLibreria: d.programma,
+        }));
+        bozza.pronto = sistema;
+        disegna();
+        toast(`${sistema.nome}: ${sistema.nodi.length} nodi e ${sistema.difese.length} difese in campo.`);
+      }), 'btn-primario'));
+      root.append(scorciatoia);
+
+      if (bozza.pronto) {
+        const nota = el('div', 'conti');
+        nota.append(el('div', 'campo-aiuto', `Sistema pronto \u00b7 difficolt\u00e0 ${bozza.pronto.difficolta} \u00b7 deck consigliato ${bozza.pronto.umDeckConsigliato} UM`));
+        nota.append(el('p', null, bozza.pronto.gancio));
+        nota.append(el('p', 'campo-aiuto', 'Puoi cambiare tutto: nodi, Mura, collegamenti e difese restano modificabili qui sotto.'));
+        root.append(nota);
+      }
 
       const testa = el('div', 'griglia griglia-2');
       testa.append(
@@ -612,8 +774,10 @@ function vistaAllestimento() {
           const testi = el('div');
           testi.style.flex = '1 1 auto';
           const nodo = bozza.nodi.find((n) => n.id === d.nodo);
-          testi.append(el('div', 'nome', d.programma.nome),
-            el('div', 'campo-aiuto', `Forza ${d.programma.forza} · su ${nodo ? nodo.nome : d.nodo}`));
+          testi.append(el('div', 'nome', d.nome),
+            el('div', 'campo-aiuto',
+              (d.programma ? `Forza ${d.programma.forza} · ` : 'dal manuale · ')
+              + `su ${nodo ? nodo.nome : d.nodo}`));
           riga.append(testi, bottone(ICONE.cestino, () => {
             bozza.difese.splice(i, 1);
             ridisegnaDifese();
@@ -625,10 +789,18 @@ function vistaAllestimento() {
       root.append(difese);
 
       const azDifese = el('div', 'riga-azioni');
-      azDifese.append(bottone('Metti di guardia un programma', () => {
+      azDifese.append(bottone('Dai tuoi programmi', () => {
         scegliProgrammaSalvato('Programma di difesa', (spec) => {
           scegliNodo(bozza.nodi, (nodoId) => {
-            bozza.difese.push({ programma: spec, nodo: nodoId });
+            bozza.difese.push({ nome: spec.nome, programma: spec, nodo: nodoId });
+            ridisegnaDifese();
+          });
+        });
+      }, 'btn-piccolo'));
+      azDifese.append(bottone('Dalla libreria del manuale', () => {
+        scegliDallaLibreria('Programma di difesa', (spec) => {
+          scegliNodo(bozza.nodi, (nodoId) => {
+            bozza.difese.push({ nome: spec.nome, programma: spec, nodo: nodoId });
             ridisegnaDifese();
           });
         });
@@ -648,7 +820,11 @@ function vistaAllestimento() {
               nome: bozza.nome,
               sistema: bozza.sistema,
               nodi: bozza.nodi,
-              difese: bozza.difese,
+              // Le difese prese dal manuale viaggiano col solo nome: la
+              // specifica intera la ritrova il Worker, che ha il catalogo.
+              difese: bozza.difese.map((d) => (d.programmaLibreria
+                ? { programmaLibreria: d.programmaLibreria, nodo: d.nodo }
+                : { programma: d.programma, nodo: d.nodo })),
             },
           });
           salvaPosto(codice, esito.posto, 'master');
@@ -669,6 +845,43 @@ function vistaAllestimento() {
   };
 }
 
+/** I sistemi gia' allestiti, con gancio e difficolta'. */
+async function scegliSistemaPronto(onScelta) {
+  const corpo = el('div');
+  corpo.append(schermataAttesa('Carico i sistemi'));
+  modale('Sistemi pronti', corpo, [{ testo: 'Annulla', classe: 'btn-fantasma' }]);
+
+  try {
+    const sistemi = await caricaSistemiPronti();
+    corpo.innerHTML = '';
+    for (const s of sistemi) {
+      const carta = el('div', 'pronto');
+      const testa = el('div', 'testa');
+      testa.append(el('span', 'nome', s.nome), el('span', `classe diff-${s.difficolta}`, s.difficolta));
+      carta.append(testa);
+      carta.append(el('div', 'sommario', s.sommario));
+      carta.append(el('div', 'campo-aiuto', s.gancio));
+      const numeri = el('div', 'stat-riga');
+      numeri.append(
+        el('span', 'v', `${s.nodi.length} nodi`),
+        el('span', 'v', `${s.difese.length} difese`),
+        el('span', 'v', `deck ${s.umDeckConsigliato} UM`)
+      );
+      carta.append(numeri);
+      const azioni = el('div', 'riga-azioni');
+      azioni.append(bottone('Usa questo', () => {
+        chiudiModale();
+        onScelta(s);
+      }, 'btn-piccolo btn-primario'));
+      carta.append(azioni);
+      corpo.append(carta);
+    }
+  } catch (err) {
+    corpo.innerHTML = '';
+    corpo.append(el('div', 'vuoto', `Non riesco a caricarli: ${err.message}`));
+  }
+}
+
 function scegliNodo(nodi, onScelta) {
   const corpo = el('div');
   for (const n of nodi) {
@@ -680,6 +893,49 @@ function scegliNodo(nodi, onScelta) {
     corpo.append(riga);
   }
   modale('Su quale nodo', corpo, [{ testo: 'Annulla', classe: 'btn-fantasma' }]);
+}
+
+/** Scelta rapida da un elenco dei 62 programmi del manuale. */
+async function scegliDallaLibreria(titolo, onScelta) {
+  const corpo = el('div');
+  const cerca = el('input');
+  cerca.type = 'text';
+  cerca.placeholder = 'Cerca\u2026';
+  cerca.style.marginBottom = '12px';
+  const lista = el('div');
+  lista.append(schermataAttesa('Carico la libreria'));
+  corpo.append(cerca, lista);
+  modale(titolo, corpo, [{ testo: 'Chiudi', classe: 'btn-fantasma' }]);
+
+  try {
+    const programmi = await caricaLibreria();
+    const ridisegna = () => {
+      const t = cerca.value.trim().toLowerCase();
+      lista.innerHTML = '';
+      const trovati = programmi.filter((p) => !t || p.nome.toLowerCase().includes(t)
+        || (p.alias || '').toLowerCase().includes(t) || p.classe.includes(t));
+      for (const p of trovati.slice(0, 60)) {
+        const riga = el('div', 'abilita-riga');
+        const testi = el('div');
+        testi.style.flex = '1 1 auto';
+        testi.style.minWidth = '0';
+        testi.append(el('div', 'nome', p.nome),
+          el('div', 'campo-aiuto', `${p.classe} \u00b7 Forza ${p.forza} \u00b7 ${p.um} UM \u00b7 ${p.costo} E$`));
+        riga.append(testi, bottone('Scegli', () => {
+          chiudiModale();
+          onScelta(JSON.parse(JSON.stringify(p.spec)));
+        }, 'btn-piccolo'));
+        lista.append(riga);
+      }
+      if (!trovati.length) lista.append(el('div', 'vuoto', 'Nessun programma corrisponde.'));
+    };
+    cerca.addEventListener('input', ridisegna);
+    ridisegna();
+    cerca.focus();
+  } catch (err) {
+    lista.innerHTML = '';
+    lista.append(el('div', 'vuoto', err.message));
+  }
 }
 
 async function scegliProgrammaSalvato(titolo, onScelta) {
@@ -770,7 +1026,11 @@ function vistaIngresso() {
       root.append(lista);
 
       const az = el('div', 'riga-azioni');
-      az.append(bottone('Carica un programma', () => scegliProgrammaSalvato('Carica nel deck', (spec) => {
+      az.append(bottone('Dai tuoi programmi', () => scegliProgrammaSalvato('Carica nel deck', (spec) => {
+        dati.scelti.push(spec);
+        ridisegna();
+      }), 'btn-piccolo'));
+      az.append(bottone('Dalla libreria del manuale', () => scegliDallaLibreria('Carica nel deck', (spec) => {
         dati.scelti.push(spec);
         ridisegna();
       }), 'btn-piccolo'));
@@ -953,7 +1213,10 @@ function vistaTavolo() {
           : el('div', 'vuoto', master ? 'Il netrunner sta muovendo.' : 'Il sistema sta rispondendo.'));
       } else if (master && v.stato === 'attesa') {
         const az = el('div', 'riga-azioni');
-        az.append(bottone('Metti di guardia un programma', () => caricaDifesaInSessione(v), 'btn-piccolo'));
+        az.append(
+          bottone('Guardia dai tuoi programmi', () => caricaDifesaInSessione(v, false), 'btn-piccolo'),
+          bottone('Guardia dal manuale', () => caricaDifesaInSessione(v, true), 'btn-piccolo')
+        );
         root.append(az);
       }
 
@@ -1112,7 +1375,7 @@ function azioniMaster(v) {
   }));
   comandi.append(bottone('Alza l’allarme', () => azioneNetrun({ tipo: 'allarme', livello: scelta.livello })));
   comandi.append(bottone('Passa', () => azioneNetrun({ tipo: 'passa' })));
-  comandi.append(bottone('Nuova difesa', () => caricaDifesaInSessione(v)));
+  comandi.append(bottone('Nuova difesa', () => caricaDifesaInSessione(v, true)));
   comandi.append(bottone('Chiudi la sessione', () => conferma(
     'Chiudere la sessione?', 'Il netrunner viene espulso dal sistema.',
     () => azioneNetrun({ tipo: 'chiudi' }), 'Chiudi'
@@ -1122,8 +1385,9 @@ function azioniMaster(v) {
 }
 
 /** Il Master mette in campo un altro programma di guardia a partita iniziata. */
-function caricaDifesaInSessione(v) {
-  scegliProgrammaSalvato('Programma di difesa', (spec) => {
+function caricaDifesaInSessione(v, dallaLibreria) {
+  const scegli = dallaLibreria ? scegliDallaLibreria : scegliProgrammaSalvato;
+  scegli('Programma di difesa', (spec) => {
     scegliNodo(v.sistema.nodi, async (nodoId) => {
       try {
         const esito = await api(`/netrun/sessioni/${statoNetrun.codice}/difesa`, {

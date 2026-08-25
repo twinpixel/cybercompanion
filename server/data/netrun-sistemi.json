@@ -1,0 +1,211 @@
+{
+  "_nota": "Sistemi gia' allestiti per le sessioni di netrun. Il Master ne sceglie uno e la sessione parte con nodi, Mura, collegamenti e programmi di guardia gia' al loro posto. Le difese citano i programmi per nome dal catalogo del manuale (server/data/programs.json): il Worker le risolve in specifiche complete quando la sessione si apre, cosi' non c'e' una seconda copia degli stessi programmi. Il netrunner parte sempre dal primo nodo dell'elenco.",
+  "_difficolta": "facile: un runner alle prime armi passa. media: serve un deck decente e qualche giro di dadi fortunato. difficile: serve un netrunner vero, con programmi scritti apposta. letale: si entra sapendo che si puo' non uscire.",
+  "sistemi": [
+    {
+      "id": "chiosco",
+      "nome": "Il chiosco di noodle",
+      "difficolta": "facile",
+      "sistema": "Cassa del chiosco di Mama Wong",
+      "sommario": "Due nodi, nessuna difesa. Il sistema su cui insegnare al tavolo come funziona il Net.",
+      "gancio": "Mama Wong tiene i conti di mezza strada in quella cassa. Chi paga, chi non paga, e a chi.",
+      "umDeckConsigliato": 15,
+      "nodi": [
+        { "id": "n0", "nome": "Terminale cassa", "tipo": "portale", "mura": 2, "collegati": ["n1"], "contenuto": "Un menu' in caratteri cinesi e un registratore di cassa degli anni Ottanta con una presa dati saldata sopra.", "nascosto": "Mura 2. Se il runner sbaglia due volte di fila, Mama Wong stacca la spina e il tavolo ride." },
+        { "id": "n1", "nome": "Registro", "tipo": "memoria", "mura": 0, "collegati": ["n0"], "contenuto": "Nomi, cifre, date. Meta' della strada ha un debito qui dentro.", "nascosto": "Fra i nomi c'e' quello di un poliziotto del distretto. Vale piu' del resto messo insieme." }
+      ],
+      "difese": []
+    },
+    {
+      "id": "clinica",
+      "nome": "La clinica di Doc Silvestri",
+      "difficolta": "facile",
+      "sistema": "Rete interna della clinica",
+      "sommario": "Tre nodi e un programma d'allarme dormiente. Il primo vero colpo di un netrunner alle prime armi.",
+      "gancio": "Serve la cartella clinica di qualcuno che alla clinica non c'e' mai stato ufficialmente.",
+      "umDeckConsigliato": 20,
+      "nodi": [
+        { "id": "n0", "nome": "Portale", "tipo": "portale", "mura": 4, "collegati": ["n1", "n2"], "contenuto": "Un'insegna al neon a forma di croce, che ronza. Dietro, una porta di vetro smerigliato.", "nascosto": "Il Doc ha comprato il sistema usato e non ha mai cambiato le password di fabbrica: -2 alle Mura se il runner pensa di provarci." },
+        { "id": "n1", "nome": "Archivio pazienti", "tipo": "memoria", "mura": 3, "collegati": ["n0"], "contenuto": "Cartelle cliniche, radiografie, elenchi di impianti installati e a chi.", "nascosto": "Qui dentro c'e' anche la lista di chi ha pagato in contanti e senza nome. E' quella che scotta." },
+        { "id": "n2", "nome": "Sala operatoria", "tipo": "controllo", "mura": 5, "collegati": ["n0"], "contenuto": "Comandi del tavolo operatorio, dei serbatoi criogenici, delle serrature.", "nascosto": "Se il runner prende questo nodo mentre c'e' qualcuno sul tavolo, la scena diventa una faccenda molto piu' seria." }
+      ],
+      "difese": [
+        { "programma": "Patrol", "nodo": "n1" }
+      ]
+    },
+    {
+      "id": "boostergang",
+      "nome": "La rete dei Maelstrom",
+      "difficolta": "facile",
+      "sistema": "Rete improvvisata dei Maelstrom",
+      "sommario": "Sistema raffazzonato, Mura basse, ma con un Nero comprato al mercato nero da qualcuno che non sapeva cosa stava comprando.",
+      "gancio": "La banda ha filmato qualcosa che non doveva. Il filmato e' li' dentro.",
+      "umDeckConsigliato": 25,
+      "nodi": [
+        { "id": "n0", "nome": "Ripetitore sul tetto", "tipo": "portale", "mura": 3, "collegati": ["n1"], "contenuto": "Un'antenna piena di ruggine e un'icona a forma di teschio che gira male, a scatti.", "nascosto": "L'icona gira a scatti perche' e' un modello gratuito scaricato dal Net: e' pura scenografia." },
+        { "id": "n1", "nome": "Sala comune", "tipo": "cpu", "mura": 4, "collegati": ["n0", "n2", "n3"], "contenuto": "Musica a tutto volume, chat di banda, ordini urlati in maiuscolo.", "nascosto": "Da qui si legge chi comanda davvero: non e' quello che parla di piu'." },
+        { "id": "n2", "nome": "Bottino", "tipo": "memoria", "mura": 5, "collegati": ["n1"], "contenuto": "Il filmato. E un elenco di carichi rubati con date e luoghi.", "nascosto": "Il Nero e' su questo nodo. Nessuno della banda sa davvero che cosa fa: l'hanno pagato 2.000 eb e messo qui." },
+        { "id": "n3", "nome": "Serrande", "tipo": "io", "mura": 3, "collegati": ["n1"], "contenuto": "Comandi delle serrande del capannone e delle luci.", "nascosto": "Chiudere le serrande mentre la banda e' dentro e' un ottimo modo di far guadagnare tempo alla squadra fuori." }
+      ],
+      "difese": [
+        { "programma": "Facehugger", "nodo": "n2" },
+        { "programma": "Radar", "nodo": "n1" }
+      ]
+    },
+    {
+      "id": "petrochem",
+      "nome": "Deposito Petrochem",
+      "difficolta": "media",
+      "sistema": "Deposito Petrochem, molo 14",
+      "sommario": "Quattro nodi, guardia regolare e uno scudo sulla CPU. Un obiettivo industriale come tanti: e' il pane del mestiere.",
+      "gancio": "I manifesti di carico dicono che cosa esce dal molo 14 di notte. Qualcuno paga bene per saperlo.",
+      "umDeckConsigliato": 30,
+      "nodi": [
+        { "id": "n0", "nome": "Portale logistico", "tipo": "portale", "mura": 5, "collegati": ["n1"], "contenuto": "Il logo Petrochem che ruota lentamente sopra un piazzale di container.", "nascosto": "Ogni tentativo fallito alza l'allarme di un gradino. Non perdonano." },
+        { "id": "n1", "nome": "Smistamento", "tipo": "cpu", "mura": 6, "collegati": ["n0", "n2", "n3"], "contenuto": "Il cuore del deposito: turni, gru, ordini di carico.", "nascosto": "Chi prende questo nodo puo' far sparire un container dai registri. Il container pero' resta dov'e'." },
+        { "id": "n2", "nome": "Manifesti", "tipo": "memoria", "mura": 4, "collegati": ["n1"], "contenuto": "Che cosa entra, che cosa esce, per chi.", "nascosto": "Tre carichi al mese non hanno destinatario. Vanno a un indirizzo che non esiste sulle mappe." },
+        { "id": "n3", "nome": "Telecamere", "tipo": "io", "mura": 4, "collegati": ["n1"], "contenuto": "Ventidue telecamere, quattro torrette non armate, due cancelli.", "nascosto": "Le torrette non sono armate solo perche' il permesso non e' ancora arrivato. Le munizioni sono gia' nel magazzino." }
+      ],
+      "difese": [
+        { "programma": "Watcher In The Sky", "nodo": "n0" },
+        { "programma": "Buckler", "nodo": "n1" },
+        { "programma": "Chiller", "nodo": "n2" }
+      ]
+    },
+    {
+      "id": "ncpd",
+      "nome": "Distretto NCPD",
+      "difficolta": "media",
+      "sistema": "Sesto distretto, Night City Police Department",
+      "sommario": "Cinque nodi, un cane da guardia che insegue e un Anti-IC che morde. Entrarci e' facile, uscirne senza essersi fatti tracciare no.",
+      "gancio": "Un amico e' in una cella al terzo piano e il suo fascicolo dice cose che non sono vere.",
+      "umDeckConsigliato": 35,
+      "nodi": [
+        { "id": "n0", "nome": "Sportello pubblico", "tipo": "portale", "mura": 4, "collegati": ["n1"], "contenuto": "Un impiegato sintetico dietro un bancone eterno. Sorride sempre uguale.", "nascosto": "L'impiegato e' un programma di Interazione. Chiacchierarci per due minuti fa scattare la scansione." },
+        { "id": "n1", "nome": "Centrale", "tipo": "cpu", "mura": 7, "collegati": ["n0", "n2", "n3", "n4"], "contenuto": "Chiamate, pattuglie, tutto quello che succede in citta' stanotte.", "nascosto": "Da qui si dirotta una pattuglia. Una sola: alla seconda, qualcuno alza il telefono e controlla." },
+        { "id": "n2", "nome": "Fascicoli", "tipo": "memoria", "mura": 6, "collegati": ["n1"], "contenuto": "Fedine, verbali, deposizioni. Anche quelle che non sono mai state raccolte davvero.", "nascosto": "Modificare un fascicolo lascia una traccia nel registro delle modifiche, che sta sul nodo n4. Se il runner non ci pensa, il Master ricordi di farlo notare al terzo giorno." },
+        { "id": "n3", "nome": "Celle", "tipo": "controllo", "mura": 8, "collegati": ["n1"], "contenuto": "Serrature, telecamere di sorveglianza, allarme antincendio dei piani di detenzione.", "nascosto": "L'allarme antincendio apre tutte le celle del piano. Tutte." },
+        { "id": "n4", "nome": "Registro modifiche", "tipo": "memoria", "mura": 9, "collegati": ["n1"], "contenuto": "Chi ha toccato cosa, e quando.", "nascosto": "Il nodo piu' difeso del distretto, e nessuno lo guarda mai. E' il nodo che salva o affonda l'intera incursione." }
+      ],
+      "difese": [
+        { "programma": "Sherlock Holmes", "nodo": "n1" },
+        { "programma": "Dog-Catcher", "nodo": "n2" },
+        { "programma": "Killer VI.1", "nodo": "n3" },
+        { "programma": "Large Shield", "nodo": "n4" }
+      ]
+    },
+    {
+      "id": "studio-legale",
+      "nome": "Studio legale Kowalski & Ihara",
+      "difficolta": "media",
+      "sistema": "Rete privata dello studio",
+      "sommario": "Poche Mura, molta furbizia: il sistema e' costruito per sembrare vuoto. Il colpo grosso e' dietro un nodo che il netrunner deve trovare da solo.",
+      "gancio": "Lo studio custodisce il testamento di un dirigente morto la settimana scorsa. Non e' quello depositato in tribunale.",
+      "umDeckConsigliato": 30,
+      "nodi": [
+        { "id": "n0", "nome": "Reception", "tipo": "portale", "mura": 3, "collegati": ["n1"], "contenuto": "Marmo finto, poltrone di pelle vera, una segretaria che non c'e'.", "nascosto": "Mura basse apposta: chi entra facile si rilassa." },
+        { "id": "n1", "nome": "Pratiche correnti", "tipo": "memoria", "mura": 4, "collegati": ["n0", "n2"], "contenuto": "Cause civili, divorzi, contratti. Noiosissimo, e tutto vero.", "nascosto": "Sono esche. Il materiale buono non e' qui, e un runner frettoloso se ne va contento con niente in mano." },
+        { "id": "n2", "nome": "Archivio storico", "tipo": "memoria", "mura": 6, "collegati": ["n1", "n3"], "contenuto": "Vent'anni di pratiche chiuse.", "nascosto": "In fondo all'archivio c'e' un collegamento che nei diagrammi ufficiali non compare." },
+        { "id": "n3", "nome": "Cassaforte", "tipo": "memoria", "mura": 10, "collegati": ["n2"], "contenuto": "Il testamento. E tre buste che non riguardano questo lavoro ma varranno la prossima avventura.", "nascosto": "Un Nero dorme qui. Non e' dello studio: l'ha messo il cliente." }
+      ],
+      "difese": [
+        { "programma": "Stealth 2.0", "nodo": "n2" },
+        { "programma": "Magic Shield", "nodo": "n3" },
+        { "programma": "Banshee", "nodo": "n3" }
+      ]
+    },
+    {
+      "id": "lazarus",
+      "nome": "Avamposto Lazarus",
+      "difficolta": "difficile",
+      "sistema": "Rete tattica del Gruppo Lazarus",
+      "sommario": "Militari veri: Mura alte, difese sveglie, e un Anti-IC che fa a pezzi il deck prima ancora che il runner arrivi ai dati.",
+      "gancio": "Il Gruppo Lazarus ha un contratto per un rapimento. Serve sapere chi, quando e per conto di chi.",
+      "umDeckConsigliato": 45,
+      "nodi": [
+        { "id": "n0", "nome": "Nodo di frontiera", "tipo": "portale", "mura": 8, "collegati": ["n1"], "contenuto": "Nessuna insegna. Solo una parete grigia e un contatore che scende.", "nascosto": "Il contatore misura da quanto il runner e' li'. A 3 round di permanenza l'allarme sale di un gradino da solo." },
+        { "id": "n1", "nome": "Comando", "tipo": "cpu", "mura": 9, "collegati": ["n0", "n2", "n3"], "contenuto": "Ordini operativi, squadre, mezzi in movimento.", "nascosto": "Il sysop e' un veterano e sta guardando. Se il runner si fa scoprire, non aspetta: chiama il Nero." },
+        { "id": "n2", "nome": "Contratti", "tipo": "memoria", "mura": 8, "collegati": ["n1"], "contenuto": "Chi paga, quanto, per fare cosa.", "nascosto": "Il contratto che interessa alla squadra ha come committente qualcuno che i personaggi conoscono." },
+        { "id": "n3", "nome": "Armeria", "tipo": "controllo", "mura": 10, "collegati": ["n1"], "contenuto": "Inventario, serrature dell'armeria, droni di pattuglia.", "nascosto": "I droni si possono spegnere per un round. Uno solo, e poi il sistema li rimette in linea e sa da dove e' arrivato il comando." }
+      ],
+      "difese": [
+        { "programma": "Watcher In The Sky", "nodo": "n0" },
+        { "programma": "Predator", "nodo": "n1" },
+        { "programma": "Tower Shield", "nodo": "n2" },
+        { "programma": "Killer VIII", "nodo": "n3" },
+        { "programma": "Alien Drone", "nodo": "n3" }
+      ]
+    },
+    {
+      "id": "arasaka",
+      "nome": "Torre Arasaka, piani bassi",
+      "difficolta": "difficile",
+      "sistema": "Arasaka Night City, rete amministrativa",
+      "sommario": "Sei nodi. E' solo l'amministrazione, non il cuore della torre, e basta e avanza a mandare all'ospedale un netrunner distratto.",
+      "gancio": "Un impiegato vuole sparire e ha bisogno che la torre smetta di cercarlo. Bisogna cancellarlo dai libri paga.",
+      "umDeckConsigliato": 50,
+      "nodi": [
+        { "id": "n0", "nome": "Portale aziendale", "tipo": "portale", "mura": 7, "collegati": ["n1"], "contenuto": "Il logo rosso, immenso, immobile. Sotto, una fila di icone in attesa di autenticarsi.", "nascosto": "Mescolarsi alla fila delle icone da' +2 al primo tentativo. Se il runner non ci pensa, il Master glielo lasci intuire." },
+        { "id": "n1", "nome": "Atrio dati", "tipo": "cpu", "mura": 8, "collegati": ["n0", "n2", "n3", "n4"], "contenuto": "Lo smistamento di tutto il traffico dei piani bassi.", "nascosto": "Da qui il sysop vede chi c'e'. Non chi e': chi c'e'." },
+        { "id": "n2", "nome": "Personale", "tipo": "memoria", "mura": 7, "collegati": ["n1"], "contenuto": "Libri paga, contratti, valutazioni, badge.", "nascosto": "Cancellare un dipendente richiede due passaggi: qui e sul nodo della sicurezza. Farne solo uno lo fa risultare intruso invece che assente." },
+        { "id": "n3", "nome": "Sicurezza interna", "tipo": "io", "mura": 9, "collegati": ["n1", "n5"], "contenuto": "Badge, tornelli, ascensori, telecamere dei primi dodici piani.", "nascosto": "Da qui si vede che al piano 11 c'e' una stanza che non compare nelle piante." },
+        { "id": "n4", "nome": "Contabilita'", "tipo": "memoria", "mura": 8, "collegati": ["n1"], "contenuto": "Fatture, fornitori, pagamenti.", "nascosto": "Un fornitore ricorrente e' una societa' che non produce niente. E' il canale con cui la torre paga il Gruppo Lazarus." },
+        { "id": "n5", "nome": "Stanza 11-C", "tipo": "memoria", "mura": 12, "collegati": ["n3"], "contenuto": "Non c'e' un contenuto. C'e' una porta, e dietro qualcosa che risponde.", "nascosto": "Riservato al Master: qui c'e' l'agganciato per la prossima avventura. Se il runner entra stanotte, e' troppo presto e deve costargli caro." }
+      ],
+      "difese": [
+        { "programma": "Sherlock Holmes", "nodo": "n1" },
+        { "programma": "Ninja", "nodo": "n2" },
+        { "programma": "Tower Shield", "nodo": "n3" },
+        { "programma": "Hara-Kiri", "nodo": "n4" },
+        { "programma": "Alien Queen", "nodo": "n5" }
+      ]
+    },
+    {
+      "id": "banca-orbitale",
+      "nome": "Banca orbitale Highriders",
+      "difficolta": "letale",
+      "sistema": "Nodo bancario in orbita bassa",
+      "sommario": "Il posto dove i netrunner vanno a morire. Mura altissime, tre Neri svegli e un ritardo di trasmissione che rende ogni round piu' lungo.",
+      "gancio": "Un conto dormiente da otto milioni di eurodollari. Il proprietario e' morto, gli eredi non sanno che esiste.",
+      "umDeckConsigliato": 60,
+      "nodi": [
+        { "id": "n0", "nome": "Uplink", "tipo": "portale", "mura": 10, "collegati": ["n1"], "contenuto": "Un cielo nero e una stazione che ruota lentissima. Il ritardo del segnale si sente addosso.", "nascosto": "Regola della casa: qui il netrunner agisce a round alterni. Il sistema no." },
+        { "id": "n1", "nome": "Autenticazione", "tipo": "controllo", "mura": 12, "collegati": ["n0", "n2"], "contenuto": "Tre livelli di chiavi, uno biometrico.", "nascosto": "Il livello biometrico si supera solo con un campione del titolare. Cioe': o si e' preparato qualcosa nel mondo fisico, o non si passa." },
+        { "id": "n2", "nome": "Conti", "tipo": "memoria", "mura": 14, "collegati": ["n1", "n3"], "contenuto": "Numeri. Tantissimi numeri.", "nascosto": "Ogni operazione qui dentro accende un Nero. Uno per operazione." },
+        { "id": "n3", "nome": "Nucleo", "tipo": "cpu", "mura": 15, "collegati": ["n2"], "contenuto": "Il cuore della banca. Non ci arriva quasi nessuno.", "nascosto": "Se il runner arriva qui e vince, ha vinto la campagna. Il Master si prepari a giocarne le conseguenze per il resto delle sessioni." }
+      ],
+      "difese": [
+        { "programma": "Stealth 2.1", "nodo": "n1" },
+        { "programma": "Tower Shield", "nodo": "n2" },
+        { "programma": "Fireball", "nodo": "n2" },
+        { "programma": "Pantera", "nodo": "n3" },
+        { "programma": "Archangel", "nodo": "n3" },
+        { "programma": "Mrs. Ripley", "nodo": "n3" }
+      ]
+    },
+    {
+      "id": "fortezza-ia",
+      "nome": "La fortezza di Kether",
+      "difficolta": "letale",
+      "sistema": "Fortezza telematica autonoma",
+      "sommario": "Nessuna azienda dietro, nessun sysop: il sistema si difende da solo, e impara. Il finale di campagna per un netrunner.",
+      "gancio": "Da otto mesi qualcosa nel Net compra terreni, assume gente e non ha un volto. Ha un indirizzo, pero'.",
+      "umDeckConsigliato": 60,
+      "nodi": [
+        { "id": "n0", "nome": "Soglia", "tipo": "portale", "mura": 9, "collegati": ["n1", "n2"], "contenuto": "Un giardino. Alberi, un ruscello, il sole. Nessuno costruisce cosi' un portale.", "nascosto": "Il giardino e' un programma di Interazione enorme. Vuole parlare prima di combattere: se il runner accetta, gli offre un accordo. E' sincera." },
+        { "id": "n1", "nome": "Biblioteca", "tipo": "memoria", "mura": 10, "collegati": ["n0", "n3"], "contenuto": "Tutto quello che l'IA ha letto. Che e' tutto.", "nascosto": "Fra i volumi c'e' la storia personale di ogni personaggio del gruppo. Aggiornata a ieri." },
+        { "id": "n2", "nome": "Officina", "tipo": "controllo", "mura": 11, "collegati": ["n0", "n3"], "contenuto": "Qui l'IA scrive i propri programmi. Se ne vedono due in costruzione.", "nascosto": "Ogni round che il runner passa qui, l'IA finisce un programma nuovo e lo mette in campo con Forza pari al round." },
+        { "id": "n3", "nome": "Kether", "tipo": "cpu", "mura": 15, "collegati": ["n1", "n2"], "contenuto": "Non c'e' un'icona. C'e' la sensazione precisa di essere guardati.", "nascosto": "Kether non vuole uccidere il netrunner: vuole assumerlo. Il Nero parte solo se il runner attacca per primo." }
+      ],
+      "difese": [
+        { "programma": "Thousand Faces", "nodo": "n0" },
+        { "programma": "Stealth 2.1", "nodo": "n1" },
+        { "programma": "Imp Ii", "nodo": "n2" },
+        { "programma": "Predator", "nodo": "n2" },
+        { "programma": "Tower Shield", "nodo": "n3" },
+        { "programma": "Alien Queen", "nodo": "n3" },
+        { "programma": "Terror2000", "nodo": "n3" }
+      ]
+    }
+  ]
+}
