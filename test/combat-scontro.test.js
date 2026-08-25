@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {
   scontroVuoto, combattenteDaScheda, combattenteDaPng, tiraIniziativa,
   turnoCorrente, avanzaTurno, svolgiTurno, riepilogoFerite, squadreInPiedi,
+  decidiAzione,
 } from '../server/combat/index.js';
 import { ARMI, scheda, png, arena, tocca } from './aiuti.js';
 
@@ -95,15 +96,17 @@ describe('svolgimento dello scontro', () => {
 
   describe('conclusione', () => {
     test('quando resta una sola squadra il diario lo dichiara', () => {
+      // Entrambi armati con armi affidabili e a portata: nessuno dei due ha
+      // motivo di mettersi al riparo, quindi lo scontro si decide. Con armi che
+      // si inceppano spesso il motore manda al riparo chi resta senza risposta,
+      // e da li' non si esce piu' (vedi il test sullo stallo qui sotto).
       const { scontro, pg, nemici } = arena({
         pg: [scheda('Solo', { car: { RIF: 10 }, abilita: { Pistole: 10 }, armi: [{ ...ARMI.pistola, caricatore: 999 }] })],
-        nemici: [png('T', { armaturaVP: 0, COS: 3, FRE: 3 })],
+        nemici: [png('T', { armaturaVP: 0, COS: 3, FRE: 3, abilita: { Pistole: 4 }, armi: [{ ...ARMI.pistola, caricatore: 999 }] })],
       });
-      // Si usa 'auto': il png non ha armi, e con un'azione dichiarata a mano il
-      // suo turno verrebbe rifiutato e il ciclo resterebbe fermo su di lui.
       scontro.distanza = 5;
       let giri = 0;
-      while (squadreInPiedi(scontro).length > 1 && giri < 100) {
+      while (squadreInPiedi(scontro).length > 1 && giri < 200) {
         giri++;
         if (!turnoCorrente(scontro)) break;
         const r = svolgiTurno(scontro, { tipo: 'auto' });
@@ -111,6 +114,32 @@ describe('svolgimento dello scontro', () => {
       }
       assert.ok(squadreInPiedi(scontro).length <= 1, 'lo scontro arriva a una conclusione');
       assert.ok(scontro.diario.some((v) => v.tipo === 'fine'), 'il diario lo registra');
+    });
+
+    test('chi non ha nulla con cui rispondere si mette al riparo e ci resta', () => {
+      // Limite noto e voluto: il motore non modella gli spostamenti. Un
+      // combattente senza armi utili a quella distanza si ripara, e da li' non
+      // ha piu' niente da fare. Al tavolo lo sblocca il Master cambiando la
+      // distanza dello scontro (POST /api/encounters/:id/distanza).
+      const { scontro, nemici } = arena({
+        pg: [scheda('Solo', { car: { RIF: 10 }, abilita: { Pistole: 10 }, armi: [ARMI.pistola] })],
+        nemici: [png('Disarmato', { armaturaVP: 0, armi: [] })],
+      });
+      scontro.distanza = 30;
+
+      assert.equal(decidiAzione(scontro, nemici[0]).tipo, 'riparo',
+        'da trenta metri e senza armi non puo\' fare altro');
+
+      scontro.indiceTurno = scontro.ordine.indexOf(nemici[0].id);
+      svolgiTurno(scontro, { tipo: 'auto' });
+      assert.equal(nemici[0].riparo, 'medio', 'il riparo e\' stato preso');
+      assert.equal(decidiAzione(scontro, nemici[0]).tipo, 'riparo',
+        'e al turno dopo la proposta e\' la stessa: non c\'e\' via d\'uscita');
+
+      // Avvicinandolo torna a poter fare qualcosa: e' la leva del Master.
+      scontro.distanza = 1;
+      assert.equal(decidiAzione(scontro, nemici[0]).tipo, 'mischia',
+        'a un metro carica a mani nude');
     });
 
     test('il diario racconta ogni tiro, non solo l\'esito', () => {
