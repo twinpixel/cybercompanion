@@ -1,54 +1,586 @@
 {
-  "_nota": "Armature ed equipaggiamento base di Cyberpunk 2020. `vp` e' il Valore di Protezione: si sottrae ai danni prima del bonus di Costituzione. `in` e' l'Ingombro: penalita' a RIF mentre e' indossata. Riferimento: doc/regole/04-tabelle-di-gioco.md",
-
-  "armature": [
-    { "nome": "Maglietta di kevlar",       "vp": 4,  "ingombro": 0, "costo": 100,  "copre": "Tronco" },
-    { "nome": "Giubbotto di pelle",        "vp": 4,  "ingombro": 0, "costo": 50,   "copre": "Tronco, braccia" },
-    { "nome": "Giubbotto di kevlar leggero","vp": 10, "ingombro": 0, "costo": 150,  "copre": "Tronco" },
-    { "nome": "Giubbotto di kevlar medio", "vp": 14, "ingombro": 1, "costo": 200,  "copre": "Tronco" },
-    { "nome": "Giubbotto di kevlar pesante","vp": 18, "ingombro": 2, "costo": 300,  "copre": "Tronco" },
-    { "nome": "Giubbotto da mitragliere",  "vp": 20, "ingombro": 2, "costo": 500,  "copre": "Tronco, braccia" },
-    { "nome": "Elmetto di nylon",          "vp": 20, "ingombro": 0, "costo": 100,  "copre": "Testa" },
-    { "nome": "Elmetto d'acciaio",         "vp": 14, "ingombro": 0, "costo": 20,   "copre": "Testa" },
-    { "nome": "Armatura medievale",        "vp": 14, "ingombro": 6, "costo": 3500, "copre": "Tutto il corpo" },
-    { "nome": "MetalGear",                 "vp": 25, "ingombro": 3, "costo": 6000, "copre": "Tronco, braccia, gambe" },
-    { "nome": "Abiti ignifughi Salamandra","vp": 20, "ingombro": 0, "costo": 100,  "copre": "Solo danni da fuoco" }
+ "_nota": "Armature ed equipaggiamento base di Cyberpunk 2020. `vp` e' il Valore di Protezione: si sottrae ai danni prima del bonus di Costituzione. `in` e' l'Ingombro: penalita' a RIF mentre e' indossata. Riferimento: doc/regole/04-tabelle-di-gioco.md",
+ "armature": [
+  {
+   "nome": "Maglietta di kevlar",
+   "vp": 4,
+   "ingombro": 0,
+   "costo": 100,
+   "copre": "Tronco"
+  },
+  {
+   "nome": "Giubbotto di pelle",
+   "vp": 4,
+   "ingombro": 0,
+   "costo": 50,
+   "copre": "Tronco, braccia"
+  },
+  {
+   "nome": "Giubbotto di kevlar leggero",
+   "vp": 10,
+   "ingombro": 0,
+   "costo": 150,
+   "copre": "Tronco"
+  },
+  {
+   "nome": "Giubbotto di kevlar medio",
+   "vp": 14,
+   "ingombro": 1,
+   "costo": 200,
+   "copre": "Tronco"
+  },
+  {
+   "nome": "Giubbotto di kevlar pesante",
+   "vp": 18,
+   "ingombro": 2,
+   "costo": 300,
+   "copre": "Tronco"
+  },
+  {
+   "nome": "Giubbotto da mitragliere",
+   "vp": 20,
+   "ingombro": 2,
+   "costo": 500,
+   "copre": "Tronco, braccia"
+  },
+  {
+   "nome": "Elmetto di nylon",
+   "vp": 20,
+   "ingombro": 0,
+   "costo": 100,
+   "copre": "Testa"
+  },
+  {
+   "nome": "Elmetto d'acciaio",
+   "vp": 14,
+   "ingombro": 0,
+   "costo": 20,
+   "copre": "Testa"
+  },
+  {
+   "nome": "Armatura medievale",
+   "vp": 14,
+   "ingombro": 6,
+   "costo": 3500,
+   "copre": "Tutto il corpo"
+  },
+  {
+   "nome": "MetalGear",
+   "vp": 25,
+   "ingombro": 3,
+   "costo": 6000,
+   "copre": "Tronco, braccia, gambe"
+  },
+  {
+   "nome": "Abiti ignifughi Salamandra",
+   "vp": 20,
+   "ingombro": 0,
+   "costo": 100,
+   "copre": "Solo danni da fuoco"
+  }
+ ],
+ "_stile": "Il costo dei vestiti si moltiplica per lo stile: 1x da strada, 2x buona qualita', 5x griffato, 10x alta moda.",
+ "stili_abbigliamento": [
+  {
+   "nome": "Da strada",
+   "moltiplicatore": 1
+  },
+  {
+   "nome": "Buona qualita'",
+   "moltiplicatore": 2
+  },
+  {
+   "nome": "Griffato",
+   "moltiplicatore": 5
+  },
+  {
+   "nome": "Alta moda",
+   "moltiplicatore": 10
+  }
+ ],
+ "equipaggiamento": [
+  {
+   "nome": "Agenda elettronica",
+   "costo": 100,
+   "categoria": "Elettronica"
+  },
+  {
+   "nome": "Cellulare",
+   "costo": 400,
+   "categoria": "Elettronica"
+  },
+  {
+   "nome": "Cyberdeck base",
+   "costo": 5000,
+   "categoria": "Rete"
+  },
+  {
+   "nome": "Cyberdeck da combattimento",
+   "costo": 14000,
+   "categoria": "Rete"
+  },
+  {
+   "nome": "Videocamera",
+   "costo": 500,
+   "categoria": "Elettronica"
+  },
+  {
+   "nome": "Kit da scasso",
+   "costo": 200,
+   "categoria": "Intrusione"
+  },
+  {
+   "nome": "Kit rimozione allarmi",
+   "costo": 290,
+   "categoria": "Intrusione",
+   "nota": "+1 ai tiri TEC contro serrature e sensori"
+  },
+  {
+   "nome": "Fondina Speedraw",
+   "costo": 70,
+   "categoria": "Armi",
+   "nota": "+1 all'iniziativa in estrazione rapida"
+  },
+  {
+   "nome": "Kit di pronto soccorso",
+   "costo": 50,
+   "categoria": "Medico"
+  },
+  {
+   "nome": "Kit chirurgico da campo",
+   "costo": 1000,
+   "categoria": "Medico"
+  },
+  {
+   "nome": "Serbatoio criogenico portatile",
+   "costo": 5000,
+   "categoria": "Medico"
+  },
+  {
+   "nome": "Giubbotto antiproiettile da giornalista",
+   "costo": 500,
+   "categoria": "Protezione"
+  },
+  {
+   "nome": "Binocolo con visore notturno",
+   "costo": 400,
+   "categoria": "Ottica"
+  },
+  {
+   "nome": "Corda e rampino (30 m)",
+   "costo": 100,
+   "categoria": "Varie"
+  },
+  {
+   "nome": "Torcia tattica",
+   "costo": 20,
+   "categoria": "Varie"
+  },
+  {
+   "nome": "Documenti falsi",
+   "costo": 500,
+   "categoria": "Illegale"
+  },
+  {
+   "nome": "Razioni da campo (7 giorni)",
+   "costo": 50,
+   "categoria": "Varie"
+  }
+ ],
+ "_tenore_di_vita": "Spesa mensile per mantenere lo stile di vita dichiarato. Chi non paga scende di fascia.",
+ "tenore_di_vita": [
+  {
+   "nome": "Per strada",
+   "mensile": 0
+  },
+  {
+   "nome": "Stanza in un cubicolo",
+   "mensile": 200
+  },
+  {
+   "nome": "Appartamento in Zona",
+   "mensile": 500
+  },
+  {
+   "nome": "Appartamento decente",
+   "mensile": 1200
+  },
+  {
+   "nome": "Attico corporativo",
+   "mensile": 5000
+  }
+ ],
+ "_armi_iniziali": "Armi che la generazione automatica assegna, una per classe pescata da questa lista. I valori sono copiati da weapons.json: il catalogo completo (660 armi) resta un asset statico caricato dal client, troppo pesante per il bundle del Worker.",
+ "armi_iniziali": {
+  "solitario": [
+   {
+    "nome": "Ares Predator II",
+    "tipo": "PST",
+    "precisione": "0",
+    "occultabilita": "J",
+    "reperibilita": "P",
+    "danni": "4D6+1 (12mmCL)",
+    "caricatore": "15",
+    "cadenza": "1",
+    "affidabilita": "MA",
+    "gittata": "50",
+    "costo_eb": "550",
+    "descrizione": "La migliore amica dell’uomo"
+   },
+   {
+    "nome": "Militech Ronin",
+    "tipo": "FCL",
+    "precisione": "1",
+    "occultabilita": "N",
+    "reperibilita": "C",
+    "danni": "5D6 (5.56N)",
+    "caricatore": "35",
+    "cadenza": "3/30",
+    "affidabilita": "MA",
+    "gittata": "400",
+    "costo_eb": "450",
+    "descrizione": "Solo 3KG, lungo 35 pollici, moderno, leggero e versatile, versione aggiornata del M -16B Militech Ronin Commando Ed. FCL MTR 2 N P 2D6+3 (10mm) 40 40 MA 200 625 Senza rinculo e molto accurato, anche in 9mm(600E$), 11mm (700E$, 35clp, 20rof, AFF=ST), 12mm(800E$, 30clp, 20rof, AFF=ST, +1PR) Militech Ronin Compact"
+   },
+   {
+    "nome": "Uzi miniauto 9",
+    "tipo": "MTR",
+    "precisione": "1",
+    "occultabilita": "J",
+    "reperibilita": "E",
+    "danni": "2D6+1 (9mm)",
+    "caricatore": "30",
+    "cadenza": "35",
+    "affidabilita": "MA",
+    "gittata": "150",
+    "costo_eb": "475",
+    "descrizione": "Completamente in polimeri plastici, caricatore elettrico rotante e grilletto regolabile UZI Support 2020 MTR PES -1 N N R R 2D6+1 (9mm) Granate 25mm ST MA 200 1200 Con lanciagranate incorporato e mirino laser IR/UV"
+   },
+   {
+    "nome": "Katana-cheap (semplice)",
+    "tipo": "BNC",
+    "precisione": "1",
+    "occultabilita": "N",
+    "reperibilita": "P",
+    "danni": "2D6+1",
+    "caricatore": "NO",
+    "cadenza": "NO",
+    "affidabilita": "MA",
+    "gittata": "1",
+    "costo_eb": "100",
+    "descrizione": ""
+   }
   ],
-
-  "_stile": "Il costo dei vestiti si moltiplica per lo stile: 1x da strada, 2x buona qualita', 5x griffato, 10x alta moda.",
-  "stili_abbigliamento": [
-    { "nome": "Da strada",      "moltiplicatore": 1 },
-    { "nome": "Buona qualita'", "moltiplicatore": 2 },
-    { "nome": "Griffato",       "moltiplicatore": 5 },
-    { "nome": "Alta moda",      "moltiplicatore": 10 }
+  "poliziotto": [
+   {
+    "nome": "Federated Arms X-9",
+    "tipo": "PST",
+    "precisione": "0",
+    "occultabilita": "J",
+    "reperibilita": "E",
+    "danni": "2D6+1 (9mm)",
+    "caricatore": "12",
+    "cadenza": "2",
+    "affidabilita": "ST",
+    "gittata": "50",
+    "costo_eb": "300",
+    "descrizione": "Pistola d’ordinanza per l’U.S. Army ed esercito della CEE"
+   },
+   {
+    "nome": "Arasaka WSA",
+    "tipo": "PST",
+    "precisione": "0",
+    "occultabilita": "J",
+    "reperibilita": "C",
+    "danni": "2D6+3 (10mm)",
+    "caricatore": "15",
+    "cadenza": "2",
+    "affidabilita": "MA",
+    "gittata": "50",
+    "costo_eb": "400",
+    "descrizione": "Guardie Arasaka"
+   },
+   {
+    "nome": "Militech Arms Avenger",
+    "tipo": "PST",
+    "precisione": "0",
+    "occultabilita": "J",
+    "reperibilita": "E",
+    "danni": "2D6+1 (9mm)",
+    "caricatore": "10",
+    "cadenza": "2",
+    "affidabilita": "MA",
+    "gittata": "50",
+    "costo_eb": "250",
+    "descrizione": "Arma da professionisti, ben fatta e alta prec e alta portata Militech Elect ronics Taser PST EXO 1 J C Stordimento 10 1 ST 10 60 Piccolo come una lampadina tascabile"
+   }
   ],
-
-  "equipaggiamento": [
-    { "nome": "Agenda elettronica",      "costo": 100,  "categoria": "Elettronica" },
-    { "nome": "Cellulare",               "costo": 400,  "categoria": "Elettronica" },
-    { "nome": "Cyberdeck base",          "costo": 5000, "categoria": "Rete" },
-    { "nome": "Cyberdeck da combattimento","costo": 14000,"categoria": "Rete" },
-    { "nome": "Videocamera",             "costo": 500,  "categoria": "Elettronica" },
-    { "nome": "Kit da scasso",           "costo": 200,  "categoria": "Intrusione" },
-    { "nome": "Kit rimozione allarmi",   "costo": 290,  "categoria": "Intrusione", "nota": "+1 ai tiri TEC contro serrature e sensori" },
-    { "nome": "Fondina Speedraw",        "costo": 70,   "categoria": "Armi",       "nota": "+1 all'iniziativa in estrazione rapida" },
-    { "nome": "Kit di pronto soccorso",  "costo": 50,   "categoria": "Medico" },
-    { "nome": "Kit chirurgico da campo", "costo": 1000, "categoria": "Medico" },
-    { "nome": "Serbatoio criogenico portatile","costo": 5000,"categoria": "Medico" },
-    { "nome": "Giubbotto antiproiettile da giornalista","costo": 500,"categoria": "Protezione" },
-    { "nome": "Binocolo con visore notturno","costo": 400,"categoria": "Ottica" },
-    { "nome": "Corda e rampino (30 m)",  "costo": 100,  "categoria": "Varie" },
-    { "nome": "Torcia tattica",          "costo": 20,   "categoria": "Varie" },
-    { "nome": "Documenti falsi",         "costo": 500,  "categoria": "Illegale" },
-    { "nome": "Razioni da campo (7 giorni)","costo": 50, "categoria": "Varie" }
+  "nomade": [
+   {
+    "nome": "Militech Ronin",
+    "tipo": "FCL",
+    "precisione": "1",
+    "occultabilita": "N",
+    "reperibilita": "C",
+    "danni": "5D6 (5.56N)",
+    "caricatore": "35",
+    "cadenza": "3/30",
+    "affidabilita": "MA",
+    "gittata": "400",
+    "costo_eb": "450",
+    "descrizione": "Solo 3KG, lungo 35 pollici, moderno, leggero e versatile, versione aggiornata del M -16B Militech Ronin Commando Ed. FCL MTR 2 N P 2D6+3 (10mm) 40 40 MA 200 625 Senza rinculo e molto accurato, anche in 9mm(600E$), 11mm (700E$, 35clp, 20rof, AFF=ST), 12mm(800E$, 30clp, 20rof, AFF=ST, +1PR) Militech Ronin Compact"
+   },
+   {
+    "nome": "Coltello da sopravvivenza",
+    "tipo": "BNC",
+    "precisione": "0",
+    "occultabilita": "J",
+    "reperibilita": "C",
+    "danni": "1D6",
+    "caricatore": "NO",
+    "cadenza": "NO",
+    "affidabilita": "MA",
+    "gittata": "1",
+    "costo_eb": "50",
+    "descrizione": ""
+   },
+   {
+    "nome": "Militech Arms Avenger",
+    "tipo": "PST",
+    "precisione": "0",
+    "occultabilita": "J",
+    "reperibilita": "E",
+    "danni": "2D6+1 (9mm)",
+    "caricatore": "10",
+    "cadenza": "2",
+    "affidabilita": "MA",
+    "gittata": "50",
+    "costo_eb": "250",
+    "descrizione": "Arma da professionisti, ben fatta e alta prec e alta portata Militech Elect ronics Taser PST EXO 1 J C Stordimento 10 1 ST 10 60 Piccolo come una lampadina tascabile"
+   }
   ],
-
-  "_tenore_di_vita": "Spesa mensile per mantenere lo stile di vita dichiarato. Chi non paga scende di fascia.",
-  "tenore_di_vita": [
-    { "nome": "Per strada",              "mensile": 0 },
-    { "nome": "Stanza in un cubicolo",   "mensile": 200 },
-    { "nome": "Appartamento in Zona",    "mensile": 500 },
-    { "nome": "Appartamento decente",    "mensile": 1200 },
-    { "nome": "Attico corporativo",      "mensile": 5000 }
+  "ricettatore": [
+   {
+    "nome": "Dai Lung \"Han\"",
+    "tipo": "PST",
+    "precisione": "0",
+    "occultabilita": "J",
+    "reperibilita": "P",
+    "danni": "2D6+3 (10mm)",
+    "caricatore": "8",
+    "cadenza": "1",
+    "affidabilita": "ST",
+    "gittata": "50",
+    "costo_eb": "225",
+    "descrizione": "Popolare tra contrabbandieri asiatici, pirati, banditi"
+   },
+   {
+    "nome": "Militech Arms Avenger",
+    "tipo": "PST",
+    "precisione": "0",
+    "occultabilita": "J",
+    "reperibilita": "E",
+    "danni": "2D6+1 (9mm)",
+    "caricatore": "10",
+    "cadenza": "2",
+    "affidabilita": "MA",
+    "gittata": "50",
+    "costo_eb": "250",
+    "descrizione": "Arma da professionisti, ben fatta e alta prec e alta portata Militech Elect ronics Taser PST EXO 1 J C Stordimento 10 1 ST 10 60 Piccolo come una lampadina tascabile"
+   },
+   {
+    "nome": "Coltello da sopravvivenza",
+    "tipo": "BNC",
+    "precisione": "0",
+    "occultabilita": "J",
+    "reperibilita": "C",
+    "danni": "1D6",
+    "caricatore": "NO",
+    "cadenza": "NO",
+    "affidabilita": "MA",
+    "gittata": "1",
+    "costo_eb": "50",
+    "descrizione": ""
+   }
+  ],
+  "netrunner": [
+   {
+    "nome": "Militech Arms Avenger",
+    "tipo": "PST",
+    "precisione": "0",
+    "occultabilita": "J",
+    "reperibilita": "E",
+    "danni": "2D6+1 (9mm)",
+    "caricatore": "10",
+    "cadenza": "2",
+    "affidabilita": "MA",
+    "gittata": "50",
+    "costo_eb": "250",
+    "descrizione": "Arma da professionisti, ben fatta e alta prec e alta portata Militech Elect ronics Taser PST EXO 1 J C Stordimento 10 1 ST 10 60 Piccolo come una lampadina tascabile"
+   },
+   {
+    "nome": "Dai Lung \"Han\"",
+    "tipo": "PST",
+    "precisione": "0",
+    "occultabilita": "J",
+    "reperibilita": "P",
+    "danni": "2D6+3 (10mm)",
+    "caricatore": "8",
+    "cadenza": "1",
+    "affidabilita": "ST",
+    "gittata": "50",
+    "costo_eb": "225",
+    "descrizione": "Popolare tra contrabbandieri asiatici, pirati, banditi"
+   }
+  ],
+  "tecnico": [
+   {
+    "nome": "Militech Arms Avenger",
+    "tipo": "PST",
+    "precisione": "0",
+    "occultabilita": "J",
+    "reperibilita": "E",
+    "danni": "2D6+1 (9mm)",
+    "caricatore": "10",
+    "cadenza": "2",
+    "affidabilita": "MA",
+    "gittata": "50",
+    "costo_eb": "250",
+    "descrizione": "Arma da professionisti, ben fatta e alta prec e alta portata Militech Elect ronics Taser PST EXO 1 J C Stordimento 10 1 ST 10 60 Piccolo come una lampadina tascabile"
+   },
+   {
+    "nome": "Coltello da sopravvivenza",
+    "tipo": "BNC",
+    "precisione": "0",
+    "occultabilita": "J",
+    "reperibilita": "C",
+    "danni": "1D6",
+    "caricatore": "NO",
+    "cadenza": "NO",
+    "affidabilita": "MA",
+    "gittata": "1",
+    "costo_eb": "50",
+    "descrizione": ""
+   }
+  ],
+  "tecnomedico": [
+   {
+    "nome": "Militech Arms Avenger",
+    "tipo": "PST",
+    "precisione": "0",
+    "occultabilita": "J",
+    "reperibilita": "E",
+    "danni": "2D6+1 (9mm)",
+    "caricatore": "10",
+    "cadenza": "2",
+    "affidabilita": "MA",
+    "gittata": "50",
+    "costo_eb": "250",
+    "descrizione": "Arma da professionisti, ben fatta e alta prec e alta portata Militech Elect ronics Taser PST EXO 1 J C Stordimento 10 1 ST 10 60 Piccolo come una lampadina tascabile"
+   },
+   {
+    "nome": "Coltello da sopravvivenza",
+    "tipo": "BNC",
+    "precisione": "0",
+    "occultabilita": "J",
+    "reperibilita": "C",
+    "danni": "1D6",
+    "caricatore": "NO",
+    "cadenza": "NO",
+    "affidabilita": "MA",
+    "gittata": "1",
+    "costo_eb": "50",
+    "descrizione": ""
+   }
+  ],
+  "reporter": [
+   {
+    "nome": "Militech Arms Avenger",
+    "tipo": "PST",
+    "precisione": "0",
+    "occultabilita": "J",
+    "reperibilita": "E",
+    "danni": "2D6+1 (9mm)",
+    "caricatore": "10",
+    "cadenza": "2",
+    "affidabilita": "MA",
+    "gittata": "50",
+    "costo_eb": "250",
+    "descrizione": "Arma da professionisti, ben fatta e alta prec e alta portata Militech Elect ronics Taser PST EXO 1 J C Stordimento 10 1 ST 10 60 Piccolo come una lampadina tascabile"
+   },
+   {
+    "nome": "Dai Lung \"Han\"",
+    "tipo": "PST",
+    "precisione": "0",
+    "occultabilita": "J",
+    "reperibilita": "P",
+    "danni": "2D6+3 (10mm)",
+    "caricatore": "8",
+    "cadenza": "1",
+    "affidabilita": "ST",
+    "gittata": "50",
+    "costo_eb": "225",
+    "descrizione": "Popolare tra contrabbandieri asiatici, pirati, banditi"
+   }
+  ],
+  "corporativo": [
+   {
+    "nome": "Federated Arms X-9",
+    "tipo": "PST",
+    "precisione": "0",
+    "occultabilita": "J",
+    "reperibilita": "E",
+    "danni": "2D6+1 (9mm)",
+    "caricatore": "12",
+    "cadenza": "2",
+    "affidabilita": "ST",
+    "gittata": "50",
+    "costo_eb": "300",
+    "descrizione": "Pistola d’ordinanza per l’U.S. Army ed esercito della CEE"
+   },
+   {
+    "nome": "Arasaka WSA",
+    "tipo": "PST",
+    "precisione": "0",
+    "occultabilita": "J",
+    "reperibilita": "C",
+    "danni": "2D6+3 (10mm)",
+    "caricatore": "15",
+    "cadenza": "2",
+    "affidabilita": "MA",
+    "gittata": "50",
+    "costo_eb": "400",
+    "descrizione": "Guardie Arasaka"
+   }
+  ],
+  "rocker": [
+   {
+    "nome": "Dai Lung \"Han\"",
+    "tipo": "PST",
+    "precisione": "0",
+    "occultabilita": "J",
+    "reperibilita": "P",
+    "danni": "2D6+3 (10mm)",
+    "caricatore": "8",
+    "cadenza": "1",
+    "affidabilita": "ST",
+    "gittata": "50",
+    "costo_eb": "225",
+    "descrizione": "Popolare tra contrabbandieri asiatici, pirati, banditi"
+   },
+   {
+    "nome": "Coltello da sopravvivenza",
+    "tipo": "BNC",
+    "precisione": "0",
+    "occultabilita": "J",
+    "reperibilita": "C",
+    "danni": "1D6",
+    "caricatore": "NO",
+    "cadenza": "NO",
+    "affidabilita": "MA",
+    "gittata": "1",
+    "costo_eb": "50",
+    "descrizione": ""
+   }
   ]
+ }
 }

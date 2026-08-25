@@ -1,99 +1,260 @@
 {
-  "_nota": "Le 10 classi base di Cyberpunk 2020, edizione italiana. Riferimento: doc/regole/03-classi.md. Ogni classe ha 10 abilita' di classe, la prima e' l'abilita' speciale.",
-  "_punti": "I punti abilita' di classe (INT + RIF) si spendono solo su queste abilita'.",
-
-  "classi": [
-    {
-      "id": "rocker",
-      "nome": "Rocker",
-      "sottotitolo": "Artista ribelle che usa la musica per combattere le autorita'",
-      "descrizione": "Suona nei locali della Zona di Combattimento e nei raduni clandestini. La sua arma e' un pubblico che gli crede: dove arriva lui, arriva una folla che le corporazioni non riescono a comprare.",
-      "speciale": "Leadership carismatica",
-      "speciale_desc": "Radunare, infiammare e guidare folle che normalmente non seguirebbero nessuno.",
-      "abilita": ["Leadership carismatica", "Composizione", "Conosc. della strada", "Individuare", "Guardaroba - Stile", "Lottare", "Persuadere - Raggirare", "Recitare", "Sedurre", "Suonare strumenti"]
-    },
-    {
-      "id": "solitario",
-      "nome": "Solitario",
-      "sottotitolo": "Assassino prezzolato, guardia del corpo, killer, mercenario",
-      "descrizione": "Il professionista della violenza. Chi ha bisogno di qualcuno morto, o di restare vivo, paga un Solitario. Vive di reputazione e muore quando la reputazione lo precede troppo.",
-      "speciale": "Senso del combattimento",
-      "speciale_desc": "Si somma all'iniziativa e ai tiri di Individuare: e' il sesto senso che avverte del cecchino un istante prima che spari.",
-      "abilita": ["Senso del combattimento", "Armi bianche", "Atletica", "Individuare", "Fucili", "Furtivita'", "Lottare", "Mitra", "Pistole", "Riparare armi"],
-      "_alternativa": "Il manuale ammette Arti marziali al posto di Lottare."
-    },
-    {
-      "id": "netrunner",
-      "nome": "Netrunner",
-      "sottotitolo": "Pirata informatico, incursore cibernetico",
-      "descrizione": "Entra nella Rete con la mente attraverso una interfaccia neurale e ruba dati che valgono piu' di una vita. Il suo corpo resta immobile mentre lui combatte contro ghiaccio nero che puo' ucciderlo davvero.",
-      "speciale": "Hacking",
-      "speciale_desc": "Manovrare nel Net: controlla l'uso dei programmi, il combattimento virtuale e il controllo remoto dei sistemi.",
-      "abilita": ["Hacking", "Uso computer", "Individuare", "Cibertecnologia", "Elettronica", "Istruzione - Conoscenze", "Progettare cyberdeck", "Programmare", "Tecnologia di base", "Biblioteconomia"]
-    },
-    {
-      "id": "tecnico",
-      "nome": "Tecnico",
-      "sottotitolo": "Meccanico, riparatore, inventore",
-      "descrizione": "Rimette in funzione qualsiasi cosa con nastro adesivo, filo di rame e una bestemmia. In un mondo dove tutto e' tecnologia e niente e' garantito, e' l'uomo piu' utile del gruppo.",
-      "speciale": "Riparazioni di fortuna",
-      "speciale_desc": "Riparazioni e modifiche improvvisate: rimette temporaneamente in funzione quasi tutto.",
-      "abilita": ["Riparazioni di fortuna", "Individuare", "Cibertecnologia", "Elettronica", "Insegnare", "Istruzione - Conoscenze", "Tecnologia di base"],
-      "scelte_libere": { "quante": 3, "da_gruppo": "TEC", "etichetta": "Tre abilita' Tecnologia a scelta" }
-    },
-    {
-      "id": "tecnomedico",
-      "nome": "Tecnomedico",
-      "sottotitolo": "Chirurgo rinnegato",
-      "descrizione": "Cuce ferite d'arma da fuoco nei retrobottega e installa cyberware a chi non puo' permettersi una clinica. Ha visto abbastanza da non chiedere piu' come si e' fatto quel buco.",
-      "speciale": "Tecnomedicina",
-      "speciale_desc": "Chirurgia, terapie e installazione di cyberware. Senza questa abilita' nessuno puo' operare davvero.",
-      "abilita": ["Tecnomedicina", "Biblioteconomia", "Individuare", "Diagnosticare malattie", "Farmacologia", "Istruzione - Conoscenze", "Percepire emozioni", "Tecnologia di base", "Utilizzare serbatoi criogenici", "Biologia - Zoologia"]
-    },
-    {
-      "id": "reporter",
-      "nome": "Reporter",
-      "sottotitolo": "Intrepido cronista in cerca della verita'",
-      "descrizione": "Cerca la verita' e la trasmette, sapendo che qualcuno pagherebbe volentieri per farlo tacere. La telecamera e' l'unica cosa che lo tiene in vita: finche' trasmette, ucciderlo costa troppo.",
-      "speciale": "Credibilita'",
-      "speciale_desc": "Quanto la gente crede a cio' che dici e pubblichi. Determina l'impatto di uno scoop e la disponibilita' delle fonti.",
-      "abilita": ["Credibilita'", "Composizione", "Individuare", "Conosc. della strada", "Fotografare - Filmare", "Intervistare", "Istruzione - Conoscenze", "Mondanita'", "Percepire emozioni", "Persuadere - Raggirare"]
-    },
-    {
-      "id": "poliziotto",
-      "nome": "Poliziotto",
-      "sottotitolo": "Rappresentante della legge nelle strade del XXI secolo",
-      "descrizione": "Mantiene un ordine in cui quasi nessuno crede piu'. Polizia municipale, agente corporativo o psicosquadra: il distintivo cambia, la sensazione di svuotare il mare col cucchiaio no.",
-      "speciale": "Autorita'",
-      "speciale_desc": "Il peso del distintivo: intimidire, ordinare e ottenere obbedienza da chi riconosce l'autorita'.",
-      "abilita": ["Autorita'", "Armi bianche", "Atletica", "Conosc. della strada", "Individuare", "Interrogare", "Istruzione - Conoscenze", "Lottare", "Percepire emozioni", "Pistole"]
-    },
-    {
-      "id": "corporativo",
-      "nome": "Corporativo",
-      "sottotitolo": "Pirata del mondo degli affari",
-      "descrizione": "Combatte a colpi di budget, dossier e squadre di sicurezza mandate a nome di qualcun altro. Non spara mai: firma, e qualcun altro spara.",
-      "speciale": "Risorse",
-      "speciale_desc": "Accesso a fondi, personale ed equipaggiamento della corporazione. Piu' e' alta, piu' l'azienda si aspetta in cambio.",
-      "abilita": ["Risorse", "Trucco - Pettinatura", "Biblioteconomia", "Individuare", "Giocare in borsa", "Guardaroba - Stile", "Istruzione - Conoscenze", "Mondanita'", "Percepire emozioni", "Persuadere - Raggirare"]
-    },
-    {
-      "id": "ricettatore",
-      "nome": "Ricettatore",
-      "sottotitolo": "Mediatore, contrabbandiere, intrallazzatore, informatore",
-      "descrizione": "Procura qualsiasi cosa: armi, documenti, organi, silenzio. A un prezzo. Non ha potere proprio, ma conosce chi ce l'ha e cosa gli serve.",
-      "speciale": "Contatti",
-      "speciale_desc": "Rete di conoscenze sulla strada: serve a procurarsi merce illegale, informazioni e favori.",
-      "abilita": ["Contatti", "Armi bianche", "Individuare", "Falsificare", "Intimidire", "Lottare", "Persuadere - Raggirare", "Pistole", "Scassinare", "Conosc. della strada"]
-    },
-    {
-      "id": "nomade",
-      "nome": "Nomade",
-      "sottotitolo": "Guerriero della strada e zingaro girovago",
-      "descrizione": "Vive sulle strade tra le citta', su convogli di veicoli che sono insieme casa e clan. Fuori dalle citta' la legge non arriva, e la famiglia e' l'unica cosa che conta.",
-      "speciale": "Famiglia",
-      "speciale_desc": "Il sostegno del proprio Branco: quanti uomini, mezzi e risorse la famiglia mette a disposizione quando servono.",
-      "abilita": ["Famiglia", "Armi bianche", "Atletica", "Individuare", "Fucili", "Guidare autoveicoli", "Lottare", "Resistenza", "Sopravvivenza", "Tecnologia di base"]
-    }
-  ]
+ "_nota": "Le 10 classi base di Cyberpunk 2020, edizione italiana. Riferimento: doc/regole/03-classi.md. Ogni classe ha 10 abilita' di classe, la prima e' l'abilita' speciale.",
+ "_punti": "I punti abilita' di classe (INT + RIF) si spendono solo su queste abilita'.",
+ "classi": [
+  {
+   "id": "rocker",
+   "nome": "Rocker",
+   "sottotitolo": "Artista ribelle che usa la musica per combattere le autorita'",
+   "descrizione": "Suona nei locali della Zona di Combattimento e nei raduni clandestini. La sua arma e' un pubblico che gli crede: dove arriva lui, arriva una folla che le corporazioni non riescono a comprare.",
+   "speciale": "Leadership carismatica",
+   "speciale_desc": "Radunare, infiammare e guidare folle che normalmente non seguirebbero nessuno.",
+   "abilita": [
+    "Leadership carismatica",
+    "Composizione",
+    "Conosc. della strada",
+    "Individuare",
+    "Guardaroba - Stile",
+    "Lottare",
+    "Persuadere - Raggirare",
+    "Recitare",
+    "Sedurre",
+    "Suonare strumenti"
+   ],
+   "abilita_chiave": [
+    "Suonare strumenti",
+    "Recitare",
+    "Persuadere - Raggirare"
+   ]
+  },
+  {
+   "id": "solitario",
+   "nome": "Solitario",
+   "sottotitolo": "Assassino prezzolato, guardia del corpo, killer, mercenario",
+   "descrizione": "Il professionista della violenza. Chi ha bisogno di qualcuno morto, o di restare vivo, paga un Solitario. Vive di reputazione e muore quando la reputazione lo precede troppo.",
+   "speciale": "Senso del combattimento",
+   "speciale_desc": "Si somma all'iniziativa e ai tiri di Individuare: e' il sesto senso che avverte del cecchino un istante prima che spari.",
+   "abilita": [
+    "Senso del combattimento",
+    "Armi bianche",
+    "Atletica",
+    "Individuare",
+    "Fucili",
+    "Furtivita'",
+    "Lottare",
+    "Mitra",
+    "Pistole",
+    "Riparare armi"
+   ],
+   "_alternativa": "Il manuale ammette Arti marziali al posto di Lottare.",
+   "abilita_chiave": [
+    "Pistole",
+    "Fucili",
+    "Armi bianche"
+   ]
+  },
+  {
+   "id": "netrunner",
+   "nome": "Netrunner",
+   "sottotitolo": "Pirata informatico, incursore cibernetico",
+   "descrizione": "Entra nella Rete con la mente attraverso una interfaccia neurale e ruba dati che valgono piu' di una vita. Il suo corpo resta immobile mentre lui combatte contro ghiaccio nero che puo' ucciderlo davvero.",
+   "speciale": "Hacking",
+   "speciale_desc": "Manovrare nel Net: controlla l'uso dei programmi, il combattimento virtuale e il controllo remoto dei sistemi.",
+   "abilita": [
+    "Hacking",
+    "Uso computer",
+    "Individuare",
+    "Cibertecnologia",
+    "Elettronica",
+    "Istruzione - Conoscenze",
+    "Progettare cyberdeck",
+    "Programmare",
+    "Tecnologia di base",
+    "Biblioteconomia"
+   ],
+   "abilita_chiave": [
+    "Programmare",
+    "Uso computer",
+    "Elettronica"
+   ]
+  },
+  {
+   "id": "tecnico",
+   "nome": "Tecnico",
+   "sottotitolo": "Meccanico, riparatore, inventore",
+   "descrizione": "Rimette in funzione qualsiasi cosa con nastro adesivo, filo di rame e una bestemmia. In un mondo dove tutto e' tecnologia e niente e' garantito, e' l'uomo piu' utile del gruppo.",
+   "speciale": "Riparazioni di fortuna",
+   "speciale_desc": "Riparazioni e modifiche improvvisate: rimette temporaneamente in funzione quasi tutto.",
+   "abilita": [
+    "Riparazioni di fortuna",
+    "Individuare",
+    "Cibertecnologia",
+    "Elettronica",
+    "Insegnare",
+    "Istruzione - Conoscenze",
+    "Tecnologia di base"
+   ],
+   "scelte_libere": {
+    "quante": 3,
+    "da_gruppo": "TEC",
+    "etichetta": "Tre abilita' Tecnologia a scelta"
+   },
+   "abilita_chiave": [
+    "Tecnologia di base",
+    "Elettronica",
+    "Cibertecnologia"
+   ]
+  },
+  {
+   "id": "tecnomedico",
+   "nome": "Tecnomedico",
+   "sottotitolo": "Chirurgo rinnegato",
+   "descrizione": "Cuce ferite d'arma da fuoco nei retrobottega e installa cyberware a chi non puo' permettersi una clinica. Ha visto abbastanza da non chiedere piu' come si e' fatto quel buco.",
+   "speciale": "Tecnomedicina",
+   "speciale_desc": "Chirurgia, terapie e installazione di cyberware. Senza questa abilita' nessuno puo' operare davvero.",
+   "abilita": [
+    "Tecnomedicina",
+    "Biblioteconomia",
+    "Individuare",
+    "Diagnosticare malattie",
+    "Farmacologia",
+    "Istruzione - Conoscenze",
+    "Percepire emozioni",
+    "Tecnologia di base",
+    "Utilizzare serbatoi criogenici",
+    "Biologia - Zoologia"
+   ],
+   "abilita_chiave": [
+    "Diagnosticare malattie",
+    "Farmacologia",
+    "Utilizzare serbatoi criogenici"
+   ]
+  },
+  {
+   "id": "reporter",
+   "nome": "Reporter",
+   "sottotitolo": "Intrepido cronista in cerca della verita'",
+   "descrizione": "Cerca la verita' e la trasmette, sapendo che qualcuno pagherebbe volentieri per farlo tacere. La telecamera e' l'unica cosa che lo tiene in vita: finche' trasmette, ucciderlo costa troppo.",
+   "speciale": "Credibilita'",
+   "speciale_desc": "Quanto la gente crede a cio' che dici e pubblichi. Determina l'impatto di uno scoop e la disponibilita' delle fonti.",
+   "abilita": [
+    "Credibilita'",
+    "Composizione",
+    "Individuare",
+    "Conosc. della strada",
+    "Fotografare - Filmare",
+    "Intervistare",
+    "Istruzione - Conoscenze",
+    "Mondanita'",
+    "Percepire emozioni",
+    "Persuadere - Raggirare"
+   ],
+   "abilita_chiave": [
+    "Intervistare",
+    "Composizione",
+    "Percepire emozioni"
+   ]
+  },
+  {
+   "id": "poliziotto",
+   "nome": "Poliziotto",
+   "sottotitolo": "Rappresentante della legge nelle strade del XXI secolo",
+   "descrizione": "Mantiene un ordine in cui quasi nessuno crede piu'. Polizia municipale, agente corporativo o psicosquadra: il distintivo cambia, la sensazione di svuotare il mare col cucchiaio no.",
+   "speciale": "Autorita'",
+   "speciale_desc": "Il peso del distintivo: intimidire, ordinare e ottenere obbedienza da chi riconosce l'autorita'.",
+   "abilita": [
+    "Autorita'",
+    "Armi bianche",
+    "Atletica",
+    "Conosc. della strada",
+    "Individuare",
+    "Interrogare",
+    "Istruzione - Conoscenze",
+    "Lottare",
+    "Percepire emozioni",
+    "Pistole"
+   ],
+   "abilita_chiave": [
+    "Pistole",
+    "Interrogare",
+    "Individuare"
+   ]
+  },
+  {
+   "id": "corporativo",
+   "nome": "Corporativo",
+   "sottotitolo": "Pirata del mondo degli affari",
+   "descrizione": "Combatte a colpi di budget, dossier e squadre di sicurezza mandate a nome di qualcun altro. Non spara mai: firma, e qualcun altro spara.",
+   "speciale": "Risorse",
+   "speciale_desc": "Accesso a fondi, personale ed equipaggiamento della corporazione. Piu' e' alta, piu' l'azienda si aspetta in cambio.",
+   "abilita": [
+    "Risorse",
+    "Trucco - Pettinatura",
+    "Biblioteconomia",
+    "Individuare",
+    "Giocare in borsa",
+    "Guardaroba - Stile",
+    "Istruzione - Conoscenze",
+    "Mondanita'",
+    "Percepire emozioni",
+    "Persuadere - Raggirare"
+   ],
+   "abilita_chiave": [
+    "Persuadere - Raggirare",
+    "Mondanita'",
+    "Giocare in borsa"
+   ]
+  },
+  {
+   "id": "ricettatore",
+   "nome": "Ricettatore",
+   "sottotitolo": "Mediatore, contrabbandiere, intrallazzatore, informatore",
+   "descrizione": "Procura qualsiasi cosa: armi, documenti, organi, silenzio. A un prezzo. Non ha potere proprio, ma conosce chi ce l'ha e cosa gli serve.",
+   "speciale": "Contatti",
+   "speciale_desc": "Rete di conoscenze sulla strada: serve a procurarsi merce illegale, informazioni e favori.",
+   "abilita": [
+    "Contatti",
+    "Armi bianche",
+    "Individuare",
+    "Falsificare",
+    "Intimidire",
+    "Lottare",
+    "Persuadere - Raggirare",
+    "Pistole",
+    "Scassinare",
+    "Conosc. della strada"
+   ],
+   "abilita_chiave": [
+    "Conosc. della strada",
+    "Persuadere - Raggirare",
+    "Pistole"
+   ]
+  },
+  {
+   "id": "nomade",
+   "nome": "Nomade",
+   "sottotitolo": "Guerriero della strada e zingaro girovago",
+   "descrizione": "Vive sulle strade tra le citta', su convogli di veicoli che sono insieme casa e clan. Fuori dalle citta' la legge non arriva, e la famiglia e' l'unica cosa che conta.",
+   "speciale": "Famiglia",
+   "speciale_desc": "Il sostegno del proprio Branco: quanti uomini, mezzi e risorse la famiglia mette a disposizione quando servono.",
+   "abilita": [
+    "Famiglia",
+    "Armi bianche",
+    "Atletica",
+    "Individuare",
+    "Fucili",
+    "Guidare autoveicoli",
+    "Lottare",
+    "Resistenza",
+    "Sopravvivenza",
+    "Tecnologia di base"
+   ],
+   "abilita_chiave": [
+    "Guidare autoveicoli",
+    "Fucili",
+    "Sopravvivenza"
+   ]
+  }
+ ],
+ "_abilita_chiave": "Le abilita' su cui la generazione automatica concentra i punti, oltre all'abilita' speciale. Devono essere abilita' di classe."
 }
