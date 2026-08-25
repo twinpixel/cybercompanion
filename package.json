@@ -5,6 +5,9 @@
   "type": "module",
   "scripts": {
     "build:worker": "node server/build.js",
+    "test": "npm run build:worker && node --test --test-reporter=spec \"test/*.test.js\"",
+    "test:watch": "node --test --watch \"test/*.test.js\"",
+    "test:e2e": "node test/e2e.mjs",
     "cf:dev": "npm run build:worker && wrangler dev",
     "cf:deploy": "npm run build:worker && wrangler deploy",
     "db:migrate": "wrangler d1 migrations apply cybercompanion --remote",

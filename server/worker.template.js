@@ -29,7 +29,14 @@
  * La catena LLM sta in server/llm/, con la struttura del repository poltrobot.
  */
 
+import { d, d10, tira, tiraNotazione, mescola, pescaDa } from './lib/dadi.js';
 import { creaLLM } from './llm/index.js';
+import {
+  scontroVuoto, combattenteDaScheda, combattenteDaPng, tiraIniziativa,
+  turnoCorrente, avanzaTurno, svolgiTurno, riepilogoFerite, squadreInPiedi,
+  AZIONI, RIPARI, MODIFICATORI_TIRO, LOCALIZZAZIONI, CASELLE_TOTALI,
+  decidiAzione, descriviAzione,
+} from './combat/index.js';
 
 /* __EMBED_DATA__ */
 
@@ -203,45 +210,93 @@ async function cancellaPersonaggio(env, id) {
   return res.meta.changes > 0;
 }
 
+// -------------------------------------------------------------- scontri D1 --
+
+const MAX_SCONTRI = 100;
+const MAX_MODELLI = 200;
+
+async function listaScontri(env) {
+  const { results } = await env.DB.prepare(
+    'SELECT id, name, round, closed, created_at, updated_at FROM encounters ORDER BY updated_at DESC'
+  ).all();
+  return (results || []).map((r) => ({ ...r, closed: !!r.closed }));
+}
+
+async function leggiScontro(env, id) {
+  const riga = await env.DB.prepare(
+    'SELECT id, name, round, closed, stato, created_at, updated_at FROM encounters WHERE id = ?'
+  ).bind(id).first();
+  if (!riga) return null;
+  return { ...riga, closed: !!riga.closed, stato: JSON.parse(riga.stato) };
+}
+
+async function creaScontro(env, stato) {
+  const { count } = await env.DB.prepare('SELECT COUNT(*) AS count FROM encounters').first();
+  if (count >= MAX_SCONTRI) {
+    throw Object.assign(new Error(`Limite di ${MAX_SCONTRI} scontri raggiunto`), { status: 409 });
+  }
+  const id = crypto.randomUUID();
+  const ora = Date.now();
+  await env.DB.prepare(
+    'INSERT INTO encounters (id, name, round, closed, stato, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?)'
+  ).bind(id, stato.nome, stato.round, stato.chiuso ? 1 : 0, JSON.stringify(stato), ora, ora).run();
+  return { id, name: stato.nome, round: stato.round, closed: !!stato.chiuso, created_at: ora, updated_at: ora };
+}
+
+async function salvaScontro(env, id, stato) {
+  const ora = Date.now();
+  const res = await env.DB.prepare(
+    'UPDATE encounters SET name = ?, round = ?, closed = ?, stato = ?, updated_at = ? WHERE id = ?'
+  ).bind(stato.nome, stato.round, stato.chiuso ? 1 : 0, JSON.stringify(stato), ora, id).run();
+  return res.meta.changes > 0;
+}
+
+async function cancellaScontro(env, id) {
+  const res = await env.DB.prepare('DELETE FROM encounters WHERE id = ?').bind(id).run();
+  return res.meta.changes > 0;
+}
+
+async function listaModelliPng(env) {
+  const { results } = await env.DB.prepare(
+    'SELECT id, name, categoria, dati, updated_at FROM npc_templates ORDER BY categoria, name'
+  ).all();
+  return (results || []).map((r) => ({ ...r, dati: JSON.parse(r.dati) }));
+}
+
+async function creaModelloPng(env, modello) {
+  const { count } = await env.DB.prepare('SELECT COUNT(*) AS count FROM npc_templates').first();
+  if (count >= MAX_MODELLI) {
+    throw Object.assign(new Error(`Limite di ${MAX_MODELLI} modelli raggiunto`), { status: 409 });
+  }
+  const id = crypto.randomUUID();
+  const ora = Date.now();
+  await env.DB.prepare(
+    'INSERT INTO npc_templates (id, name, categoria, dati, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?)'
+  ).bind(id, modello.nome, modello.categoria || '', JSON.stringify(modello), ora, ora).run();
+  return { id, name: modello.nome, categoria: modello.categoria || '', dati: modello, updated_at: ora };
+}
+
+async function aggiornaModelloPng(env, id, modello) {
+  const ora = Date.now();
+  const res = await env.DB.prepare(
+    'UPDATE npc_templates SET name = ?, categoria = ?, dati = ?, updated_at = ? WHERE id = ?'
+  ).bind(modello.nome, modello.categoria || '', JSON.stringify(modello), ora, id).run();
+  return res.meta.changes > 0;
+}
+
+async function cancellaModelloPng(env, id) {
+  const res = await env.DB.prepare('DELETE FROM npc_templates WHERE id = ?').bind(id).run();
+  return res.meta.changes > 0;
+}
+
 // -------------------------------------------------------------------- dadi --
 
-function d(facce) {
-  // crypto.getRandomValues invece di Math.random: la generazione automatica e'
-  // il cuore dell'app, non vogliamo schede tutte uguali per PRNG debole.
-  const buf = new Uint32Array(1);
-  crypto.getRandomValues(buf);
-  return (buf[0] % facce) + 1;
-}
+// I dadi stanno in server/lib/dadi.js, condivisi con il combattimento: due
+// generatori diversi nello stesso progetto sarebbero due comportamenti diversi.
 
-const d10 = () => d(10);
-const d6 = () => d(6);
-
-function pescaDa(array) {
-  return array[d(array.length) - 1];
-}
-
-// Tira `quanti` dadi da `facce` e somma, con modificatore opzionale.
-function tira(quanti, facce, mod = 0) {
-  let tot = mod;
-  for (let i = 0; i < quanti; i++) tot += d(facce);
-  return tot;
-}
-
-// Interpreta le notazioni dei Punti Umanita' del manuale: "2D6", "1D6/2".
+/** Punti Umanita' di un impianto: "2D6", "1D6/2". */
 function tiraPU(notazione) {
-  const m = /^(\d+)D(\d+)(?:\/(\d+))?$/i.exec((notazione || '').trim());
-  if (!m) return 0;
-  const somma = tira(Number(m[1]), Number(m[2]));
-  return m[3] ? Math.max(1, Math.floor(somma / Number(m[3]))) : somma;
-}
-
-function mescola(array) {
-  const a = [...array];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = d(i + 1) - 1;
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
+  return tiraNotazione(notazione).totale;
 }
 
 // -------------------------------------------------- generazione automatica --
@@ -808,6 +863,27 @@ function validaScheda(corpo) {
   return null;
 }
 
+/** Un modello di PNG ha pochi campi, ma vanno controllati tutti. */
+function validaModelloPng(m) {
+  if (!m || typeof m !== 'object') return 'Modello mancante';
+  if (typeof m.nome !== 'string' || !m.nome.trim()) return 'Il modello deve avere un nome';
+  if (m.nome.length > 120) return 'Nome troppo lungo';
+  for (const k of ['RIF', 'COS', 'FRE', 'TEC', 'INT', 'MOV']) {
+    if (m[k] == null) continue;
+    const v = Number(m[k]);
+    if (!Number.isFinite(v) || v < 1 || v > 30) return `Caratteristica ${k} non valida`;
+  }
+  const vp = Number(m.armaturaVP ?? 0);
+  if (!Number.isFinite(vp) || vp < 0 || vp > 100) return 'VP dell\'armatura non valido';
+  if (m.armi != null && !Array.isArray(m.armi)) return 'Le armi devono essere un elenco';
+  if ((m.armi || []).length > 10) return 'Troppe armi';
+  if (m.abilita != null && (typeof m.abilita !== 'object' || Array.isArray(m.abilita))) {
+    return 'Le abilita\' devono essere un oggetto';
+  }
+  if (JSON.stringify(m).length > 32 * 1024) return 'Modello troppo grande';
+  return null;
+}
+
 async function corpoJson(request) {
   try {
     return { dati: await request.json() };
@@ -919,6 +995,208 @@ async function rotteProtette(request, env, url, pathname) {
     return (await cancellaPersonaggio(env, idPersonaggio))
       ? json({ eliminato: idPersonaggio })
       : errore('Personaggio non trovato', 404);
+  }
+
+  // ------------------------------------------------------------- scontri --
+
+  if (pathname === '/api/combat/catalogo' && request.method === 'GET') {
+    // Tutto cio' che serve al client per comporre un'azione, in una chiamata:
+    // azioni disponibili, modificatori, ripari, locazioni.
+    return json({
+      azioni: AZIONI,
+      modificatori: MODIFICATORI_TIRO,
+      ripari: RIPARI,
+      localizzazioni: LOCALIZZAZIONI,
+      caselleTotali: CASELLE_TOTALI,
+    });
+  }
+
+  if (pathname === '/api/encounters' && request.method === 'GET') {
+    return json({ scontri: await listaScontri(env) });
+  }
+
+  if (pathname === '/api/encounters' && request.method === 'POST') {
+    const { dati, errore: err } = await corpoJson(request);
+    if (err) return errore(err, 400);
+
+    const nome = typeof dati?.nome === 'string' && dati.nome.trim()
+      ? dati.nome.trim().slice(0, 120)
+      : 'Nuovo scontro';
+    const scontro = scontroVuoto(nome);
+
+    // Schieramento: personaggi dal database piu' avversari estemporanei.
+    for (const voce of Array.isArray(dati?.personaggi) ? dati.personaggi : []) {
+      const p = await leggiPersonaggio(env, voce.id);
+      if (!p) return errore(`Personaggio non trovato: ${voce.id}`, 404);
+      scontro.combattenti.push(combattenteDaScheda(p.data, p.id, voce.squadra || 'pg'));
+    }
+    for (const voce of Array.isArray(dati?.avversari) ? dati.avversari : []) {
+      const quanti = Math.max(1, Math.min(20, Number(voce.quanti) || 1));
+      for (let i = 0; i < quanti; i++) {
+        scontro.combattenti.push(combattenteDaPng(voce, voce.squadra || 'nemici', quanti > 1 ? i : 0));
+      }
+    }
+    if (scontro.combattenti.length < 2) {
+      return errore('Servono almeno due combattenti.', 400);
+    }
+    if (scontro.combattenti.length > 40) {
+      return errore('Massimo 40 combattenti per scontro.', 400);
+    }
+
+    tiraIniziativa(scontro);
+    const creato = await creaScontro(env, scontro);
+    return json({ ...creato, stato: scontro }, 201);
+  }
+
+  const idScontro = pathname.match(/^\/api\/encounters\/([0-9a-f-]{36})(?:\/(\w+))?$/i);
+  if (idScontro) {
+    const [, id, sotto] = idScontro;
+    const riga = await leggiScontro(env, id);
+    if (!riga) return errore('Scontro non trovato', 404);
+    const scontro = riga.stato;
+
+    if (!sotto && request.method === 'GET') {
+      return json({ ...riga, turno: turnoCorrente(scontro)?.id || null });
+    }
+
+    if (!sotto && request.method === 'DELETE') {
+      return (await cancellaScontro(env, id))
+        ? json({ eliminato: id })
+        : errore('Scontro non trovato', 404);
+    }
+
+    // Svolge il turno del combattente di turno e passa al successivo.
+    if (sotto === 'azione' && request.method === 'POST') {
+      if (scontro.chiuso) return errore('Lo scontro e\' chiuso.', 409);
+      const { dati, errore: err } = await corpoJson(request);
+      if (err) return errore(err, 400);
+
+      const esito = svolgiTurno(scontro, dati || {});
+      if (esito.errore) return errore(esito.errore, 400);
+      await salvaScontro(env, id, scontro);
+      return json({
+        voce: esito.voce,
+        stato: scontro,
+        turno: turnoCorrente(scontro)?.id || null,
+        squadreInPiedi: squadreInPiedi(scontro),
+      });
+    }
+
+    // Proposta d'azione per chi e' di turno, senza eseguirla: il Master la
+    // guarda e decide se accettarla o cambiarla.
+    if (sotto === 'proposta' && request.method === 'GET') {
+      const chi = turnoCorrente(scontro);
+      if (!chi) return errore('Non c\'e\' nessuno che possa agire.', 400);
+      const azione = decidiAzione(scontro, chi, { distanza: searchParams.get('distanza') });
+      return json({
+        combattente: chi.id,
+        nome: chi.nome,
+        azione,
+        descrizione: descriviAzione(scontro, azione),
+      });
+    }
+
+    // Distanza fra gli schieramenti: cambia quando la scena si muove.
+    if (sotto === 'distanza' && request.method === 'POST') {
+      const { dati, errore: err } = await corpoJson(request);
+      if (err) return errore(err, 400);
+      const d = Number(dati?.distanza);
+      if (!Number.isFinite(d) || d < 0 || d > 2000) return errore('Distanza non valida', 400);
+      scontro.distanza = Math.round(d);
+      await salvaScontro(env, id, scontro);
+      return json({ distanza: scontro.distanza });
+    }
+
+    // Salta il turno di chi non fa nulla.
+    if (sotto === 'passa' && request.method === 'POST') {
+      if (scontro.chiuso) return errore('Lo scontro e\' chiuso.', 409);
+      const chi = turnoCorrente(scontro);
+      if (!chi) return errore('Non c\'e\' nessuno che possa agire.', 400);
+      chi.difesa = null;
+      chi.stordito = false;
+      scontro.diario.push({ round: scontro.round, tipo: 'passa', testo: `${chi.nome} salta il turno.` });
+      avanzaTurno(scontro);
+      await salvaScontro(env, id, scontro);
+      return json({ stato: scontro, turno: turnoCorrente(scontro)?.id || null });
+    }
+
+    // Ritira l'iniziativa: utile quando entra qualcuno a scontro iniziato.
+    if (sotto === 'iniziativa' && request.method === 'POST') {
+      if (scontro.chiuso) return errore('Lo scontro e\' chiuso.', 409);
+      tiraIniziativa(scontro);
+      await salvaScontro(env, id, scontro);
+      return json({ stato: scontro, turno: turnoCorrente(scontro)?.id || null });
+    }
+
+    // Riepilogo di cosa verrebbe scritto sulle schede, senza scrivere niente.
+    if (sotto === 'riepilogo' && request.method === 'GET') {
+      return json({ ferite: riepilogoFerite(scontro) });
+    }
+
+    /**
+     * Chiude lo scontro. Con `riportaFerite: true` scrive le ferite sulle
+     * schede in D1; senza, lo scontro si chiude e le schede restano intatte.
+     * E' l'unico momento in cui il combattimento tocca i personaggi salvati.
+     */
+    if (sotto === 'chiudi' && request.method === 'POST') {
+      const { dati, errore: err } = await corpoJson(request);
+      if (err) return errore(err, 400);
+
+      const riepilogo = riepilogoFerite(scontro);
+      const scritte = [];
+      if (dati?.riportaFerite) {
+        for (const r of riepilogo) {
+          const p = await leggiPersonaggio(env, r.characterId);
+          if (!p) continue;   // scheda cancellata nel frattempo
+          p.data.ferite = { ...(p.data.ferite || {}), caselle: r.feriteDopo };
+          await aggiornaPersonaggio(env, r.characterId, p.data);
+          scritte.push({ characterId: r.characterId, nome: r.nome, caselle: r.feriteDopo });
+        }
+      }
+      scontro.chiuso = true;
+      scontro.diario.push({
+        round: scontro.round,
+        tipo: 'chiusura',
+        testo: dati?.riportaFerite
+          ? `Scontro chiuso. Ferite riportate su ${scritte.length} scheda/e.`
+          : 'Scontro chiuso senza toccare le schede.',
+      });
+      await salvaScontro(env, id, scontro);
+      return json({ stato: scontro, riepilogo, scritte });
+    }
+  }
+
+  // ------------------------------------------------------- modelli di png --
+
+  if (pathname === '/api/npc-templates' && request.method === 'GET') {
+    return json({ modelli: await listaModelliPng(env) });
+  }
+
+  if (pathname === '/api/npc-templates' && request.method === 'POST') {
+    const { dati, errore: err } = await corpoJson(request);
+    if (err) return errore(err, 400);
+    const invalido = validaModelloPng(dati?.modello);
+    if (invalido) return errore(invalido, 400);
+    return json(await creaModelloPng(env, dati.modello), 201);
+  }
+
+  const idModello = pathname.match(/^\/api\/npc-templates\/([0-9a-f-]{36})$/i);
+  if (idModello) {
+    const id = idModello[1];
+    if (request.method === 'PUT') {
+      const { dati, errore: err } = await corpoJson(request);
+      if (err) return errore(err, 400);
+      const invalido = validaModelloPng(dati?.modello);
+      if (invalido) return errore(invalido, 400);
+      return (await aggiornaModelloPng(env, id, dati.modello))
+        ? json({ id, ...dati.modello })
+        : errore('Modello non trovato', 404);
+    }
+    if (request.method === 'DELETE') {
+      return (await cancellaModelloPng(env, id))
+        ? json({ eliminato: id })
+        : errore('Modello non trovato', 404);
+    }
   }
 
   if (pathname === '/api/generate' && request.method === 'POST') {
