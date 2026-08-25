@@ -1,0 +1,15 @@
+{
+  "name": "CyberCompanion",
+  "short_name": "CyberCompanion",
+  "description": "Editor di schede personaggio per Cyberpunk 2020.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#07080d",
+  "theme_color": "#07080d",
+  "orientation": "any",
+  "lang": "it",
+  "icons": [
+    { "src": "assets/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

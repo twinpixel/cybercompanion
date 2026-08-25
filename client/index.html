@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#07080d" />
+  <title>CyberCompanion</title>
+  <meta name="description" content="Editor di schede personaggio per Cyberpunk 2020: creazione manuale o automatica, salvataggio permanente, esportazione in JSON e PDF." />
+  <link rel="icon" href="assets/icon.svg" />
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.webmanifest" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="CyberCompanion" />
+</head>
+<body>
+  <div class="griglia-sfondo" aria-hidden="true"></div>
+
+  <header class="barra" id="barra">
+    <div class="barra-sx" id="barra-sx"></div>
+    <div class="barra-titolo" id="barra-titolo">CyberCompanion</div>
+    <div class="barra-dx" id="barra-dx"></div>
+  </header>
+
+  <main id="app" class="app" aria-live="polite"></main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <div id="modale-sfondo" class="modale-sfondo" hidden>
+    <div class="modale" role="dialog" aria-modal="true" aria-labelledby="modale-titolo">
+      <h2 id="modale-titolo" class="modale-titolo"></h2>
+      <div id="modale-corpo" class="modale-corpo"></div>
+      <div id="modale-azioni" class="modale-azioni"></div>
+    </div>
+  </div>
+
+  <script src="pdf.js" defer></script>
+  <script src="scheda-pdf.js" defer></script>
+  <script src="app.js" defer></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js').catch(() => {});
+      });
+    }
+  </script>
+</body>
+</html>
