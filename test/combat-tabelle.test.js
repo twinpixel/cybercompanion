@@ -144,7 +144,7 @@ describe('tabelle di combattimento', () => {
     });
 
     test('le azioni richieste dal tavolo ci sono tutte', () => {
-      for (const id of ['fuoco', 'raffica', 'automatico', 'mischia', 'schiva', 'para', 'riparo', 'sblocca']) {
+      for (const id of ['fuoco', 'raffica', 'automatico', 'mischia', 'schiva', 'para', 'riparo', 'sblocca', 'ricarica']) {
         assert.ok(azionePerId(id), `manca l'azione ${id}`);
       }
     });

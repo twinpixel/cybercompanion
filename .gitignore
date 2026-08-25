@@ -8,3 +8,5 @@ dist/
 
 # Il catalogo statico e' generato in client/data/ da server/build.js
 client/data/
+# Copia locale della configurazione senza il binding Workers AI (vedi README)
+wrangler.locale.toml

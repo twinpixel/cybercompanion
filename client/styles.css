@@ -599,3 +599,292 @@ table.dati tr:hover td { background: rgba(0, 229, 255, .03); }
   white-space: nowrap;
   border: 0;
 }
+
+/* ============================================================
+   Hub, lanciadadi, combattimento e netrun.
+   ============================================================ */
+
+/* ------------------------------------------------------------ hub -------- */
+
+.aree { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+
+.area {
+  display: block;
+  width: 100%;
+  padding: 18px 16px;
+  text-align: left;
+  background: var(--fondo-2);
+  border: 1px solid var(--bordo);
+  border-left: 3px solid var(--ciano-scuro);
+  border-radius: var(--raggio);
+  color: var(--testo);
+  font: inherit;
+  cursor: pointer;
+  transition: border-color .15s, transform .15s, background .15s;
+}
+.area:hover { border-color: var(--bordo-vivo); border-left-color: var(--ciano); transform: translateY(-2px); }
+.area:focus-visible { outline: 2px solid var(--ciano); outline-offset: 2px; }
+.area .n {
+  font-family: var(--mono);
+  font-size: 14px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--ciano);
+}
+.area .s { margin-top: 6px; font-size: 13px; color: var(--testo-tenue); line-height: 1.45; }
+
+/* ------------------------------------------------------ lanciadadi ------- */
+
+.btn-dadi { font-weight: 700; letter-spacing: .12em; }
+
+.dadi-titolo {
+  margin: 18px 0 8px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--testo-fioco);
+}
+
+.dadi-esito {
+  padding: 14px;
+  text-align: center;
+  background: var(--fondo);
+  border: 1px solid var(--bordo);
+  border-radius: var(--raggio);
+}
+.dadi-totale {
+  font-family: var(--mono);
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--ciano);
+}
+.dadi-totale.critico { color: var(--verde); }
+.dadi-totale.papera { color: var(--magenta); }
+.dadi-dettaglio { margin-top: 4px; font-family: var(--mono); font-size: 12px; color: var(--testo-tenue); }
+
+.dadi-numeri { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 10px; }
+.dadi-passo .k { font-size: 12px; color: var(--testo-tenue); margin-bottom: 4px; }
+.dadi-passo .contatore-livello { justify-content: flex-start; }
+
+.dadi-aperto {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 12px;
+  font-size: 12px;
+  color: var(--testo-tenue);
+  cursor: pointer;
+}
+.dadi-aperto input { width: auto; margin-top: 2px; }
+.dadi-aperto.spento { opacity: .4; }
+
+.dadi-storico { display: flex; flex-direction: column; gap: 3px; }
+.dadi-riga {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 4px 6px;
+  background: var(--fondo-2);
+  border-radius: var(--raggio);
+  font-size: 12px;
+}
+.dadi-riga .e { font-family: var(--mono); color: var(--ciano); flex: 0 0 auto; }
+.dadi-riga .d { flex: 1 1 auto; min-width: 0; color: var(--testo-fioco); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.dadi-riga .t { font-family: var(--mono); font-weight: 700; }
+
+/* ------------------------------------------------------- combattimento --- */
+
+.etichetta {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 10px;
+  background: var(--fondo-3);
+  border: 1px solid var(--bordo);
+  border-radius: 999px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .06em;
+  color: var(--testo-tenue);
+}
+
+.avviso {
+  margin: 10px 0;
+  padding: 8px 11px;
+  background: rgba(255, 210, 63, .08);
+  border-left: 2px solid var(--giallo);
+  border-radius: 0 var(--raggio) var(--raggio) 0;
+  font-size: 12.5px;
+  color: #f0dfa8;
+}
+
+.combattenti { display: flex; flex-direction: column; gap: 8px; }
+
+.combattente {
+  padding: 10px 12px;
+  background: var(--fondo-2);
+  border: 1px solid var(--bordo);
+  border-left: 3px solid var(--bordo);
+  border-radius: var(--raggio);
+}
+.combattente.turno { border-left-color: var(--ciano); background: rgba(0, 229, 255, .05); }
+.combattente.fuori { opacity: .5; }
+
+.combattente .testa { display: flex; align-items: baseline; gap: 9px; flex-wrap: wrap; }
+.combattente .ini {
+  font-family: var(--mono);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ciano);
+  min-width: 26px;
+}
+.combattente .nome { font-weight: 600; }
+.combattente .squadra {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--testo-fioco);
+}
+.combattente .squadra.sq-nemici { color: var(--magenta); }
+.combattente .squadra.sq-pg { color: var(--verde); }
+.combattente .stato { margin-top: 3px; font-size: 12px; color: var(--testo-tenue); }
+
+.barra-ferite { display: flex; gap: 1px; margin-top: 6px; flex-wrap: wrap; }
+.barra-ferite .tacca {
+  width: 7px;
+  height: 12px;
+  background: var(--fondo-3);
+  border: 1px solid var(--bordo);
+}
+.barra-ferite .tacca.piena { background: var(--magenta); border-color: var(--magenta); }
+.barra-ferite .tacca.fine-grado { margin-right: 4px; }
+
+.armatura, .armi-riga, .deck, .difese {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 6px;
+}
+.armatura .vp, .armi-riga .arma, .deck .programma, .difese .difesa {
+  padding: 2px 7px;
+  background: var(--fondo-3);
+  border: 1px solid var(--bordo);
+  border-radius: var(--raggio);
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--testo-tenue);
+}
+.armatura .vp.consumata { border-color: #6a4a20; color: var(--giallo); }
+.deck .programma.attivo, .difese .difesa.attiva { border-color: var(--ciano); color: var(--ciano); }
+.deck .programma.spento, .difese .difesa.spenta { opacity: .45; text-decoration: line-through; }
+
+.azione {
+  padding: 14px;
+  background: var(--fondo-2);
+  border: 1px solid var(--bordo);
+  border-radius: var(--raggio);
+}
+.azione .pillole { margin-bottom: 10px; }
+
+.diario { display: flex; flex-direction: column; gap: 4px; }
+.diario-voce {
+  display: flex;
+  gap: 9px;
+  padding: 7px 10px;
+  background: var(--fondo-2);
+  border-radius: var(--raggio);
+  font-size: 13px;
+  line-height: 1.45;
+}
+.diario-voce .r { font-family: var(--mono); font-size: 11px; color: var(--testo-fioco); flex: 0 0 auto; padding-top: 2px; }
+.diario-voce .t { flex: 1 1 auto; min-width: 0; }
+.diario-voce .auto {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--testo-fioco);
+  text-transform: uppercase;
+  align-self: flex-start;
+}
+.diario-voce.forte { border-left: 2px solid var(--magenta); }
+.diario-voce.master { border-left: 2px solid var(--magenta); }
+
+/* ------------------------------------------------------------- netrun ---- */
+
+.conti {
+  position: sticky;
+  top: 60px;
+  z-index: 10;
+  padding: 12px 14px;
+  margin-bottom: 18px;
+  background: var(--fondo-2);
+  border: 1px solid var(--bordo-vivo);
+  border-radius: var(--raggio);
+}
+.conti-numeri { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.conto { text-align: center; }
+.conto .k { font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--testo-fioco); }
+.conto .v { font-family: var(--mono); font-size: 17px; font-weight: 700; color: var(--ciano); }
+.conti-voci { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
+.conti-voci .voce {
+  padding: 2px 7px;
+  background: var(--fondo-3);
+  border-radius: var(--raggio);
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--testo-tenue);
+}
+
+.scelte { display: grid; gap: 6px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.scelta {
+  display: flex;
+  align-items: stretch;
+  gap: 6px;
+  background: var(--fondo-2);
+  border: 1px solid var(--bordo);
+  border-left: 2px solid var(--bordo);
+  border-radius: var(--raggio);
+}
+.scelta.attiva { border-left-color: var(--ciano); background: rgba(0, 229, 255, .06); }
+.scelta .corpo {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 9px 11px;
+  text-align: left;
+  background: none;
+  border: 0;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+.scelta .corpo:focus-visible { outline: 2px solid var(--ciano); outline-offset: -2px; }
+.scelta .nome { font-size: 13.5px; font-weight: 600; }
+.scelta.attiva .nome { color: var(--ciano); }
+.scelta .desc { margin-top: 2px; font-size: 11.5px; color: var(--testo-fioco); line-height: 1.4; }
+
+.nodi { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
+.nodo {
+  padding: 11px 13px;
+  background: var(--fondo-2);
+  border: 1px solid var(--bordo);
+  border-top: 2px solid var(--bordo-vivo);
+  border-radius: var(--raggio);
+}
+.nodo.violato { border-top-color: var(--magenta); }
+.nodo.qui { border-color: var(--ciano); box-shadow: 0 0 0 1px rgba(0, 229, 255, .25); }
+.nodo .testa { font-family: var(--mono); font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--ciano); }
+.nodo .stato { margin-top: 3px; font-size: 11.5px; color: var(--testo-fioco); }
+.nodo .contenuto { margin-top: 6px; font-size: 12.5px; }
+.nodo .nascosto {
+  margin-top: 6px;
+  padding-left: 7px;
+  border-left: 2px solid var(--giallo);
+  font-size: 12px;
+  color: var(--giallo);
+}
+
+@media (max-width: 560px) {
+  .griglia-3, .griglia-4, .conti-numeri { grid-template-columns: repeat(2, 1fr); }
+  .dadi-totale { font-size: 34px; }
+}

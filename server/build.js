@@ -39,7 +39,10 @@ const SW_PATH = path.join(CLIENT_DIR, 'sw.js');
 const EMBED = ['stats', 'roles', 'skills', 'lifepath', 'cyberware', 'gear'];
 
 // File il cui contenuto determina la versione della cache del service worker.
-const SW_HASH_FILES = ['index.html', 'app.js', 'styles.css', 'manifest.webmanifest'];
+const SW_HASH_FILES = [
+  'index.html', 'app.js', 'ui.js', 'dadi.js', 'combat.js', 'netrun.js',
+  'pdf.js', 'scheda-pdf.js', 'styles.css', 'manifest.webmanifest',
+];
 
 async function leggiDati() {
   const entries = await fs.readdir(DATA_DIR, { withFileTypes: true });

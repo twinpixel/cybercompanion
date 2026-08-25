@@ -372,6 +372,32 @@ function risolviSblocco(attaccante, azione) {
   };
 }
 
+/**
+ * Ricaricare. Non c'e' tiro: montare un caricatore riesce sempre, quello che
+ * costa e' il tempo — un'azione intera, come sbloccare l'arma.
+ *
+ * Senza questa azione un caricatore vuoto restava vuoto per tutto lo scontro:
+ * il motore scalava i colpi ma non offriva nessun modo di rimetterceli.
+ */
+function risolviRicarica(attaccante, azione) {
+  const idx = azione.armaIdx ?? 0;
+  const arma = attaccante.armi?.[idx];
+  if (!arma) return { errore: 'Arma non trovata.' };
+
+  const capienza = numero(arma.caricatore, 0);
+  // `null` in canna vuol dire arma che non consuma munizioni: niente da fare.
+  if (!capienza) return { errore: `${arma.nome} non ha un caricatore da cambiare.` };
+
+  const prima = attaccante.colpiInCanna?.[idx] ?? capienza;
+  if (prima >= capienza) return { errore: `${arma.nome} e' gia' carica.` };
+
+  attaccante.colpiInCanna = { ...(attaccante.colpiInCanna || {}), [idx]: capienza };
+  return {
+    ricaricata: true, prima, dopo: capienza,
+    testo: `${attaccante.nome} ricarica ${arma.nome}: ${capienza} colpi in canna.`,
+  };
+}
+
 /** Azioni difensive: non tirano nulla, impostano uno stato fino al turno dopo. */
 function risolviDifesa(attaccante, azione) {
   if (azione.tipo === 'riparo') {
@@ -414,7 +440,9 @@ export function risolviAzione(scontro, azione) {
 
   let esito;
   if (def.categoria === 'utilita') {
-    esito = risolviSblocco(attaccante, azione);
+    esito = azione.tipo === 'ricarica'
+      ? risolviRicarica(attaccante, azione)
+      : risolviSblocco(attaccante, azione);
     if (esito.errore) return esito;
   } else if (def.categoria === 'difesa') {
     esito = risolviDifesa(attaccante, azione);

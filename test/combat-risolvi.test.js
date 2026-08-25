@@ -197,6 +197,49 @@ describe('risoluzione del combattimento', () => {
         'e si torna a sparare');
     });
 
+    test('ricaricare rimette il caricatore pieno', () => {
+      const { scontro, pg, nemici } = arena({
+        pg: [scheda('T', { abilita: { Pistole: 5 }, armi: [ARMI.pistola] })], nemici: [png('B')],
+      });
+      pg[0].colpiInCanna[0] = 2;
+
+      tocca(scontro, pg[0]);
+      const voce = svolgiTurno(scontro, { tipo: 'ricarica', armaIdx: 0 }).voce;
+      assert.equal(voce.ricaricata, true);
+      assert.equal(voce.prima, 2);
+      assert.equal(pg[0].colpiInCanna[0], ARMI.pistola.caricatore, 'il caricatore torna pieno');
+
+      // E la ricarica costa il turno, come sbloccare: il colpo parte dopo.
+      tocca(scontro, pg[0]);
+      assert.ok(!svolgiTurno(scontro, { tipo: 'fuoco', bersaglio: nemici[0].id, armaIdx: 0, distanza: 10 }).errore);
+    });
+
+    test('un\'arma scarica torna a sparare solo dopo la ricarica', () => {
+      const { scontro, pg, nemici } = arena({
+        pg: [scheda('T', { abilita: { Pistole: 5 }, armi: [ARMI.pistola] })], nemici: [png('B')],
+      });
+      pg[0].colpiInCanna[0] = 0;
+      tocca(scontro, pg[0]);
+      assert.match(
+        svolgiTurno(scontro, { tipo: 'fuoco', bersaglio: nemici[0].id, armaIdx: 0, distanza: 10 }).errore,
+        /scarica/
+      );
+      tocca(scontro, pg[0]);
+      assert.ok(svolgiTurno(scontro, { tipo: 'ricarica', armaIdx: 0 }).voce.ricaricata);
+      tocca(scontro, pg[0]);
+      assert.ok(!svolgiTurno(scontro, { tipo: 'fuoco', bersaglio: nemici[0].id, armaIdx: 0, distanza: 10 }).errore);
+    });
+
+    test('ricaricare un\'arma gia\' piena, o senza caricatore, e\' un errore', () => {
+      const { scontro, pg } = arena({
+        pg: [scheda('T', { armi: [ARMI.pistola, ARMI.katana] })], nemici: [png('B')],
+      });
+      tocca(scontro, pg[0]);
+      assert.match(svolgiTurno(scontro, { tipo: 'ricarica', armaIdx: 0 }).errore, /gia' carica/);
+      tocca(scontro, pg[0]);
+      assert.match(svolgiTurno(scontro, { tipo: 'ricarica', armaIdx: 1 }).errore, /caricatore/);
+    });
+
     test('sbloccare un\'arma che non e\' inceppata e\' un errore', () => {
       const { scontro, pg } = arena({
         pg: [scheda('T', { armi: [ARMI.pistola] })], nemici: [png('B')],

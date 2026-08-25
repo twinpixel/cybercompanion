@@ -91,8 +91,27 @@ describe('scelta automatica dell\'azione', () => {
     assert.ok((d.sblocca || 0) > 150, `per lo piu' sblocca: ${JSON.stringify(d)}`);
   });
 
-  test('senza munizioni e con il nemico lontano si mette al riparo', () => {
+  test('con il caricatore vuoto ricarica', () => {
     const { scontro, nemici } = arena({ pg: [png('Eroe')], nemici: [png('T', { armi: [ARMI.pistola] })], distanza: 40 });
+    nemici[0].colpiInCanna[0] = 0;
+    const a = decidiAzione(scontro, nemici[0]);
+    assert.equal(a.tipo, 'ricarica');
+    assert.equal(a.armaIdx, 0);
+  });
+
+  test('da vicino, con il caricatore vuoto, mena le mani invece di ricaricare', () => {
+    const { scontro, nemici } = arena({ pg: [png('Eroe')], nemici: [png('T', { armi: [ARMI.pistola] })], distanza: 1 });
+    nemici[0].colpiInCanna[0] = 0;
+    const a = decidiAzione(scontro, nemici[0]);
+    assert.equal(a.tipo, 'mischia', 'ricaricare sotto il naso di qualcuno e\' un modo per prendersele');
+  });
+
+  test('senza niente da caricare e con il nemico lontano si mette al riparo', () => {
+    const { scontro, nemici } = arena({
+      pg: [png('Eroe')],
+      nemici: [png('T', { armi: [{ ...ARMI.pistola, caricatore: 0 }] })],
+      distanza: 40,
+    });
     nemici[0].colpiInCanna[0] = 0;
     const a = decidiAzione(scontro, nemici[0]);
     assert.equal(a.tipo, 'riparo', 'non carica a mani nude da quaranta metri');

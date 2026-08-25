@@ -109,6 +109,25 @@ export function decidiAzione(scontro, comb, opzioni = {}) {
     };
   }
 
+  // Arma da fuoco scarica ma con un caricatore da montare: si ricarica. Da
+  // vicino conviene invece menare le mani, ricaricare sotto il naso di
+  // qualcuno e' il modo piu' rapido per prendersele.
+  if (distanza > 2) {
+    const scarica = (comb.armi || []).map((arma, idx) => ({ arma, idx })).find(
+      ({ arma, idx }) => eDaFuoco(arma)
+        && !comb.inceppate?.[idx]
+        && comb.colpiInCanna?.[idx] === 0
+        && (Number(arma.caricatore) || 0) > 0
+    );
+    if (scarica) {
+      return {
+        tipo: 'ricarica',
+        armaIdx: scarica.idx,
+        motivo: `${scarica.arma.nome} e' scarica`,
+      };
+    }
+  }
+
   // Corpo a corpo: si arriva addosso solo se si e' vicini.
   if (distanza <= 2) {
     const bianca = usabili.find(({ arma }) => !eDaFuoco(arma));

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="theme-color" content="#07080d" />
   <title>CyberCompanion</title>
-  <meta name="description" content="Editor di schede personaggio per Cyberpunk 2020: creazione manuale o automatica, salvataggio permanente, esportazione in JSON e PDF." />
+  <meta name="description" content="Companion del Master per Cyberpunk 2020: schede personaggio, combattimento, console del Netrunner e sessioni di netrun." />
   <link rel="icon" href="assets/icon.svg" />
   <link rel="stylesheet" href="styles.css" />
 
@@ -39,6 +39,12 @@
 
   <script src="pdf.js" defer></script>
   <script src="scheda-pdf.js" defer></script>
+  <!-- I moduli dichiarano solo funzioni: vanno prima di app.js, che alla fine
+       del proprio caricamento chiama avvia() e disegna la prima vista. -->
+  <script src="ui.js" defer></script>
+  <script src="dadi.js" defer></script>
+  <script src="combat.js" defer></script>
+  <script src="netrun.js" defer></script>
   <script src="app.js" defer></script>
   <script>
     if ('serviceWorker' in navigator) {

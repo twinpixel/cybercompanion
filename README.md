@@ -1,11 +1,14 @@
 # CyberCompanion
 
-Editor di schede personaggio per **Cyberpunk 2020**, edizione italiana.
-Crea un personaggio a mano oppure lo genera completo in un colpo solo, lo salva
-su Cloudflare D1 e lo esporta in JSON o in PDF stampabile.
+Companion del Master per **Cyberpunk 2020**, edizione italiana: schede
+personaggio, combattimento, console del Netrunner e sessioni di netrun a due
+dispositivi. Tutto salvato su Cloudflare D1.
 
 Applicazione a pagina singola servita dallo stesso Cloudflare Worker che espone
 l'API, deployata da GitHub Actions a ogni push su `main`.
+
+Dalla schermata di casa si arriva alle quattro parti in un tocco, e il
+lanciadadi sta nella barra alta di **ogni** schermata.
 
 ---
 
@@ -20,6 +23,28 @@ l'API, deployata da GitHub Actions a ogni push su `main`.
   con il budget `INT + RIF` sempre a vista, cyberware che scala davvero
   l'Umanita', catalogo di 660 armi cercabile, armature, traccia delle ferite
   cliccabile, background e Lifepath.
+- **Combattimento al tavolo.** Si schierano i personaggi salvati piu' avversari
+  creati al momento o ripresi da un modello, si tira l'iniziativa e si svolge un
+  turno per clic: fuoco singolo, raffica, automatico, corpo a corpo, schivata,
+  parata, riparo, sblocco e ricarica. Ogni tiro finisce nel diario con i numeri
+  che lo hanno prodotto. I PNG possono agire **a caso** oppure proporre l'azione
+  e lasciare l'ultima parola al Master. Munizioni normali, perforanti e
+  dirompenti; le armature si consumano colpo dopo colpo. Le ferite finiscono
+  sulle schede solo alla chiusura, e solo se lo confermi.
+- **Console del Netrunner.** Programmi costruiti da zero come da regolamento:
+  Funzioni, Forza e suo modo, icona, optional a costo fisso e a quantita'.
+  Difficolta', UM, prezzo e tempo si aggiornano a ogni scelta, con l'elenco
+  degli addendi e gli avvisi sulle combinazioni che il manuale non ammette.
+  Compreso il tiro di scrittura e il costo di una modifica successiva.
+- **Sessione di netrun a due posti.** Il Master allestisce il sistema — nodi,
+  Mura, collegamenti, programmi di guardia — e detta un codice; il netrunner
+  entra dal proprio dispositivo con il suo deck e gioca la parte "online"
+  mentre gli altri combattono. I due vedono cose diverse: il netrunner scopre
+  il sistema muovendocisi dentro. Lo stato vive in un Durable Object, il
+  tavolo si aggiorna da solo.
+- **Lanciadadi sempre pronto.** In barra, in ogni schermata: set completo da d2
+  a d100, quantita', modificatore, il d10 aperto di Cyberpunk e lo storico dei
+  tiri.
 - **Salvataggio permanente** su Cloudflare D1.
 - **Export JSON** (per il backup o per riportare la scheda altrove) e **export
   PDF** della cyberscheda su due pagine A4, pronta da stampare.
@@ -31,14 +56,21 @@ l'API, deployata da GitHub Actions a ogni push su `main`.
 
 ```
 client/          SPA vanilla, nessun framework. Servita come Static Assets.
-  app.js         viste come funzioni, stack di viste come router
+  app.js         hub, editor della scheda, stack di viste come router
+  ui.js          mattoni condivisi: campi, selettori, schermate di attesa
+  dadi.js        lanciadadi di barra, d10 aperto compreso
+  combat.js      elenco scontri, schieramento, vista del combattimento
+  netrun.js      console dei programmi e tavolo della sessione di netrun
   pdf.js         generatore PDF minimale, font base-14, zero dipendenze
   scheda-pdf.js  impaginazione della cyberscheda su A4
   data/          generata dal build: i cataloghi di gioco come asset statici
 server/
-  worker.template.js   API: login, CRUD su D1, generazione
+  worker.template.js   API: login, CRUD su D1, generazione, stanza del netrun
   build.js             inietta i dati nel worker e li copia in client/data/
   data/                sorgente dei dati di gioco, in JSON
+  combat/              motore del combattimento: tabelle, risoluzione, IA dei PNG
+  netrun/              programmi del Net e sessione a due posti
+  lib/                 dadi condivisi
   llm/                 catena di provider, struttura ripresa da poltrobot
     catalog.js         provider, modelli, interruttori del reasoning
     openai-compatible.js  un client per tutti: cambiano indirizzo, chiave, modello
@@ -262,15 +294,32 @@ Worker risponde `no such table: characters`.
 
 ### Prova end-to-end
 
-`test/e2e.mjs` guida un Chromium vero dal login fino a riaprire una scheda
-salvata: generazione, budget delle abilita', selettore armi, cyberware che
-scala l'Umanita', ferite, salvataggio su D1 ed entrambi gli export.
+`test/e2e.mjs` guida un Chromium vero attraverso tutta l'applicazione: login,
+hub, lanciadadi, generazione di un personaggio, budget delle abilita', selettore
+armi, cyberware che scala l'Umanita', ferite, salvataggio su D1 ed entrambi gli
+export; poi uno scontro completo (schieramento, turno a mano, azione a caso,
+proposta, chiusura con le ferite riportate sulla scheda), la console dei
+programmi e infine una sessione di netrun **con due schede del browser**, Master
+e netrunner, per verificare che il tavolo si aggiorni da solo.
 
 ```bash
 npm install --no-save playwright     # non e' una dipendenza del progetto
 npm run cf:dev                       # in un altro terminale
 APP_PASSWORD=<quella in .dev.vars> node test/e2e.mjs
 ```
+
+Se `wrangler dev` si ferma chiedendo un `CLOUDFLARE_API_TOKEN`, e' il binding
+Workers AI: non ha un equivalente locale, e per esporlo wrangler apre una
+sessione col cloud. Per lavorare davvero offline basta una copia della
+configurazione senza quel binding:
+
+```bash
+sed '/^\[ai\]/,+1d' wrangler.toml > wrangler.locale.toml
+wrangler dev -c wrangler.locale.toml
+```
+
+Senza Workers AI la generazione funziona lo stesso: la scheda esce completa,
+solo senza la prosa.
 
 Playwright resta fuori da `package.json` di proposito, cosi' `npm ci` in CI non
 lo scarica a ogni deploy.
@@ -300,9 +349,38 @@ richiedono l'header `Authorization: Bearer <token>`.
 | `PUT` | `/api/characters/:id` | aggiorna una scheda |
 | `DELETE` | `/api/characters/:id` | elimina una scheda |
 | `POST` | `/api/generate` | genera una scheda completa |
+| `GET` | `/api/combat/catalogo` | azioni, modificatori, ripari, localizzazioni |
+| `GET` `POST` | `/api/encounters` | elenca e apre gli scontri |
+| `GET` `DELETE` | `/api/encounters/:id` | legge ed elimina uno scontro |
+| `POST` | `/api/encounters/:id/azione` | svolge il turno di chi tocca |
+| `GET` | `/api/encounters/:id/proposta` | cosa farebbe il motore, senza eseguirlo |
+| `POST` | `/api/encounters/:id/passa` | salta il turno |
+| `POST` | `/api/encounters/:id/iniziativa` | ritira l'iniziativa |
+| `POST` | `/api/encounters/:id/distanza` | cambia la distanza fra gli schieramenti |
+| `GET` | `/api/encounters/:id/riepilogo` | cosa finirebbe sulle schede |
+| `POST` | `/api/encounters/:id/chiudi` | chiude, con o senza riportare le ferite |
+| `GET` `POST` | `/api/npc-templates` | modelli di PNG riutilizzabili |
+| `PUT` `DELETE` | `/api/npc-templates/:id` | aggiorna ed elimina un modello |
+| `GET` | `/api/netrun/catalogo` | Funzioni, icone, optional, modi della Forza |
+| `POST` | `/api/netrun/calcola` | difficolta', UM, prezzo e tempo di un programma |
+| `POST` | `/api/netrun/modifica` | quanto costa cambiare un programma scritto |
+| `POST` | `/api/netrun/scrivi` | tiro di scrittura |
+| `GET` `POST` | `/api/programs` | libreria dei programmi |
+| `GET` `PUT` `DELETE` | `/api/programs/:id` | legge, aggiorna ed elimina |
+| `GET` | `/api/netrun/sessioni/catalogo` | tipi di nodo e livelli d'allarme |
+| `POST` | `/api/netrun/sessioni/:codice/crea` | il Master apre la sessione |
+| `POST` | `/api/netrun/sessioni/:codice/entra` | il netrunner prende il suo posto |
+| `GET` | `/api/netrun/sessioni/:codice` | lo snapshot che spetta a chi guarda |
+| `POST` | `/api/netrun/sessioni/:codice/azione` | una mossa, secondo il ruolo |
+| `POST` | `/api/netrun/sessioni/:codice/difesa` | il Master mette un programma di guardia |
 
 Il corpo di `/api/generate` accetta `classe`, `punti`, `eta` e `richiesta`, tutti
 facoltativi: senza nessuno di essi tira tutto a caso.
+
+Le rotte `/api/netrun/sessioni/:codice/*` vengono inoltrate a un Durable Object,
+uno per codice: due dispositivi che agiscono sullo stesso tavolo hanno bisogno
+di un accesso seriale, che D1 non da'. Il posto si dimostra con l'header
+`X-Posto`, ricevuto entrando.
 
 ## Sicurezza
 

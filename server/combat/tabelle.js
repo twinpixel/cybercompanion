@@ -176,6 +176,12 @@ export const AZIONI = [
     difficolta: 15,
   },
   {
+    id: 'ricarica',
+    nome: 'Ricaricare',
+    categoria: 'utilita',
+    descrizione: 'Un caricatore nuovo: l\'arma torna piena. Costa un\'azione, come sbloccarla.',
+  },
+  {
     id: 'riparo',
     nome: 'Mettersi al riparo',
     categoria: 'difesa',

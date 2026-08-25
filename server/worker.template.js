@@ -1041,6 +1041,9 @@ async function gestisciRichiesta(request, env, ctx) {
 }
 
 async function rotteProtette(request, env, url, pathname) {
+  // La query string serve a due rotte (la proposta d'azione e i programmi di un
+  // personaggio): va presa qui, non e' fra i parametri.
+  const { searchParams } = url;
   const idPersonaggio = pathname.match(/^\/api\/characters\/([0-9a-f-]{36})$/i)?.[1];
 
   if (pathname === '/api/characters' && request.method === 'GET') {

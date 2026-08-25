@@ -7,7 +7,7 @@
  * CACHE_VERSION e' riscritta a ogni build da server/build.js con l'hash dei
  * file client: cambia da sola quando cambia la shell.
  */
-const CACHE_VERSION = 'v-6c6546de7e';
+const CACHE_VERSION = 'v-30ea2e54b1';
 const CACHE = `cybercompanion-${CACHE_VERSION}`;
 
 const SHELL = [
@@ -15,6 +15,10 @@ const SHELL = [
   '/index.html',
   '/styles.css',
   '/app.js',
+  '/ui.js',
+  '/dadi.js',
+  '/combat.js',
+  '/netrun.js',
   '/pdf.js',
   '/scheda-pdf.js',
   '/manifest.webmanifest',

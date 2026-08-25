@@ -147,6 +147,10 @@ window.addEventListener('popstate', () => {
 function disegna() {
   const vista = stack[stack.length - 1];
   if (!vista) return;
+  // Il tavolo del netrun si rilegge da solo a intervalli: cambiando vista il
+  // timer va spento, altrimenti continuerebbe a ridisegnare sotto un'altra
+  // schermata. Lo riaccende la vista stessa quando torna a disegnarsi.
+  fermaSondaggioNetrun();
   $barraSx.innerHTML = '';
   $barraDx.innerHTML = '';
   $app.innerHTML = '';
@@ -159,6 +163,9 @@ function disegna() {
     $barraSx.append(b);
   }
   $app.append(vista.render());
+  // Il lanciadadi si appende dopo la vista: cosi' resta l'ultimo della barra in
+  // ogni schermata, sempre nello stesso posto.
+  $barraDx.append(bottoneDadi());
 }
 
 function schermataAttesa(messaggio) {
@@ -278,7 +285,7 @@ function vistaLogin() {
         try {
           const { token, scade } = await api('/login', { method: 'POST', body: { password: input.value } });
           salvaSessione(token, scade);
-          await apriLista();
+          await apriHub();
         } catch (err) {
           toast(err.message, { errore: true });
           input.value = '';
@@ -296,19 +303,110 @@ function vistaLogin() {
   };
 }
 
+// -------------------------------------------------------------- vista hub --
+
+/**
+ * La schermata di casa. Le quattro parti dell'applicazione partono da qui, e il
+ * tasto indietro ci riporta: al tavolo si passa dal combattimento alla scheda e
+ * al Net di continuo, e ognuna deve restare a due tocchi.
+ */
+const AREE = [
+  {
+    id: 'schede', nome: 'Schede',
+    desc: 'Crea, modifica ed esporta i personaggi. Generazione automatica compresa.',
+    apri: () => apriLista(),
+  },
+  {
+    id: 'scontri', nome: 'Combattimento',
+    desc: 'Schiera personaggi e avversari, tira l’iniziativa, svolgi i turni un clic alla volta.',
+    apri: () => apriScontri(),
+  },
+  {
+    id: 'programmi', nome: 'Programmi',
+    desc: 'La console del Netrunner: Funzioni, Forza, optional, difficoltà e prezzo.',
+    apri: () => apriProgrammi(),
+  },
+  {
+    id: 'netrun', nome: 'Netrun',
+    desc: 'Il tavolo a due posti: il Master allestisce il sistema, il netrunner ci entra dal suo dispositivo.',
+    apri: () => apriNetrun(),
+  },
+];
+
+async function apriHub() {
+  sostituisci({ titolo: 'CyberCompanion', render: () => schermataAttesa('Carico i dati di gioco') });
+  try {
+    await caricaCataloghi();
+  } catch (err) {
+    toast(err.message, { errore: true });
+  }
+  sostituisci(vistaHub());
+}
+
+function vistaHub() {
+  return {
+    titolo: 'CyberCompanion',
+    render() {
+      $barraDx.append(bottone('Esci', () => conferma(
+        'Uscire?', 'Dovrai reinserire la password condivisa per rientrare.',
+        () => esci(), 'Esci'
+      ), 'btn-fantasma btn-piccolo'));
+
+      const root = el('div');
+      root.append(
+        el('h1', 'titolo-vista', 'CyberCompanion'),
+        el('p', 'sottotitolo-vista', 'Companion del Master per Cyberpunk 2020.')
+      );
+
+      const griglia = el('div', 'aree');
+      for (const a of AREE) {
+        const carta = el('button', 'area');
+        carta.type = 'button';
+        carta.append(el('div', 'n', a.nome), el('div', 's', a.desc));
+        carta.addEventListener('click', () => a.apri());
+        griglia.append(carta);
+      }
+      root.append(griglia);
+
+      const bozza = bozzaRecuperabile();
+      if (bozza) {
+        const nome = (bozza.scheda.anagrafica && bozza.scheda.anagrafica.nome) || 'Senza nome';
+        const riga = el('div', 'riga-azioni');
+        riga.append(bottone(`Riprendi la bozza di ${nome}`,
+          () => apriEditor(bozza.scheda, bozza.id, { modificata: true })));
+        riga.append(bottone('Scarta la bozza', () => { scartaBozza(); disegna(); }, 'btn-fantasma'));
+        root.append(el('hr', 'separatore'), riga);
+      }
+      return root;
+    },
+  };
+}
+
 // ------------------------------------------------------------ vista lista --
 
 async function apriLista() {
-  sostituisci({ titolo: 'Personaggi', render: () => schermataAttesa('Carico le schede') });
+  const attesa = vistaAttesa('Personaggi', 'Carico le schede');
+  vaiA(attesa);
   try {
     const [{ personaggi }] = await Promise.all([api('/characters'), caricaCataloghi()]);
     stato.personaggi = personaggi;
     stato.listaScaduta = false;
-    sostituisci(vistaLista());
   } catch (err) {
     toast(err.message, { errore: true });
-    sostituisci(vistaLista());
   }
+  rimpiazzaCima(vistaLista(), attesa);
+}
+
+/** Ricarica l'elenco restando dove si e': serve tornando da una scheda. */
+async function ricaricaLista() {
+  try {
+    const { personaggi } = await api('/characters');
+    stato.personaggi = personaggi;
+    stato.listaScaduta = false;
+  } catch (err) {
+    toast(err.message, { errore: true });
+  }
+  disegna();
 }
 
 function dataLeggibile(ms) {
@@ -321,15 +419,10 @@ function vistaLista() {
   return {
     titolo: 'Personaggi',
     alRitorno() {
-      if (stato.listaScaduta) apriLista();
+      if (stato.listaScaduta) ricaricaLista();
       else disegna();
     },
     render() {
-      $barraDx.append(bottone('Esci', () => conferma(
-        'Uscire?', 'Dovrai reinserire la password condivisa per rientrare.',
-        () => esci(), 'Esci'
-      ), 'btn-fantasma btn-piccolo'));
-
       const root = el('div');
       root.append(el('h1', 'titolo-vista', 'Schede'));
       root.append(el('p', 'sottotitolo-vista',
@@ -379,9 +472,11 @@ function vistaLista() {
 }
 
 async function apriPersonaggio(id) {
-  vaiA({ titolo: 'Scheda', render: () => schermataAttesa('Apro la scheda') });
+  const attesa = vistaAttesa('Scheda', 'Apro la scheda');
+  vaiA(attesa);
   try {
     const p = await api(`/characters/${id}`);
+    if (stack[stack.length - 1] !== attesa) return;   // l'utente e' gia' tornato indietro
     stack.pop();
     apriEditor(p.data, id);
   } catch (err) {
@@ -1267,61 +1362,12 @@ function sezioneArmi() {
 }
 
 function selettoreArmi(alTermine) {
-  const corpo = el('div');
-  const cerca = el('input');
-  cerca.type = 'text';
-  cerca.placeholder = 'Cerca fra 660 armi…';
-  cerca.style.marginBottom = '12px';
-  const lista = el('div');
-  lista.append(schermataAttesa('Carico il catalogo'));
-  corpo.append(cerca, lista);
-  modale('Aggiungi arma', corpo, [{ testo: 'Chiudi', classe: 'btn-fantasma' }]);
-
-  caricaArmi().then((catalogo) => {
-    const disegna_ = () => {
-      const filtro = cerca.value.trim().toLowerCase();
-      lista.innerHTML = '';
-      // Senza filtro mostrarne 660 blocca il telefono: si parte da un estratto.
-      const trovate = filtro
-        ? catalogo.filter((a) => a.nome.toLowerCase().includes(filtro) || (a.sezione || '').toLowerCase().includes(filtro))
-        : catalogo.slice(0, 40);
-
-      if (!filtro) {
-        lista.append(el('p', 'campo-aiuto', `Prime 40 di ${catalogo.length}. Scrivi per cercare fra tutte.`));
-      } else if (!trovate.length) {
-        lista.append(el('div', 'vuoto', 'Nessuna arma corrisponde.'));
-      }
-
-      for (const a of trovate.slice(0, 120)) {
-        const riga = el('div', 'abilita-riga');
-        const wrap = el('div');
-        wrap.style.flex = '1 1 auto';
-        wrap.style.minWidth = '0';
-        const nome = el('div', 'nome', a.nome);
-        const det = el('div', 'campo-aiuto',
-          `${a.tipo_esteso || a.tipo} · ${a.danni} · caric. ${a.caricatore} · CdF ${a.cadenza} · ${a.gittata} m · ${a.costo_eb} E$`);
-        det.style.marginTop = '2px';
-        wrap.append(nome, det);
-        riga.append(wrap, bottone('Aggiungi', () => {
-          const { sezione, tipo_esteso, ...pulita } = a;
-          stato.scheda.armi.push({ ...pulita, inUso: stato.scheda.armi.length === 0 });
-          segnaModificata();
-          toast(`${a.nome} aggiunta.`);
-          if (alTermine) alTermine();
-        }, 'btn-piccolo'));
-        lista.append(riga);
-      }
-      if (filtro && trovate.length > 120) {
-        lista.append(el('p', 'campo-aiuto', `…e altre ${trovate.length - 120}. Restringi la ricerca.`));
-      }
-    };
-    cerca.addEventListener('input', disegna_);
-    disegna_();
-    cerca.focus();
-  }).catch(() => {
-    lista.innerHTML = '';
-    lista.append(el('div', 'vuoto', 'Catalogo armi non raggiungibile.'));
-  });
+  scegliArmaDalCatalogo('Aggiungi arma', (arma) => {
+    stato.scheda.armi.push({ ...arma, inUso: stato.scheda.armi.length === 0 });
+    segnaModificata();
+    toast(`${arma.nome} aggiunta.`);
+    if (alTermine) alTermine();
+  }, { chiudiDopo: false });
 }
 
 // --- armature, equipaggiamento, denaro ---
@@ -1697,7 +1743,7 @@ function menuScheda() {
             stato.listaScaduta = true;
             scartaBozza();
             toast('Scheda eliminata.');
-            await apriLista();
+            indietro();
           } catch (err) {
             toast(err.message, { errore: true });
           }
@@ -1736,14 +1782,14 @@ async function avvia() {
     sostituisci(vistaLogin());
     return;
   }
-  await apriLista();
+  await apriHub();
 
   const bozza = bozzaRecuperabile();
   if (bozza) {
     const nome = (bozza.scheda.anagrafica && bozza.scheda.anagrafica.nome) || 'Senza nome';
     modale('Modifiche non salvate',
       `C’e’ una bozza di "${nome}" rimasta aperta. Vuoi riprenderla?`, [
-        { testo: 'Scarta', classe: 'btn-fantasma', onClick: scartaBozza },
+        { testo: 'Scarta', classe: 'btn-fantasma', onClick: () => { scartaBozza(); disegna(); } },
         {
           testo: 'Riprendi',
           classe: 'btn-primario',
