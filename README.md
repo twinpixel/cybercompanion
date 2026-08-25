@@ -164,8 +164,11 @@ npm run db:migrate:local           # crea lo schema nel D1 locale
 npm run cf:dev                     # http://127.0.0.1:8787
 ```
 
-`npm run cf:dev` funziona con il segnaposto lasciato in `wrangler.toml`: il D1
-locale non guarda il `database_id`.
+`npm run cf:dev` funziona con il segnaposto lasciato in `wrangler.toml`: per il
+D1 locale l'id non deve essere reale, basta che sia stabile. Attenzione pero':
+miniflare tiene **un database separato per ogni `database_id`**, quindi se
+cambi quel valore devi rilanciare `npm run db:migrate:local`, altrimenti il
+Worker risponde `no such table: characters`.
 
 | Comando | Cosa fa |
 |---|---|
@@ -174,6 +177,21 @@ locale non guarda il `database_id`.
 | `npm run cf:deploy` | build e deploy manuale |
 | `npm run db:migrate` | applica le migrazioni al D1 remoto |
 | `npm run db:migrate:local` | applica le migrazioni al D1 locale |
+
+### Prova end-to-end
+
+`test/e2e.mjs` guida un Chromium vero dal login fino a riaprire una scheda
+salvata: generazione, budget delle abilita', selettore armi, cyberware che
+scala l'Umanita', ferite, salvataggio su D1 ed entrambi gli export.
+
+```bash
+npm install --no-save playwright     # non e' una dipendenza del progetto
+npm run cf:dev                       # in un altro terminale
+APP_PASSWORD=<quella in .dev.vars> node test/e2e.mjs
+```
+
+Playwright resta fuori da `package.json` di proposito, cosi' `npm ci` in CI non
+lo scarica a ogni deploy.
 
 ### Modificare i dati di gioco
 
