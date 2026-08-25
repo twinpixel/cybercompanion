@@ -653,13 +653,19 @@ function generaCyberware(classeId, budget, umanitaIniziale) {
   const prova = (pezzo) => {
     if (!pezzo || nomiInstallati.has(pezzo.nome)) return false;
     if (pezzo.costo > denaro) return false;
-    // Non si scende sotto 20 punti di Umanita' in creazione: sotto quella
-    // soglia il manuale impone una terapia, non un personaggio giocante.
     const pu = tiraPU(pezzo.pu);
-    if (umanita - pu < 20) return false;
+
+    // Il prerequisito va installato prima, perche' consuma Umanita' e denaro:
+    // controllare la soglia solo qui sopra la farebbe sfondare dal prerequisito.
     if (pezzo.richiede && !nomiInstallati.has(pezzo.richiede)) {
       if (!prova(perNome.get(pezzo.richiede))) return false;
     }
+
+    // Non si scende sotto 20 punti di Umanita' in creazione: sotto quella
+    // soglia il manuale impone una terapia, non un personaggio giocante.
+    // Il controllo sta dopo il prerequisito e usa i valori aggiornati.
+    if (umanita - pu < 20) return false;
+    if (pezzo.costo > denaro) return false;
     denaro -= pezzo.costo;
     umanita -= pu;
     nomiInstallati.add(pezzo.nome);

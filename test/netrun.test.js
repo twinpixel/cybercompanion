@@ -301,17 +301,25 @@ describe('scrittura del programma', () => {
   });
 
   test('chi supera di molto la soglia ci mette meno tempo', () => {
+    // Il confronto va fatto fra due programmatori che riescono **entrambi**
+    // quasi sempre. Prendendo uno troppo scarso il risultato si ribalta, e per
+    // una ragione vera: un incapace ce la fa solo con un critico, e un critico
+    // e' per definizione un margine ampio — quindi le sue rare riuscite sono
+    // anche le piu' rapide. E' una conseguenza voluta della regola, non un
+    // difetto, ma rende quel confronto inservibile come prova.
     const giorniMedi = (INT, prog, diff) => {
       let tot = 0, n = 0;
-      for (let i = 0; i < 400; i++) {
+      for (let i = 0; i < 600; i++) {
         const r = tiroScrittura({ INT, programmare: prog }, diff);
         if (r.riuscito) { tot += r.giorni; n++; }
       }
-      return tot / Math.max(1, n);
+      assert.ok(n > 400, `INT ${INT} + Programmare ${prog} deve riuscire quasi sempre (${n}/600)`);
+      return tot / n;
     };
-    const maestro = giorniMedi(10, 10, 20);
-    const mediocre = giorniMedi(6, 3, 20);
-    assert.ok(maestro < mediocre, `il maestro ci mette meno (${maestro.toFixed(1)} contro ${mediocre.toFixed(1)} giorni)`);
+    const maestro = giorniMedi(10, 10, 15);
+    const competente = giorniMedi(8, 5, 15);
+    assert.ok(maestro < competente,
+      `il maestro ci mette meno (${maestro.toFixed(1)} contro ${competente.toFixed(1)} giorni)`);
   });
 
   test('un fallimento non produce giorni', () => {

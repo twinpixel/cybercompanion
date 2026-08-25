@@ -51,7 +51,11 @@ describe('scelta automatica dell\'azione', () => {
       pg[0].ferite = 0; pg[0].morto = false; pg[0].fuoriCombattimento = false;
       if (svolgiTurno(scontro, { tipo: 'auto' }).errore) break;
     }
-    assert.ok(turni >= 8, `un caricatore da 30 dura almeno otto turni (${turni})`);
+    // Con 20% di fuoco pieno da dieci colpi, 40% di raffiche da tre e 40% di
+    // colpi singoli si spendono circa 3,6 colpi a turno: un caricatore da 30
+    // dura in media otto turni e mezzo. La soglia sta sotto la media, non
+    // sopra, altrimenti meta' delle esecuzioni fallirebbe per costruzione.
+    assert.ok(turni >= 5, `un caricatore da 30 non si svuota in due turni (${turni})`);
   });
 
   test('addosso e senza armi da fuoco va in corpo a corpo', () => {
